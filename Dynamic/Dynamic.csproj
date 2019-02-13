@@ -1,0 +1,422 @@
+﻿<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props" Condition="Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" />
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>
+    </ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{C2F95BB4-1EB2-4469-8854-08E7665D3DAF}</ProjectGuid>
+    <ProjectTypeGuids>{349c5851-65df-11da-9384-00065b846f21};{fae04ec0-301f-11d3-bf4b-00c04f79efbc}</ProjectTypeGuids>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Dynamic</RootNamespace>
+    <AssemblyName>Dynamic</AssemblyName>
+    <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
+    <UseIISExpress>true</UseIISExpress>
+    <Use64BitIISExpress />
+    <IISExpressSSLPort />
+    <IISExpressAnonymousAuthentication />
+    <IISExpressWindowsAuthentication />
+    <IISExpressUseClassicPipelineMode />
+    <UseGlobalApplicationHostFile />
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Web.DynamicData" />
+    <Reference Include="System.Web.Entity" />
+    <Reference Include="System.Web.ApplicationServices" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Configuration" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.EnterpriseServices" />
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
+      <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css - Old\bootstrap.min.css" />
+    <Content Include="assets\css - Old\datatables.min.css" />
+    <Content Include="assets\css - Old\dropzone.min.css" />
+    <Content Include="assets\css - Old\fontawesome-all.min.css" />
+    <Content Include="assets\css - Old\fullcalendar.min.css" />
+    <Content Include="assets\css - Old\horizontal-timeline.min.css" />
+    <Content Include="assets\css - Old\images\sort_asc.png" />
+    <Content Include="assets\css - Old\images\sort_asc_disabled.png" />
+    <Content Include="assets\css - Old\images\sort_both.png" />
+    <Content Include="assets\css - Old\images\sort_desc.png" />
+    <Content Include="assets\css - Old\images\sort_desc_disabled.png" />
+    <Content Include="assets\css - Old\images\ui-icons_444444_256x240.png" />
+    <Content Include="assets\css - Old\images\ui-icons_555555_256x240.png" />
+    <Content Include="assets\css - Old\images\ui-icons_777620_256x240.png" />
+    <Content Include="assets\css - Old\images\ui-icons_777777_256x240.png" />
+    <Content Include="assets\css - Old\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="assets\css - Old\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="assets\css - Old\ion.rangeSlider.min.css" />
+    <Content Include="assets\css - Old\ion.rangeSlider.skinFlat.min.css" />
+    <Content Include="assets\css - Old\jquery-jvectormap.min.css" />
+    <Content Include="assets\css - Old\jquery-ui.min.css" />
+    <Content Include="assets\css - Old\morris.min.css" />
+    <Content Include="assets\css - Old\perfect-scrollbar.min.css" />
+    <Content Include="assets\css - Old\select2.min.css" />
+    <Content Include="assets\css - Old\style.css" />
+    <Content Include="assets\css - Old\summernote-bs4-overrides.css" />
+    <Content Include="assets\css - Old\summernote-bs4.min.css" />
+    <Content Include="assets\css - Old\sweetalert-overrides.css" />
+    <Content Include="assets\css - Old\sweetalert.min.css" />
+    <Content Include="assets\css - Old\weather-icons.min.css" />
+    <Content Include="assets\css\bootstrap-grid.css" />
+    <Content Include="assets\css\bootstrap-grid.min.css" />
+    <Content Include="assets\css\bootstrap-reboot.css" />
+    <Content Include="assets\css\bootstrap-reboot.min.css" />
+    <Content Include="assets\css\bootstrap.css" />
+    <Content Include="assets\css\bootstrap.min.css" />
+    <Content Include="assets\css\datatables.min.css" />
+    <Content Include="assets\css\dropzone.min.css" />
+    <Content Include="assets\css\fontawesome-all.min.css" />
+    <Content Include="assets\css\fullcalendar.min.css" />
+    <Content Include="assets\css\horizontal-timeline.min.css" />
+    <Content Include="assets\css\images\sort_asc.png" />
+    <Content Include="assets\css\images\sort_asc_disabled.png" />
+    <Content Include="assets\css\images\sort_both.png" />
+    <Content Include="assets\css\images\sort_desc.png" />
+    <Content Include="assets\css\images\sort_desc_disabled.png" />
+    <Content Include="assets\css\images\ui-icons_444444_256x240.png" />
+    <Content Include="assets\css\images\ui-icons_555555_256x240.png" />
+    <Content Include="assets\css\images\ui-icons_777620_256x240.png" />
+    <Content Include="assets\css\images\ui-icons_777777_256x240.png" />
+    <Content Include="assets\css\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="assets\css\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="assets\css\ion.rangeSlider.min.css" />
+    <Content Include="assets\css\ion.rangeSlider.skinFlat.min.css" />
+    <Content Include="assets\css\jquery-jvectormap.min.css" />
+    <Content Include="assets\css\jquery-ui.min.css" />
+    <Content Include="assets\css\morris.min.css" />
+    <Content Include="assets\css\perfect-scrollbar.min.css" />
+    <Content Include="assets\css\select2.min.css" />
+    <Content Include="assets\css\style.css" />
+    <Content Include="assets\css\summernote-bs4-overrides.css" />
+    <Content Include="assets\css\summernote-bs4.min.css" />
+    <Content Include="assets\css\sweetalert-overrides.css" />
+    <Content Include="assets\css\sweetalert.min.css" />
+    <Content Include="assets\css\weather-icons.min.css" />
+    <Content Include="assets\fonts\weathericons-regular-webfont.svg" />
+    <Content Include="assets\img\avatars\01_150x150.png" />
+    <Content Include="assets\img\avatars\01_40x40.png" />
+    <Content Include="assets\img\avatars\01_80x80.png" />
+    <Content Include="assets\img\avatars\02_40x40.png" />
+    <Content Include="assets\img\avatars\02_80x80.png" />
+    <Content Include="assets\img\avatars\03_150x150.png" />
+    <Content Include="assets\img\avatars\03_40x40.png" />
+    <Content Include="assets\img\avatars\03_80x80.png" />
+    <Content Include="assets\img\avatars\04_40x40.png" />
+    <Content Include="assets\img\avatars\04_80x80.png" />
+    <Content Include="assets\img\cd-arrow.svg" />
+    <Content Include="assets\img\flags\de.png" />
+    <Content Include="assets\img\flags\fr.png" />
+    <Content Include="assets\img\flags\us.png" />
+    <Content Include="assets\img\gallery\01.jpg" />
+    <Content Include="assets\img\gallery\02.jpg" />
+    <Content Include="assets\img\gallery\03.jpg" />
+    <Content Include="assets\img\gallery\04.jpg" />
+    <Content Include="assets\img\invoice\logo.png" />
+    <Content Include="assets\img\logo-white.png" />
+    <Content Include="assets\img\logo.png" />
+    <Content Include="assets\img\maintenance-icon.gif" />
+    <Content Include="assets\img\products\thumb-01.jpg" />
+    <Content Include="assets\img\products\thumb-02.jpg" />
+    <Content Include="assets\img\products\thumb-03.jpg" />
+    <Content Include="assets\img\products\thumb-80x60.jpg" />
+    <Content Include="assets\img\projects\thumb-01.jpg" />
+    <Content Include="assets\img\projects\thumb-02.jpg" />
+    <Content Include="assets\img\projects\thumb-03.jpg" />
+    <Content Include="assets\img\sprite-skin-flat.png" />
+    <Content Include="assets\img\sweet-alert\example-01.jpg" />
+    <Content Include="assets\img\sweet-alert\example-02.jpg" />
+    <Content Include="assets\img\sweet-alert\example-03.jpg" />
+    <Content Include="assets\img\sweet-alert\example-04.jpg" />
+    <Content Include="assets\img\sweet-alert\example-05.jpg" />
+    <Content Include="assets\img\sweet-alert\example-06.jpg" />
+    <Content Include="assets\img\sweet-alert\example-07.jpg" />
+    <Content Include="assets\img\sweet-alert\example-08.jpg" />
+    <Content Include="assets\img\sweet-alert\example-09.jpg" />
+    <Content Include="assets\img\sweet-alert\example-10.jpg" />
+    <Content Include="assets\img\sweet-alert\example-11.jpg" />
+    <Content Include="assets\js - Old\bootstrap.bundle.min.js" />
+    <Content Include="assets\js - Old\datatables.min.js" />
+    <Content Include="assets\js - Old\dropzone.min.js" />
+    <Content Include="assets\js - Old\fullcalendar.min.js" />
+    <Content Include="assets\js - Old\horizontal-timeline.min.js" />
+    <Content Include="assets\js - Old\ion.rangeSlider.min.js" />
+    <Content Include="assets\js - Old\jquery-jvectormap-world-mill.min.js" />
+    <Content Include="assets\js - Old\jquery-jvectormap.min.js" />
+    <Content Include="assets\js - Old\jquery-ui.min.js" />
+    <Content Include="assets\js - Old\jquery.countdown-init.js" />
+    <Content Include="assets\js - Old\jquery.countdown.min.js" />
+    <Content Include="assets\js - Old\jquery.min.js" />
+    <Content Include="assets\js - Old\jquery.sparkline.min.js" />
+    <Content Include="assets\js - Old\jquery.steps.min.js" />
+    <Content Include="assets\js - Old\jquery.validate.min.js" />
+    <Content Include="assets\js - Old\main.js" />
+    <Content Include="assets\js - Old\moment.min.js" />
+    <Content Include="assets\js - Old\morris.min.js" />
+    <Content Include="assets\js - Old\page\calendar.js" />
+    <Content Include="assets\js - Old\page\chat.js" />
+    <Content Include="assets\js - Old\page\dropzone.js" />
+    <Content Include="assets\js - Old\page\notes.js" />
+    <Content Include="assets\js - Old\page\todo.js" />
+    <Content Include="assets\js - Old\perfect-scrollbar.min.js" />
+    <Content Include="assets\js - Old\raphael.min.js" />
+    <Content Include="assets\js - Old\select2.min.js" />
+    <Content Include="assets\js - Old\summernote-bs4-init.js" />
+    <Content Include="assets\js - Old\summernote-bs4.min.js" />
+    <Content Include="assets\js - Old\sweetalert-init.js" />
+    <Content Include="assets\js - Old\sweetalert.min.js" />
+    <Content Include="assets\js\bootstrap.bundle.js" />
+    <Content Include="assets\js\bootstrap.bundle.min.js" />
+    <Content Include="assets\js\bootstrap.js" />
+    <Content Include="assets\js\bootstrap.min.js" />
+    <Content Include="assets\js\datatables.min.js" />
+    <Content Include="assets\js\dropzone.min.js" />
+    <Content Include="assets\js\fullcalendar.min.js" />
+    <Content Include="assets\js\horizontal-timeline.min.js" />
+    <Content Include="assets\js\ion.rangeSlider.min.js" />
+    <Content Include="assets\js\jquery-jvectormap-world-mill.min.js" />
+    <Content Include="assets\js\jquery-jvectormap.min.js" />
+    <Content Include="assets\js\jquery-ui.min.js" />
+    <Content Include="assets\js\jquery.countdown-init.js" />
+    <Content Include="assets\js\jquery.countdown.min.js" />
+    <Content Include="assets\js\jquery.min.js" />
+    <Content Include="assets\js\jquery.sparkline.min.js" />
+    <Content Include="assets\js\jquery.steps.min.js" />
+    <Content Include="assets\js\jquery.validate.min.js" />
+    <Content Include="assets\js\main.js" />
+    <Content Include="assets\js\moment.min.js" />
+    <Content Include="assets\js\morris.min.js" />
+    <Content Include="assets\js\page\calendar.js" />
+    <Content Include="assets\js\page\chat.js" />
+    <Content Include="assets\js\page\dropzone.js" />
+    <Content Include="assets\js\page\notes.js" />
+    <Content Include="assets\js\page\todo.js" />
+    <Content Include="assets\js\perfect-scrollbar.min.js" />
+    <Content Include="assets\js\raphael.min.js" />
+    <Content Include="assets\js\select2.min.js" />
+    <Content Include="assets\js\summernote-bs4-init.js" />
+    <Content Include="assets\js\summernote-bs4.min.js" />
+    <Content Include="assets\js\sweetalert-init.js" />
+    <Content Include="assets\js\sweetalert.min.js" />
+    <Content Include="assets\webfonts\fa-brands-400.svg" />
+    <Content Include="assets\webfonts\fa-regular-400.svg" />
+    <Content Include="assets\webfonts\fa-solid-900.svg" />
+    <Content Include="Global.asax" />
+    <Content Include="login.aspx" />
+    <Content Include="logout.aspx" />
+    <Content Include="module.aspx" />
+    <Content Include="post.aspx" />
+    <Content Include="user.aspx" />
+    <Content Include="usergroup.aspx" />
+    <Content Include="usergroup_new.aspx" />
+    <Content Include="Web.config" />
+    <Content Include="WebForm1.aspx" />
+    <Content Include="index.aspx" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Global.asax.cs">
+      <DependentUpon>Global.asax</DependentUpon>
+    </Compile>
+    <Compile Include="login.aspx.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="login.aspx.designer.cs">
+      <DependentUpon>login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="logout.aspx.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="logout.aspx.designer.cs">
+      <DependentUpon>logout.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\CDataBase.cs" />
+    <Compile Include="Models\Link.cs" />
+    <Compile Include="Models\ReturnObjectType.cs" />
+    <Compile Include="Models\SystemGlobals.cs" />
+    <Compile Include="Models\Task.cs" />
+    <Compile Include="module.aspx.cs">
+      <DependentUpon>module.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="module.aspx.designer.cs">
+      <DependentUpon>module.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="post.aspx.cs">
+      <DependentUpon>post.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="post.aspx.designer.cs">
+      <DependentUpon>post.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Site.Master.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Site.Master.designer.cs">
+      <DependentUpon>Site.Master</DependentUpon>
+    </Compile>
+    <Compile Include="user.aspx.cs">
+      <DependentUpon>user.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="user.aspx.designer.cs">
+      <DependentUpon>user.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="usergroup.aspx.cs">
+      <DependentUpon>usergroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usergroup.aspx.designer.cs">
+      <DependentUpon>usergroup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="usergroup_new.aspx.cs">
+      <DependentUpon>usergroup_new.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="usergroup_new.aspx.designer.cs">
+      <DependentUpon>usergroup_new.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="WebForm1.aspx.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="WebForm1.aspx.designer.cs">
+      <DependentUpon>WebForm1.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="assets\css - Old\font\summernote-1.eot" />
+    <Content Include="assets\css - Old\font\summernote.eot" />
+    <Content Include="assets\css - Old\font\summernote.ttf" />
+    <Content Include="assets\css - Old\font\summernote.woff" />
+    <Content Include="assets\css\bootstrap-grid.css.map" />
+    <Content Include="assets\css\bootstrap-grid.min.css.map" />
+    <Content Include="assets\css\bootstrap-reboot.css.map" />
+    <Content Include="assets\css\bootstrap-reboot.min.css.map" />
+    <Content Include="assets\css\bootstrap.css.map" />
+    <Content Include="assets\css\bootstrap.min.css.map" />
+    <Content Include="assets\css\font\summernote-1.eot" />
+    <Content Include="assets\css\font\summernote.eot" />
+    <Content Include="assets\css\font\summernote.ttf" />
+    <Content Include="assets\css\font\summernote.woff" />
+    <Content Include="assets\fonts\weathericons-regular-webfont-1.eot" />
+    <Content Include="assets\fonts\weathericons-regular-webfont.eot" />
+    <Content Include="assets\fonts\weathericons-regular-webfont.ttf" />
+    <Content Include="assets\fonts\weathericons-regular-webfont.woff" />
+    <Content Include="assets\fonts\weathericons-regular-webfont.woff2" />
+    <Content Include="assets\js\bootstrap.bundle.js.map" />
+    <Content Include="assets\js\bootstrap.bundle.min.js.map" />
+    <Content Include="assets\js\bootstrap.js.map" />
+    <Content Include="assets\js\bootstrap.min.js.map" />
+    <Content Include="assets\webfonts\fa-brands-400-1.eot" />
+    <Content Include="assets\webfonts\fa-brands-400.eot" />
+    <Content Include="assets\webfonts\fa-brands-400.ttf" />
+    <Content Include="assets\webfonts\fa-brands-400.woff" />
+    <Content Include="assets\webfonts\fa-brands-400.woff2" />
+    <Content Include="assets\webfonts\fa-regular-400-1.eot" />
+    <Content Include="assets\webfonts\fa-regular-400.eot" />
+    <Content Include="assets\webfonts\fa-regular-400.ttf" />
+    <Content Include="assets\webfonts\fa-regular-400.woff" />
+    <Content Include="assets\webfonts\fa-regular-400.woff2" />
+    <Content Include="assets\webfonts\fa-solid-900-1.eot" />
+    <Content Include="assets\webfonts\fa-solid-900.eot" />
+    <Content Include="assets\webfonts\fa-solid-900.ttf" />
+    <Content Include="assets\webfonts\fa-solid-900.woff" />
+    <Content Include="assets\webfonts\fa-solid-900.woff2" />
+    <None Include="packages.config" />
+    <Content Include="Site.Master" />
+    <None Include="Web.Debug.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+    <None Include="Web.Release.config">
+      <DependentUpon>Web.config</DependentUpon>
+    </None>
+  </ItemGroup>
+  <PropertyGroup>
+    <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+  </PropertyGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />
+  <ProjectExtensions>
+    <VisualStudio>
+      <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
+        <WebProjectProperties>
+          <UseIIS>True</UseIIS>
+          <AutoAssignPort>True</AutoAssignPort>
+          <DevelopmentServerPort>30599</DevelopmentServerPort>
+          <DevelopmentServerVPath>/</DevelopmentServerVPath>
+          <IISUrl>http://localhost:30599/</IISUrl>
+          <NTLMAuthentication>False</NTLMAuthentication>
+          <UseCustomServer>False</UseCustomServer>
+          <CustomServerUrl>
+          </CustomServerUrl>
+          <SaveServerSettingsInUserFile>False</SaveServerSettingsInUserFile>
+        </WebProjectProperties>
+      </FlavorProperties>
+    </VisualStudio>
+  </ProjectExtensions>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0\build\net46\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
+  </Target>
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
