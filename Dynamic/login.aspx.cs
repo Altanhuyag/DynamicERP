@@ -38,17 +38,13 @@ namespace Dynamic
         {
             string Password = SystemGlobals.encrypt(password.Text);
             errorMsg = "";
-            string XML = "<NewDataSet><BusinessObject><ProgID>"+Session["ProgID"].ToString()+"</ProgID><UserID>" + username.Text + "</UserID><Password>" + Password + "</Password></BusinessObject></NewDataSet>";
+            string XML = "<NewDataSet><BusinessObject><UserID>" + username.Text + "</UserID><Password>" + Password + "</Password></BusinessObject></NewDataSet>";
             DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserInfo_CHECK", XML).Tables[0];
             if (dt != null && dt.Rows.Count > 0)
             {
                 DataRow rw = dt.Rows[0];
 
                 Session["UserPkID"] = rw["UserPkID"].ToString();
-
-                
-
-
 
                 if (System.DBNull.Value == rw["EmployeeInfoPkID"])
                     Session["EmployeeInfoPkID"] = "";
