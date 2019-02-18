@@ -260,8 +260,45 @@
         $('.editRow').on('click', function () {
             act = 0;
             selid = $(this).attr('data-id');
-            $('#txtName').val(document.getElementById("recordsListView").rows[rid].cells[0].innerHTML);
             document.getElementById("btnSave").innerHTML = "Засах";
+
+            $.ajax({
+                url: 'post.aspx/GetRoomInfo',
+                type: 'POST',
+                data: JSON.stringify({
+                    id: selid,
+                }),
+                dataType: 'json',
+                contentType: 'application/json',
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    swal('Алдаа', "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown, 'warning');
+                },
+                success: function (response) {
+                    var msg = (JSON.stringify(response));
+                    
+                    $('#cmbGroupInfo').val(response.d.GroupPkID);
+                    $('#cmbTypeInfo').val(response.d.RoomTypePkID);
+                    $('#numRoomBedSpace').val(response.d.RoomBedSpace);
+                    $('#numRoomNumber').val(response.d.RoomNumber);
+                    $('#numRoomFloor').val(response.d.RoomFloor);
+                    $('#txtRoomPhone').val(response.d.RoomPhone);
+                    $('#txtRoomDescr').val(response.d.RoomDescr);
+                    $('#cmbMiniBarTypeInfo').val(response.d.MiniBarTypeInfoPkID);
+                    $('#cmbFactionInfo').val(response.d.FactionInfoPkID);
+                    $('#numGuestSpace').val(response.d.GuestSpace);
+                    
+                    if (response.d.IsMiniBar == "T")
+                    {
+                        $('#chkIsMiniBar').prop('checked', true);
+                        $('#cmbMiniBarTypeInfo').attr("disabled", false);
+                    }
+                    else
+                    {
+                        $('#chkIsMiniBar').prop('checked', false);
+                        $('#cmbMiniBarTypeInfo').attr("disabled", true);
+                    }
+                }
+            });
         });
 
         $('.deleteRow').on('click', function () {

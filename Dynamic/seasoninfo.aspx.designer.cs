@@ -10,7 +10,7 @@
 namespace Dynamic {
     
     
-    public partial class reasoninfo {
+    public partial class seasoninfo {
         
         /// <summary>
         /// txtSearch control.

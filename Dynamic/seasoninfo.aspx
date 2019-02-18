@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="reasoninfo.aspx.cs" Inherits="Dynamic.reasoninfo" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="seasoninfo.aspx.cs" Inherits="Dynamic.seasoninfo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
     <link rel="stylesheet" href="assets\css\sweetalert.min.css">
@@ -9,25 +9,25 @@
         <div class="panel">
             <div class="records--header">
                 <div class="title fa-glass-martini">
-                    <h3 class="h3">Мини баарны загвар</h3>
+                    <h3 class="h3">Улирлын бүртгэл</h3>
                 </div>
                 <div class="actions" style="width: 100%;">
-                    <asp:TextBox ID="txtSearch" CssClass="form-control" runat="server" placeholder="Мини баарны загварын нэр..."></asp:TextBox>
+                    <asp:TextBox ID="txtSearch" CssClass="form-control" runat="server" placeholder="Улирлын нэр..."></asp:TextBox>
                     <button id="btnSearch" runat="server" type="submit" class="btn btn-rounded btn-dark" onserverclick="Search_ServerClick"><i class="fa fa-search"></i></button>
-                    <a href="#myModal" class="btn btn-rounded btn-warning" data-toggle="modal" onclick="addRow()" style="margin-left: 10px;">Шинэ Мини баарны загвар үүсгэх</a>
+                    <a href="#myModal" class="btn btn-rounded btn-warning" data-toggle="modal" onclick="addRow()" style="margin-left: 10px;">Шинэ улирал үүсгэх</a>
                 </div>
             </div>
         </div>
 
         <div class="panel">
-            <div class="records--list" data-title="Мини баарны загварын жагсаалт">
+            <div class="records--list" data-title="Улирлын жагсаалт">
 
                 <div id="recordsListView_wrapper" class="dataTables_wrapper no-footer">
                     <div class="table-responsive">
                         <table id="recordsListView" class="dataTable no-footer" aria-describedby="recordsListView_info" style="font-size: 11px; width: 100%;" role="grid">
                             <thead>
                                 <tr role="row">
-                                    <th class="sorting" tabindex="0" aria-controls="recordsListView" rowspan="1" colspan="1" aria-label="Мини баарны загвар">Мини баарны загвар</th>
+                                    <th class="sorting" tabindex="0" aria-controls="recordsListView" rowspan="1" colspan="1" aria-label="Улирлын нэр">Улирлын нэр</th>
                                     <th class="sorting" tabindex="0" aria-controls="recordsListView" rowspan="1" colspan="1" aria-label="Эхлэх сар">Эхлэх сар</th>
                                     <th class="sorting" tabindex="0" aria-controls="recordsListView" rowspan="1" colspan="1" aria-label="Дуусах сар">Дуусах сар</th>
                                     <th class="sorting" tabindex="0" aria-controls="recordsListView" rowspan="1" colspan="1" aria-label="Сар">Сар</th>
@@ -35,11 +35,11 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <% foreach (System.Data.DataRow rw in dtReasonInfo.Rows)
+                                <% foreach (System.Data.DataRow rw in dtSeasonInfo.Rows)
                                     {
                                 %>
-                                <tr data-value="<%=rw["ReasonInfoPkID"].ToString() %>" role="row" onclick="OnRowClick(this)" class="odd">
-                                    <td><%=rw["ReasonName"].ToString() %></td>
+                                <tr data-value="<%=rw["SeasonInfoPkID"].ToString() %>" role="row" onclick="OnRowClick(this)" class="odd">
+                                    <td><%=rw["SeasonName"].ToString() %></td>
                                     <td><%=rw["StartMonth"].ToString() %></td>
                                     <td><%=rw["FinishMonth"].ToString() %></td>
                                     <td><%=rw["MonthStr"].ToString() %></td>
@@ -48,8 +48,8 @@
                                             <div class="todo--actions dropleft">
                                                 <a href="#" class="btn-link" data-toggle="dropdown"><i class="fa fa-tasks"></i></a>
                                                 <div class="dropdown-menu">
-                                                    <a href="#myModal" class="dropdown-item editRow" data-toggle="modal" data-id="<%=rw["ReasonInfoPkID"].ToString() %>">Засах</a>
-                                                    <a href="#RemoveModal" class="dropdown-item deleteRow" data-toggle="modal" data-todoapp="del:item" data-id="<%=rw["ReasonInfoPkID"].ToString() %>">Устгах</a>
+                                                    <a href="#myModal" class="dropdown-item editRow" data-toggle="modal" data-id="<%=rw["SeasonInfoPkID"].ToString() %>">Засах</a>
+                                                    <a href="#RemoveModal" class="dropdown-item deleteRow" data-toggle="modal" data-todoapp="del:item" data-id="<%=rw["SeasonInfoPkID"].ToString() %>">Устгах</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -73,7 +73,7 @@
             <div class="modal-content">
                 
                 <div class="modal-header">
-                    <h5 class="modal-title">Мини баарны загварын бүртгэл</h5>      
+                    <h5 class="modal-title">Улирлын бүртгэл</h5>      
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
 
@@ -82,7 +82,7 @@
                         <div class="form-group">                                        
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h5>Мини баарны загвар</h5>
+                                    <h5>Улирлын нэр</h5>
                                     <input class="form-control" type="text" id="txtName" />
                                 </div>  
                             </div>
@@ -97,7 +97,7 @@
                                 </div>          
                                 <div class="col-md-4">
                                     <h5>Сар</h5>
-                                    <input class="form-control" type="number" id="numMstr" />
+                                    <input class="form-control" type="text" id="numMstr" />
                                 </div>          
                             </div>
                         </div>
@@ -187,7 +187,7 @@
             var mst = $('#numMstr').val().trim();
 
             if (nam == '') {
-                swal('Анхааруулга', 'Мини баарны загвараа оруулна уу !', 'warning');
+                swal('Анхааруулга', 'Улирлын нэрээ оруулна уу !', 'warning');
                 return;
             }
             if (str == '') {
@@ -204,7 +204,7 @@
             }
             
             $.ajax({
-                url: 'post.aspx/SaveReasonInfo',
+                url: 'post.aspx/SaveSeasonInfo',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify({
@@ -240,7 +240,7 @@
 
         function Delete() {
             $.ajax({
-                url: 'post.aspx/DeleteReasonInfo',
+                url: 'post.aspx/DeleteSeasonInfo',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify({

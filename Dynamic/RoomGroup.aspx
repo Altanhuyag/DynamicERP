@@ -163,7 +163,7 @@
             }
             
             $.ajax({
-                url: 'post.aspx/SaveGroupInfo',
+                url: 'post.aspx/SaveHTLRoomGroupInfo',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify({
@@ -196,7 +196,7 @@
 
         function Delete() {
             $.ajax({
-                url: 'post.aspx/DeleteGroupInfo',
+                url: 'post.aspx/DeleteHTLRoomGroupInfo',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify({
