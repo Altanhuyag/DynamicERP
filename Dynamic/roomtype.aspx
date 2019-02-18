@@ -8,7 +8,7 @@
 
         <div class="panel">
             <div class="records--header">
-                <div class="title fa-layer-group">
+                <div class="title fa-object-group">
                     <h3 class="h3">Өрөөний ангилал</h3>
                 </div>
                 <div class="actions" style="width: 100%;">

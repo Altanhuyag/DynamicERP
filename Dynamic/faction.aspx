@@ -8,7 +8,7 @@
 
         <div class="panel">
             <div class="records--header">
-                <div class="title fa-directions">
+                <div class="title fa-sitemap">
                     <h3 class="h3">Жигүүр</h3>
                 </div>
                 <div class="actions" style="width: 100%;">

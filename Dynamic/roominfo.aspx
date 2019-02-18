@@ -8,7 +8,7 @@
 
         <div class="panel">
             <div class="records--header">
-                <div class="title fa-person-booth">
+                <div class="title fa-cube">
                     <h3 class="h3">Өрөөний бүртгэл</h3>
                 </div>
                 <div class="actions" style="width: 100%;">
