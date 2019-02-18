@@ -32,7 +32,7 @@ BEGIN
 	INNER JOIN htlRoomTypeInfo c ON c.RoomTypePkID = a.RoomTypePkID
 	LEFT JOIN htlMiniBarTypeInfo d ON d.MiniBarTypeInfoPkID = a.MiniBarTypeInfoPkID
 	INNER JOIN htlFactionInfo e on e.FactionInfoPkID = a.FactionInfoPkID
-	WHERE RoomNumber like N'' + @number + '%'
+	WHERE RoomNumber like N'%' + @number + '%'
 
 END
 GO

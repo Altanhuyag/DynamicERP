@@ -1,8 +1,8 @@
 
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'sphtl_ReasonInfo_DEL')
-DROP PROC sphtl_ReasonInfo_DEL
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'sphtl_SeasonInfo_DEL')
+DROP PROC sphtl_SeasonInfo_DEL
 GO
-CREATE PROC sphtl_ReasonInfo_DEL
+CREATE PROC sphtl_SeasonInfo_DEL
 (
 	@XML		  NVARCHAR(MAX),
     @IntResult    TINYINT		 OUTPUT,
@@ -26,7 +26,7 @@ BEGIN
 
 	BEGIN TRANSACTION
 
-		DELETE FROM htlReasonInfo WHERE ReasonInfoPkID = @id
+		DELETE FROM htlSeasonInfo WHERE SeasonInfoPkID = @id
 
 	COMMIT TRANSACTION
 END

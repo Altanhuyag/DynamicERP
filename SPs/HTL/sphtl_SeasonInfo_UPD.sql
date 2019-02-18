@@ -1,8 +1,8 @@
 
-IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'sphtl_ReasonInfo_UPD')
-DROP PROC sphtl_ReasonInfo_UPD
+IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'sphtl_SeasonInfo_UPD')
+DROP PROC sphtl_SeasonInfo_UPD
 GO
-CREATE PROC sphtl_ReasonInfo_UPD
+CREATE PROC sphtl_SeasonInfo_UPD
 (
 	@XML		  NVARCHAR(MAX),
     @IntResult    TINYINT		 OUTPUT,
@@ -44,19 +44,19 @@ BEGIN
 	IF @type = 1			-- new record
 	BEGIN
 		
-		EXEC dbo.spsmm_LastSequence_SEL 'htlReasonInfo', @id OUTPUT
-		INSERT INTO htlReasonInfo VALUES (@id, @name, @start, @finish, @mstr)
+		EXEC dbo.spsmm_LastSequence_SEL 'htlSeasonInfo', @id OUTPUT
+		INSERT INTO htlSeasonInfo VALUES (@id, @name, @start, @finish, @mstr)
 
 	END
 	ELSE IF @type = 0		-- update record
 	BEGIN
 		
-		UPDATE htlReasonInfo SET 
-		ReasonName = @name,
+		UPDATE htlSeasonInfo SET 
+		SeasonName = @name,
 		StartMonth = @start,
 		FinishMonth = @finish,
 		MonthStr = @mstr
-		WHERE ReasonInfoPkID = @id
+		WHERE SeasonInfoPkID = @id
 
 	END
 
