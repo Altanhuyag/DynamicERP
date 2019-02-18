@@ -42,6 +42,26 @@ namespace Dynamic
 
                 }
 
+                if (context.Request.QueryString["RestaurantPkID"] != null)
+                {
+                    string RestaurantPkID = context.Request.QueryString["RestaurantPkID"].ToString();
+                    HttpFileCollection UploadedFilesCollection = context.Request.Files;
+                    for (int i = 0; i < UploadedFilesCollection.Count; i++)
+                    {
+                        string ext = Path.GetExtension(UploadedFilesCollection[i].FileName);
+
+                        HttpPostedFile PostedFiles = UploadedFilesCollection[i];
+
+                        string XML = "<NewDataSet><BusinessObject><RestaurantPkID>" + RestaurantPkID + "</RestaurantPkID><ImageFileExt>" + ext + "</ImageFileExt></BusinessObject></NewDataSet>";
+                        SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantImage_UPD", XML);
+
+                        string FilePath = context.Server.MapPath("/upload/restaurant/" + RestaurantPkID + ext);
+
+                        PostedFiles.SaveAs(FilePath);
+                    }
+
+                }
+
             }
         }
 
