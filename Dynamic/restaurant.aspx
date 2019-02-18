@@ -4,9 +4,9 @@
     <link rel="stylesheet" href="assets\css\sweetalert.min.css">
     <link rel="stylesheet" href="assets\css\sweetalert-overrides.css">
 
-    <asp:ScriptManager runat="server"></asp:ScriptManager>
+    <%--<asp:ScriptManager runat="server"></asp:ScriptManager>
     <asp:UpdatePanel runat="server" ID="UpdatePanel1">
-        <ContentTemplate>
+        <ContentTemplate>--%>
             <section class="main--content">
 
                 <div class="panel">
@@ -48,13 +48,21 @@
                                             <td><%=rw["RestaurantName"].ToString() %></td>
                                             <td><%=rw["HeaderText"].ToString() %></td>
                                             <td><%=rw["FooterText"].ToString() %></td>
-                                            <td><% if (rw["LogoFile"].ToString() != "")
-                                                    { %>
-                                                <asp:Image ID="picImage" runat="server" Width="60px" />
-                                                <%
-                                                        picImage.ImageUrl = rw["LogoFile"].ToString();
+                                            <td>
+                                                <% 
+                                                    //int i = 1;
+                                                    if (rw["LogoFile"].ToString() != "")
+                                                    {
 
-                                                    } %> 
+                                                        Image t = new Image();
+                                                        //t.ID = "asdf"+i.ToString();
+                                                        t.ImageUrl = rw["LogoFile"].ToString();
+                                                        t.Width = 60;
+                                                        imgLink.Controls.Add(t);
+                                                    }
+                                                    //i++;
+                                                %>                                                 
+                                               <div id="imgLink" runat="server"></div>  
                                             </td>
                                             <td><%=rw["Tax"].ToString() %></td>
                                             <td><%=rw["CityTax"].ToString() %></td>
@@ -72,6 +80,7 @@
                                             </td>
                                         </tr>
                                         <%
+                                                imgLink.Controls.Clear();
                                             }
                                         %>
                                     </tbody>
@@ -83,8 +92,8 @@
                 </div>
 
             </section>
-        </ContentTemplate>
-    </asp:UpdatePanel>
+        <%--</ContentTemplate>
+    </asp:UpdatePanel>--%>
                     
 
     <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
@@ -199,13 +208,30 @@
         $('.editRow').on('click', function () {
             act = 0;
             selid = $(this).attr('data-id');
-            $('#txtName').val(document.getElementById("recordsListView").rows[rid].cells[0].innerHTML);
-            $('#txtHeader').val(document.getElementById("recordsListView").rows[rid].cells[1].innerHTML);
-            $('#txtFooter').val(document.getElementById("recordsListView").rows[rid].cells[2].innerHTML);
-            $('#numTax').val(document.getElementById("recordsListView").rows[rid].cells[4].innerHTML);
-            $('#numCityTax').val(document.getElementById("recordsListView").rows[rid].cells[5].innerHTML);
-            $('#numServiceCharge').val(document.getElementById("recordsListView").rows[rid].cells[6].innerHTML);
             document.getElementById("btnSave").innerHTML = "Засах";
+
+            $.ajax({
+                url: 'post.aspx/GetRestaurantInfo',
+                type: 'POST',
+                data: JSON.stringify({
+                    id: selid,
+                }),
+                dataType: 'json',
+                contentType: 'application/json',
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    swal('Алдаа', "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown, 'warning');
+                },
+                success: function (response) {
+                    var msg = (JSON.stringify(response));
+                    
+                    $('#txtName').val(response.d.RestaurantName);
+                    $('#txtHeader').val(response.d.HeaderText);
+                    $('#txtFooter').val(response.d.FooterText);
+                    $('#numTax').val(response.d.Tax);
+                    $('#numCityTax').val(response.d.CityTax);
+                    $('#numServiceCharge').val(response.d.ServiceChargeTax);
+                }
+            });
         });
 
         $('.deleteRow').on('click', function () {
@@ -303,27 +329,30 @@
                             error: function (XMLHttpRequest, textStatus, errorThrown) {
                                 swal('Алдаа', "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown, 'warning');
                             }
-                        });
+                        }).done(function () {
+                            if (act == 1)
+                                swal('Амжилттай', 'Амжилттай нэмэгдлээ !', 'success');
+                            else if (act == 0)
+                                swal('Амжилттай', 'Амжилттай засагдлаа !', 'success');
+
+                            $('#myModal').modal('hide');
+                            Clear();
+                            window.location.reload();
+                        })
                     }
                     
-                    $.ajax({
-                        url: 'restaurant.aspx/RefreshRestaurants',
-                        type: 'POST',
-                        dataType: 'json',
-                        data: '{}',
-                        contentType: 'application/json',
-                        error: function (XMLHttpRequest, textStatus, errorThrown) {
-                            swal('Алдаа', "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown, 'warning');
-                        }
-                    });
+                    //$.ajax({
+                    //    url: 'restaurant.aspx/RefreshRestaurants',
+                    //    type: 'POST',
+                    //    dataType: 'json',
+                    //    data: '{}',
+                    //    contentType: 'application/json',
+                    //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    //        swal('Алдаа', "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown, 'warning');
+                    //    }
+                    //});
 
-                    if (act == 1)
-                        swal('Амжилттай', 'Амжилттай нэмэгдлээ !', 'success');
-                    else if (act == 0) 
-                        swal('Амжилттай', 'Амжилттай засагдлаа !', 'success');
-
-                    $('#myModal').modal('hide');
-                    Clear();
+                    
                 }
             });
         }
@@ -348,18 +377,20 @@
                     else {
                         swal('Амжилттай', 'Амжилттай устгагдлаа !', 'success');
 
-                        $.ajax({
-                            url: 'restaurant.aspx/RefreshRestaurants',
-                            type: 'POST',
-                            dataType: 'json',
-                            data: '{}',
-                            contentType: 'application/json',
-                            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                                swal('Алдаа', "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown, 'warning');
-                            }
-                        });
+                        //$.ajax({
+                        //    url: 'restaurant.aspx/RefreshRestaurants',
+                        //    type: 'POST',
+                        //    dataType: 'json',
+                        //    data: '{}',
+                        //    contentType: 'application/json',
+                        //    error: function (XMLHttpRequest, textStatus, errorThrown) {
+                        //        swal('Алдаа', "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown, 'warning');
+                        //    }
+                        //});
                     }
                 }
+            }).done(function () {
+                window.location.reload();
             });
         }
     

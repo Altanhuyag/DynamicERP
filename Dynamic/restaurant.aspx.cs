@@ -30,18 +30,18 @@ namespace Dynamic
             SearchRestaurant(txtSearch.Text.Trim());
         }
 
-        [WebMethod]
-        public static bool RefreshRestaurants()
-        {
-            try
-            {
-                SearchRestaurant("");
-                return true;
-            }
-            catch (Exception ex)
-            {
-                return false;
-            }
-        }
+        //[WebMethod]
+        //public static bool RefreshRestaurants()
+        //{
+        //    try
+        //    {
+        //        SearchRestaurant("");
+        //        return true;
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return false;
+        //    }
+        //}
     }
 }
