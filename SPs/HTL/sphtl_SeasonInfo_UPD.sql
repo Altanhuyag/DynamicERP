@@ -17,7 +17,7 @@ BEGIN
 	@name nvarchar(75),
 	@start int,
 	@finish int,
-	@mstr int
+	@mstr nvarchar(100)
 							
 	EXEC sp_xml_preparedocument @idoc OUTPUT, @XML
 	SELECT * INTO #tmp
@@ -27,7 +27,7 @@ BEGIN
 				name nvarchar(75),
 				start int,
 				finish int,
-				mstr int )
+				mstr nvarchar(100) )
 	EXEC sp_xml_removedocument @idoc
 
 	SELECT 

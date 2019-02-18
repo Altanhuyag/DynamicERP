@@ -8,7 +8,7 @@
 
         <div class="panel">
             <div class="records--header">
-                <div class="title fa-glass-martini">
+                <div class="title fa-snowflake">
                     <h3 class="h3">Улирлын бүртгэл</h3>
                 </div>
                 <div class="actions" style="width: 100%;">
@@ -97,7 +97,7 @@
                                 </div>          
                                 <div class="col-md-4">
                                     <h5>Сар</h5>
-                                    <input class="form-control" type="text" id="numMstr" />
+                                    <input class="form-control" type="text" id="numMstr" disabled />
                                 </div>          
                             </div>
                         </div>
@@ -125,7 +125,7 @@
                 </div>
                 
                 <div class="modal-body">
-                    <h5>Мини баарны загварыг устгах уу ?</h5>
+                    <h5>Улирлын бүртгэлийг устгах уу ?</h5>
                 </div>
                 
                 <div class="modal-footer">
@@ -145,6 +145,39 @@
         var act = 1;
         var selid = 0;
         var rid = 0;
+        
+        $("#numStart").focusout(function () {
+            GetMontsBetween();
+        });
+
+        $("#numFinish").focusout(function () {
+            GetMontsBetween();
+        });
+
+        function GetMontsBetween() {
+            var months = "";
+            var str = $('#numStart').val().trim();
+            var fns = $('#numFinish').val().trim();
+
+            if (str != "" && fns != "") {
+                while (str != fns) {
+                    months += padDigits(str, 2) + ",";
+                    if (str < 12) {
+                        str++;
+                    }
+                    else {
+                        str = 1;
+                    }
+                }
+                months += padDigits(fns, 2);
+            }
+
+            $('#numMstr').val(months);
+        }
+
+        function padDigits(number, digits) {
+            return Array(Math.max(digits - String(number).length + 1, 0)).join(0) + number;
+        }
         
         function Clear() {
             $('#txtName').val("");

@@ -11,8 +11,22 @@ CREATE PROC spres_RestaurantInfo_SEL
 AS 
 
 BEGIN
+	SET NOCOUNT ON
+	DECLARE @idoc				Int,			
+			@name					nvarchar(75)
+	EXEC sp_xml_preparedocument @idoc OUTPUT, @XML
 
-select RestaurantPkID, RestaurantName, LogoFile, HeaderText, FooterText, Tax, CityTax, ServiceChargeTax from resRestaurantInfo
+	SELECT * INTO #tmp
+		FROM OPENXML (@idoc,'//BusinessObject',2)
+		WITH (  
+				name	nvarchar(75)
+			 )
+	EXEC sp_xml_removedocument @idoc 	
+	
+	SELECT	@name=name
+	FROM #tmp
+
+	select RestaurantPkID, RestaurantName, LogoFile, HeaderText, FooterText, Tax, CityTax, ServiceChargeTax from resRestaurantInfo where RestaurantName like N'%' + @name + '%'
 
 END
 GO

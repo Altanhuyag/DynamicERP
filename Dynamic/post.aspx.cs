@@ -655,7 +655,7 @@ namespace Dynamic
         }
 
         [WebMethod]
-        public static bool SaveSeasonInfo(int type, string id, string name, int start, int finish, int mstr)
+        public static bool SaveSeasonInfo(int type, string id, string name, int start, int finish, string mstr)
         {
             try
             {
@@ -710,23 +710,86 @@ namespace Dynamic
             }
         }
 
+        public class HTLRoomInfo
+        {
+            public string RoomPkID { get; set; }
+            public string GroupPkID { get; set; }
+            public string RoomTypePkID { get; set; }
+            public int RoomBedSpace { get; set; }
+            public int RoomNumber { get; set; }
+            public int RoomFloor { get; set; }
+            public string RoomPhone { get; set; }
+            public string RoomDescr { get; set; }
+            public string IsMiniBar { get; set; }
+            public string MiniBarTypeInfoPkID { get; set; }
+            public string FactionInfoPkID { get; set; }
+            public int GuestSpace { get; set; }
+        }
+
         [WebMethod]
-        public static string GetRoomInfo(string id)
+        public static HTLRoomInfo GetRoomInfo(string id)
         {
             try
             {
+                HTLRoomInfo room = new HTLRoomInfo();
+
                 string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
                 DataTable dtRoomInfo = SystemGlobals.DataBase.ExecuteQuery("sphtl_RoomInfoGET_SEL", XML).Tables[0];
 
-
-                return "";
+                room.RoomPkID = dtRoomInfo.Rows[0]["RoomPkID"].ToString();
+                room.GroupPkID = dtRoomInfo.Rows[0]["GroupPkID"].ToString();
+                room.RoomTypePkID = dtRoomInfo.Rows[0]["RoomTypePkID"].ToString();
+                room.RoomBedSpace = Convert.ToInt32(dtRoomInfo.Rows[0]["RoomBedSpace"]);
+                room.RoomNumber = Convert.ToInt32(dtRoomInfo.Rows[0]["RoomNumber"]);
+                room.RoomFloor = Convert.ToInt32(dtRoomInfo.Rows[0]["RoomFloor"]);
+                room.RoomPhone = dtRoomInfo.Rows[0]["RoomPhone"].ToString();
+                room.RoomDescr = dtRoomInfo.Rows[0]["RoomDescr"].ToString();
+                room.IsMiniBar = dtRoomInfo.Rows[0]["IsMiniBar"].ToString();
+                room.MiniBarTypeInfoPkID = dtRoomInfo.Rows[0]["MiniBarTypeInfoPkID"].ToString();
+                room.FactionInfoPkID = dtRoomInfo.Rows[0]["FactionInfoPkID"].ToString();
+                room.GuestSpace = Convert.ToInt32(dtRoomInfo.Rows[0]["GuestSpace"]);
+                return room;
             }
             catch (Exception ex)
             {
-                return ex.ToString();
+                return null;
             }
         }
 
+        public class ResRestaurantInfo
+        {
+            public string RestaurantPkID { get; set; }
+            public string RestaurantName { get; set; }
+            public string HeaderText { get; set; }
+            public string FooterText { get; set; }
+            public int Tax { get; set; }
+            public int CityTax { get; set; }
+            public int ServiceChargeTax { get; set; }
+        }
 
+        [WebMethod]
+        public static ResRestaurantInfo GetRestaurantInfo(string id)
+        {
+            try
+            {
+                ResRestaurantInfo rest = new ResRestaurantInfo();
+
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                DataTable dtRoomInfo = SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantInfoGET_SEL", XML).Tables[0];
+
+                rest.RestaurantPkID = dtRoomInfo.Rows[0]["RestaurantPkID"].ToString();
+                rest.RestaurantName = dtRoomInfo.Rows[0]["RestaurantName"].ToString();
+                rest.HeaderText = dtRoomInfo.Rows[0]["HeaderText"].ToString();
+                rest.FooterText = dtRoomInfo.Rows[0]["FooterText"].ToString();
+                rest.Tax = Convert.ToInt32(dtRoomInfo.Rows[0]["Tax"]);
+                rest.CityTax = Convert.ToInt32(dtRoomInfo.Rows[0]["CityTax"]);
+                rest.ServiceChargeTax = Convert.ToInt32(dtRoomInfo.Rows[0]["ServiceChargeTax"]);
+                return rest;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
     }
 }
