@@ -27,15 +27,14 @@ namespace Dynamic
             public string IsValid { get; set; }
             public string Password { get; set; }
             public string CreatedProgID { get; set; }
-            public string CompanyPkID { get; set; }
 
         }
 
         [WebMethod]
-        public static UserInfo GetUserInfo(string UserPkID)
+        public static UserInfo GetUserInfo(string UserPkID,string ProgId)
         {
             UserInfo Roles = new UserInfo();
-            DataTable dt = SystemGlobals.DataBase.ExecuteSQL("select * from smmUserInfo where  UserPkID='" + UserPkID + "'").Tables[0];
+            DataTable dt = SystemGlobals.DataBase.ExecuteSQL("select * from smmUserInfo A inner join smmUserProgInfo B on A.UserPkID=B.UserPkID and B.ModuleID='"+ProgId+"' where  A.UserPkID='" + UserPkID + "'").Tables[0];
 
             Roles.UserGroupID = dt.Rows[0]["UserGroupID"].ToString();
             Roles.UserPkID = dt.Rows[0]["UserPkID"].ToString();
@@ -44,8 +43,26 @@ namespace Dynamic
             Roles.IsValid = dt.Rows[0]["IsValid"].ToString();
             Roles.CreatedProgID = dt.Rows[0]["CreatedProgID"].ToString();
             Roles.Password = SystemGlobals.decrypt(dt.Rows[0]["Password"].ToString());
-            Roles.CompanyPkID = dt.Rows[0]["CompanyPkID"].ToString();
 
+            return Roles;
+        }
+
+        public class BuffetInfo
+        {
+            public string BufetInfoPkID { get; set; }
+            public string BufetInfoName { get; set; }
+        }
+
+        [WebMethod]
+        public static BuffetInfo GetBuffetInfo(string BufetInfoPkID)
+        {
+            BuffetInfo Roles = new BuffetInfo();
+            string XML = "<NewDataSet><BusinessObject><BufetInfoPkID>"+ BufetInfoPkID + "</BufetInfoPkID></BusinessObject></NewDataSet>";
+            DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spres_ItemBufetInfo_GET", XML).Tables[0];
+
+            Roles.BufetInfoPkID = dt.Rows[0]["BufetInfoPkID"].ToString();
+            Roles.BufetInfoName = dt.Rows[0]["BufetInfoName"].ToString();
+           
             return Roles;
         }
 
@@ -143,5 +160,358 @@ namespace Dynamic
                 return "Алдаа гарлаа:" + ex.ToString();
             }
         }
+
+        [WebMethod]
+        public static string PostBuffetInfo(string Adding, string BufetInfoPkID, string BufetInfoName)
+        {
+            try
+            {                
+                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><BufetInfoPkID>" + BufetInfoPkID + "</BufetInfoPkID><BufetInfoName>" + BufetInfoName + "</BufetInfoName></BusinessObject></NewDataSet>";
+                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spres_ItemBufetInfo_UPD", XML).Tables[0];
+                return dt.Rows[0]["BufetInfoPkID"].ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string DeleteBuffetInfo(string BufetInfoPkID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><BufetInfoPkID>" + BufetInfoPkID + "</BufetInfoPkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spres_ItemBufetInfo_DEL", XML);
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        public class OrderTypeInfo
+        {
+            public string OrderTypePkID { get; set; }
+            public string OrderTypeName { get; set; }
+        }
+
+        [WebMethod]
+        public static OrderTypeInfo GetOrderTypeInfo(string OrderTypePkID)
+        {
+            OrderTypeInfo Roles = new OrderTypeInfo();
+            string XML = "<NewDataSet><BusinessObject><OrderTypePkID>" + OrderTypePkID + "</OrderTypePkID></BusinessObject></NewDataSet>";
+            DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spres_OrderTypeInfo_GET", XML).Tables[0];
+
+            Roles.OrderTypePkID = dt.Rows[0]["OrderTypePkID"].ToString();
+            Roles.OrderTypeName = dt.Rows[0]["OrderTypeName"].ToString();
+
+            return Roles;
+        }
+
+        [WebMethod]
+        public static string PostOrderTypeInfo(string Adding, string OrderTypePkID, string OrderTypeName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><OrderTypePkID>" + OrderTypePkID + "</OrderTypePkID><OrderTypeName>" + OrderTypeName + "</OrderTypeName></BusinessObject></NewDataSet>";
+                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spres_OrderTypeInfo_UPD", XML).Tables[0];
+                return dt.Rows[0]["OrderTypePkID"].ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string DeleteOrderTypeInfo(string OrderTypePkID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><OrderTypePkID>" + OrderTypePkID + "</OrderTypePkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spres_OrderTypeInfo_DEL", XML);
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        public class CategroyInfo
+        {
+            public string CategoryPkID { get; set; }
+            public string CategoryName { get; set; }
+
+            public string RestaurantPkID { get; set; }
+        }
+
+        [WebMethod]
+        public static CategroyInfo GetCategroyInfo(string CategoryPkID)
+        {
+            CategroyInfo Roles = new CategroyInfo();
+            string XML = "<NewDataSet><BusinessObject><CategoryPkID>" + CategoryPkID + "</CategoryPkID></BusinessObject></NewDataSet>";
+            DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantCategory_GET", XML).Tables[0];
+
+            Roles.RestaurantPkID = dt.Rows[0]["RestaurantPkID"].ToString();
+            Roles.CategoryPkID = dt.Rows[0]["CategoryPkID"].ToString();
+            Roles.CategoryName = dt.Rows[0]["CategoryName"].ToString();
+
+            return Roles;
+        }
+
+        [WebMethod]
+        public static string PostCategoryInfo(string Adding, string CategoryPkID, string CategoryName,string RestaurantPkID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><CategoryPkID>" + CategoryPkID + "</CategoryPkID><CategoryName>" + CategoryName + "</CategoryName><RestaurantPkID>" + RestaurantPkID + "</RestaurantPkID></BusinessObject></NewDataSet>";
+                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantCategory_UPD", XML).Tables[0];
+                return dt.Rows[0]["CategoryPkID"].ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string DeleteCategoryInfo(string CategoryPkID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><CategoryPkID>" + CategoryPkID + "</CategoryPkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantCategory_DEL", XML);
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string PostTableInfo(string Adding, string CategoryPkID, string TablePkID, string TableID,string TableCapacity,string IsTime,string ItemPkID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><CategoryPkID>" + CategoryPkID + "</CategoryPkID><TablePkID>" + TablePkID + "</TablePkID><TableID>" + TableID + "</TableID><TableCapacity>"+ TableCapacity + "</TableCapacity><IsTime>"+ IsTime + "</IsTime><ItemPkID>"+ ItemPkID + "</ItemPkID></BusinessObject></NewDataSet>";
+                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantTable_UPD", XML).Tables[0];
+                return dt.Rows[0]["TablePkID"].ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        
+
+        public class TableInfo
+        {
+            public string CategoryPkID { get; set; }
+            public string TablePkID { get; set; }
+
+            public string TableID { get; set; }
+
+            public int TableCapacity { get; set; }
+
+            public string IsTime { get; set; }
+            public string ItemPkID { get; set; }
+
+            public string RestaurantPkID { get; set; }
+        }
+
+        [WebMethod]
+        public static TableInfo GetTableInfo(string TablePkID)
+        {
+            TableInfo Roles = new TableInfo();
+            string XML = "<NewDataSet><BusinessObject><TablePkID>" + TablePkID + "</TablePkID></BusinessObject></NewDataSet>";
+            DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantTable_GET", XML).Tables[0];
+
+            Roles.TablePkID = dt.Rows[0]["TablePkID"].ToString();
+            Roles.CategoryPkID = dt.Rows[0]["CategoryPkID"].ToString();
+            Roles.TableID = dt.Rows[0]["TableID"].ToString();
+            Roles.TableCapacity = (int)dt.Rows[0]["TableCapacity"];
+
+            Roles.IsTime = dt.Rows[0]["IsTime"].ToString();
+            Roles.ItemPkID = dt.Rows[0]["ItemPkID"].ToString();
+            Roles.RestaurantPkID = dt.Rows[0]["RestaurantPkID"].ToString();
+
+            return Roles;
+        }
+
+        [WebMethod]
+        public static string DeleteTableInfo(string TablePkID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><TablePkID>" + TablePkID + "</TablePkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantTable_DEL", XML);
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static List<ListItem> GetCategoryList(string RestaurantPkID)
+        {
+            List<ListItem> customers = new List<ListItem>();
+            DataTable dt = SystemGlobals.DataBase.ExecuteSQL(@"select * from resRestaurantCategory where RestaurantPkID='" + RestaurantPkID + "' ").Tables[0];
+            foreach (DataRow rw in dt.Rows)
+            {
+                customers.Add(new ListItem
+                {
+                    Value = rw["CategoryPkID"].ToString(),
+                    Text = rw["CategoryName"].ToString()
+                });
+            }
+            //var jsonSerialiser = new JavaScriptSerializer();
+            //var json = jsonSerialiser.Serialize(customers);
+            return customers;
+        }
+
+        [WebMethod]
+        public static string PostMenuInfo(string Adding, string RestaurantMenuPkID, string RestaurantPkID, string MenuName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><RestaurantMenuPkID>" + RestaurantMenuPkID + "</RestaurantMenuPkID><RestaurantPkID>" + RestaurantPkID + "</RestaurantPkID><MenuName>" + MenuName + "</MenuName></BusinessObject></NewDataSet>";
+                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantMenu_UPD", XML).Tables[0];
+                return dt.Rows[0]["RestaurantMenuPkID"].ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        public class MenuInfo
+        {
+            public string RestaurantMenuPkID { get; set; }
+            public string RestaurantPkID { get; set; }
+
+            public string MenuName { get; set; }
+
+            public string MenuImageFile { get; set; }
+        }
+
+        [WebMethod]
+        public static MenuInfo GetMenuInfo(string RestaurantMenuPkID)
+        {
+            MenuInfo Roles = new MenuInfo();
+            string XML = "<NewDataSet><BusinessObject><RestaurantMenuPkID>" + RestaurantMenuPkID + "</RestaurantMenuPkID></BusinessObject></NewDataSet>";
+            DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantMenu_GET", XML).Tables[0];
+
+            Roles.RestaurantMenuPkID = dt.Rows[0]["RestaurantMenuPkID"].ToString();
+            Roles.RestaurantPkID = dt.Rows[0]["RestaurantPkID"].ToString();
+            Roles.MenuName = dt.Rows[0]["MenuName"].ToString();
+            Roles.MenuImageFile = dt.Rows[0]["MenuImageFile"].ToString();
+            return Roles;
+        }
+
+        [WebMethod]
+        public static string DeleteMenuInfo(string RestaurantMenuPkID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><RestaurantMenuPkID>" + RestaurantMenuPkID + "</RestaurantMenuPkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantMenu_DEL", XML);
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        public class UnitInfo
+        {
+            public string UnitID { get; set; }
+            public string UnitName { get; set; }
+        }
+
+        [WebMethod]
+        public static UnitInfo GetUnitInfo(string UnitID)
+        {
+            UnitInfo Roles = new UnitInfo();
+            string XML = "<NewDataSet><BusinessObject><UnitID>" + UnitID + "</UnitID></BusinessObject></NewDataSet>";
+            DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spinv_UnitInfo_GET", XML).Tables[0];
+
+            Roles.UnitID = dt.Rows[0]["UnitID"].ToString();
+            Roles.UnitName = dt.Rows[0]["UnitName"].ToString();
+
+            return Roles;
+        }
+
+        [WebMethod]
+        public static string PostUnitInfo(string Adding, string UnitID, string UnitName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><UnitID>" + UnitID + "</UnitID><UnitName>" + UnitName + "</UnitName></BusinessObject></NewDataSet>";
+                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spinv_UnitInfo_UPD", XML).Tables[0];
+                return dt.Rows[0]["UnitID"].ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string DeleteUnitInfo(string UnitID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><UnitID>" + UnitID + "</UnitID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spinv_UnitInfo_DEL", XML);
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static List<ListItem> GetVatList(string TaxTypeID)
+        {
+            List<ListItem> customers = new List<ListItem>();
+            DataTable dt = SystemGlobals.DataBase.ExecuteSQL(@"select * from invVATExemptionInfo where TaxTypeID='" + TaxTypeID + "'").Tables[0];
+            foreach (DataRow rw in dt.Rows)
+            {
+                customers.Add(new ListItem
+                {
+                    Value = rw["VATEInfoID"].ToString(),
+                    Text = rw["VATEInfoName"].ToString()
+                });
+            }
+            //var jsonSerialiser = new JavaScriptSerializer();
+            //var json = jsonSerialiser.Serialize(customers);
+            return customers;
+        }
+
+        [WebMethod]
+        public static string DeleteItemInfo(string ItemPkID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><ItemPkID>" + ItemPkID + "</ItemPkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spres_ItemInfo_DEL", XML);
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+
     }
 }
