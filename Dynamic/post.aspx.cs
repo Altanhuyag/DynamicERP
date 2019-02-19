@@ -791,5 +791,179 @@ namespace Dynamic
                 return null;
             }
         }
+
+        [WebMethod]
+        public static bool SaveHTLServiceInfo(int type, string id, string name, string description, string ischange)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><type>" + type + "</type><id>" + id + "</id><name>" + name + "</name><description>" + description + "</description><ischange>" + ischange + "</ischange></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_ServiceInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHTLServiceInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_ServiceInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static string SaveACCCurrencyInfo(int type, string id, string name, string ismain)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + type + "</Adding><CurrencyID>" + id + "</CurrencyID><CurrencyName>" + name + "</CurrencyName><IsMainCurrency>" + ismain + "</IsMainCurrency><CreatedProgID>HTL</CreatedProgID><CreatedDate>"+DateTime.Now.ToString()+ "</CreatedDate><LastUpdate>" + DateTime.Now.ToString() + "</LastUpdate><IPAddress></IPAddress><LastUserName></LastUserName><MACAddress></MACAddress></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spacc_CurrencyInfo_UPD", XML);
+                return "Амжилттай";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string DeleteACCCurrencyInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><CurrencyID>" + id + "</CurrencyID><ProgID>HTL</ProgID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spacc_CurrencyInfo_DEL", XML);
+                return "Амжилттай";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveHTLGuestInfo(int type, string id, string name, string currency)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><type>" + type + "</type><id>" + id + "</id><name>" + name + "</name><currencyid>" + currency + "</currencyid></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_GuestTypeInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHTLGuestInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_GuestTypeInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public class ServiceDetailInfo
+        {
+            public string ServiceInfoPkID { get; set; }
+            public string ServiceDetailInfoPkID { get; set; }
+            public string GuestTypeID { get; set; }
+            public string CurrencyID { get; set; }
+            public decimal ServicePrice { get; set; }
+        }
+
+        [WebMethod]
+        public static ServiceDetailInfo GetHTLServiceDetailInfo(string id)
+        {
+            try
+            {
+                ServiceDetailInfo srv = new ServiceDetailInfo();
+
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                DataTable dtRoomInfo = SystemGlobals.DataBase.ExecuteQuery("sphtl_ServiceDetailInfo_SEL", XML).Tables[0];
+
+                srv.ServiceInfoPkID = dtRoomInfo.Rows[0]["ServiceInfoPkID"].ToString();
+                srv.ServiceDetailInfoPkID = dtRoomInfo.Rows[0]["ServiceDetailInfoPkID"].ToString();
+                srv.GuestTypeID = dtRoomInfo.Rows[0]["GuestTypeID"].ToString();
+                srv.CurrencyID = dtRoomInfo.Rows[0]["CurrencyID"].ToString();
+                srv.ServicePrice = Convert.ToDecimal(dtRoomInfo.Rows[0]["ServicePrice"]);
+                return srv;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveHTLServiceDetailInfo(int type, string id, string service, string guest, string currency, decimal price)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><type>" + type + "</type><id>" + id + "</id><service>" + service + "</service><guest>" + guest + "</guest><currency>" + currency + "</currency><price>" + price + "</price></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_ServiceDetailInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHTLServiceDetailInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_ServiceDetailInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveHTLLifeTimeInfo(int type, string id, string name, int dayst, int dayfn, int timest, int timefn)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><type>" + type + "</type><id>" + id + "</id><name>" + name + "</name><dayst>" + dayst + "</dayst><dayfn>" + dayfn + "</dayfn><timest>" + timest + "</timest><timefn>" + timefn + "</timefn></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_LifeTimeInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHTLLifeTimeInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_LifeTimeInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
     }
 }
