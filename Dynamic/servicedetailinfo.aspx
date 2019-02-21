@@ -179,6 +179,26 @@
             selid = 0;
         }
                 
+        $("#cmbGuestTypeInfo").change(function () {
+            $.ajax({
+                url: 'post.aspx/GetHTLServiceDetailCustomer',
+                type: 'POST',
+                data: JSON.stringify({
+                    id: $('#cmbGuestTypeInfo option:selected').val(),
+                }),
+                dataType: 'json',
+                contentType: 'application/json',
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    swal('Алдаа', "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown, 'warning');
+                },
+                success: function (msg) {
+                    if (msg.d != null) {
+                        $('#cmbCurrencyInfo').val(msg.d);
+                    }
+                }
+            });
+        });
+
         $('.editRow').on('click', function () {
             act = 0;
             selid = $(this).attr('data-id');

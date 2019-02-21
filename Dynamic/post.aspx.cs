@@ -911,6 +911,19 @@ namespace Dynamic
         }
 
         [WebMethod]
+        public static string GetHTLServiceDetailCustomer(string id)
+        {
+            try
+            {
+                return SystemGlobals.DataBase.ExecuteSQL("select CurrencyID from htlGuestTypeInfo where GuestTypeID = N'" + id + "'").Tables[0].Rows[0][0].ToString();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [WebMethod]
         public static bool SaveHTLServiceDetailInfo(int type, string id, string service, string guest, string currency, decimal price)
         {
             try
@@ -959,6 +972,34 @@ namespace Dynamic
             {
                 string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
                 return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_LifeTimeInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveHTLRoomPriceInfo(string passvalue)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><passvalue>" + passvalue + "</passvalue></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_RoomPriceInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHTLRoomPriceInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_RoomPriceInfo_DEL", XML);
             }
             catch (Exception ex)
             {
