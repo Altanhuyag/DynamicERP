@@ -52,7 +52,7 @@ BEGIN
 	END
 	ELSE
 		UPDATE hrmLocationCodeInfo
-		SET @LocationCodeName=@LocationCodeName,IsEnabled=@IsEnabled
+		SET LocationCodeName=@LocationCodeName,IsEnabled=@IsEnabled
 		WHERE LocationCodePkID=@LocationCodePkID
 		
 	select @LocationCodePkID as LocationCodePkID
