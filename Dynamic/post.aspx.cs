@@ -27,6 +27,7 @@ namespace Dynamic
             public string IsValid { get; set; }
             public string Password { get; set; }
             public string CreatedProgID { get; set; }
+            public string EmployeeInfoPkID { get; set; }
 
         }
 
@@ -42,6 +43,26 @@ namespace Dynamic
             Roles.UserName = dt.Rows[0]["UserName"].ToString();
             Roles.IsValid = dt.Rows[0]["IsValid"].ToString();
             Roles.CreatedProgID = dt.Rows[0]["CreatedProgID"].ToString();
+            Roles.EmployeeInfoPkID = dt.Rows[0]["EmployeeInfoPkID"].ToString();
+            Roles.Password = SystemGlobals.decrypt(dt.Rows[0]["Password"].ToString());
+
+            return Roles;
+        }
+
+
+        [WebMethod]
+        public static UserInfo GetUserInfoSMM(string UserPkID)
+        {
+            UserInfo Roles = new UserInfo();
+            DataTable dt = SystemGlobals.DataBase.ExecuteSQL("select * from smmUserInfo  where UserPkID='" + UserPkID + "'").Tables[0];
+
+            Roles.UserGroupID = "";
+            Roles.UserPkID = dt.Rows[0]["UserPkID"].ToString();
+            Roles.UserID = dt.Rows[0]["UserID"].ToString();
+            Roles.UserName = dt.Rows[0]["UserName"].ToString();
+            Roles.IsValid = dt.Rows[0]["IsValid"].ToString();
+            Roles.CreatedProgID = dt.Rows[0]["CreatedProgID"].ToString();
+            Roles.EmployeeInfoPkID = dt.Rows[0]["EmployeeInfoPkID"].ToString();
             Roles.Password = SystemGlobals.decrypt(dt.Rows[0]["Password"].ToString());
 
             return Roles;
@@ -116,6 +137,21 @@ namespace Dynamic
             }
         }
 
+        [WebMethod]
+        public static string DeleteUserInfoSMM(string UserPkID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><UserPkID>" + UserPkID + "</UserPkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spsmm_UserInfo_WEB_DEL", XML);
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
         //Start UserGroup
         [WebMethod]
         public static string PostUserGroupInfo(string Adding, string UserGroupID, string UserGroupName,
@@ -136,7 +172,7 @@ namespace Dynamic
                     "<CheckListDelete>" + CheckListDelete + "</CheckListDelete>" +
 
                     "</BusinessObject></NewDataSet>";
-                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserGroup_UPD", XML).Tables[0];
+                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserGroup_WEB_UPD", XML).Tables[0];
                 return dt.Rows[0]["UserGroupID"].ToString();
             }
             catch (Exception ex)
@@ -146,13 +182,29 @@ namespace Dynamic
         }
 
         [WebMethod]
-        public static string PostUserInfo(string Adding, string UserPkID, string UserGroupID, string UserName, string UserID, string Password, string IsValid, string ProgID)
+        public static string PostUserInfo(string Adding, string UserPkID, string UserGroupID, string UserName, string UserID, string Password, string IsValid, string ProgID,string EmployeeInfoPkID)
         {
             try
             {
                 Password = SystemGlobals.encrypt(Password);
-                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><UserPkID>" + UserPkID + "</UserPkID><UserID>" + UserID + "</UserID><UserGroupID>" + UserGroupID + "</UserGroupID><Password>" + Password + "</Password><UserName>" + UserName + "</UserName><IsValid>" + IsValid + "</IsValid><CreatedProgID>" + ProgID + "</CreatedProgID></BusinessObject></NewDataSet>";
+                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><UserPkID>" + UserPkID + "</UserPkID><UserID>" + UserID + "</UserID><UserGroupID>" + UserGroupID + "</UserGroupID><Password>" + Password + "</Password><UserName>" + UserName + "</UserName><IsValid>" + IsValid + "</IsValid><EmployeeInfoPkID>"+ EmployeeInfoPkID + "</EmployeeInfoPkID><CreatedProgID>" + ProgID + "</CreatedProgID></BusinessObject></NewDataSet>";
                 DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserInfo_UPD", XML).Tables[0];
+                return dt.Rows[0]["UserPkID"].ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string PostUserInfo(string Adding, string UserPkID, string UserName, string UserID, string Password, string IsValid, string ProgID, string EmployeeInfoPkID)
+        {
+            try
+            {
+                Password = SystemGlobals.encrypt(Password);
+                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><UserPkID>" + UserPkID + "</UserPkID><UserID>" + UserID + "</UserID><Password>" + Password + "</Password><UserName>" + UserName + "</UserName><IsValid>" + IsValid + "</IsValid><EmployeeInfoPkID>" + EmployeeInfoPkID + "</EmployeeInfoPkID><CreatedProgID>" + ProgID + "</CreatedProgID></BusinessObject></NewDataSet>";
+                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserInfo_WEB_UPD", XML).Tables[0];
                 return dt.Rows[0]["UserPkID"].ToString();
             }
             catch (Exception ex)
@@ -791,5 +843,89 @@ namespace Dynamic
                 return null;
             }
         }
+
+        [WebMethod]
+        public static List<ListItem> GetProgUserGroup(string ProgID)
+        {
+            List<ListItem> customers = new List<ListItem>();
+            DataTable dt = SystemGlobals.DataBase.ExecuteSQL(@"select * from smmUserGroup where ProgID='" + ProgID + "' ").Tables[0];
+            foreach (DataRow rw in dt.Rows)
+            {
+                customers.Add(new ListItem
+                {
+                    Value = rw["UserGroupID"].ToString(),
+                    Text = rw["UserGroupName"].ToString()
+                });
+            }
+            //var jsonSerialiser = new JavaScriptSerializer();
+            //var json = jsonSerialiser.Serialize(customers);
+            return customers;
+        }
+
+        [WebMethod]
+        public static string GetProgramDetailList(string UserPkID)
+        {
+            try
+            {
+                string innerHTML = "";              
+                DataTable dtRoomInfo = SystemGlobals.DataBase.ExecuteSQL(@"select A.*,B.ValueStr1 ProgName,UG.UserGroupName from smmUserProgInfo A
+                                                                            inner join (select * from smmConstants where ConstType='smmProg') B on A.ModuleID=B.ConstKey
+                                                                            inner join smmUserGroup UG on A.UserGroupID = UG.UserGroupID and A.ModuleID = UG.ProgID where A.UserPkID='" + UserPkID+"'").Tables[0];
+                foreach (DataRow rw in dtRoomInfo.Rows)
+                {
+                    innerHTML = innerHTML + "<tr class='odd'><td>"+rw["ProgName"].ToString()+"</td><td>"+rw["UserGroupName"].ToString()+ "</td><td><button type='button' id='deleteRowProgram' data-id='" + rw["UserPkID"].ToString()+","+rw["ModuleID"].ToString()+ "' class='btn btn-rounded btn-danger deleteRowProgram' onclick='deleteProgram(this);'>Устгах</button></td></td></tr>";
+                }
+                return innerHTML;
+            }
+            catch (Exception ex)
+            {
+                return "Дараахи алдаа гарсан байна:"+ex.Message.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string DeleteProgramDetail(string UserPkID,string ProgID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><UserPkID>" + UserPkID + "</UserPkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteSQL("delete from smmUserProgInfo where UserPkID='"+UserPkID+"' and ModuleID='"+ProgID+"'");
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string PostProgramDetail(string Adding, string UserPkID, string UserGroupID, string ProgID)
+        {
+            try
+            {               
+                SystemGlobals.DataBase.ExecuteSQL("insert into smmUserProgInfo(UserPkID,ModuleID,UserGroupID) values(N'"+UserPkID+"',N'"+ProgID+"',N'"+UserGroupID+"')");
+                return "Амжилттай хадгаллаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string DeleteUserGroupInfo(string UserGroupID)
+        {
+            try
+            {
+               // string XML = "<NewDataSet><BusinessObject><UserPkID>" + UserPkID + "</UserPkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteSQL("delete from smmUserGroup where UserGroupID='" + UserGroupID + "'");
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
     }
 }

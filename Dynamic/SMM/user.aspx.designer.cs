@@ -10,7 +10,7 @@
 namespace Dynamic {
     
     
-    public partial class user {
+    public partial class userSMM {
         
         /// <summary>
         /// txtSearchText control.
@@ -49,15 +49,6 @@ namespace Dynamic {
         protected global::System.Web.UI.UpdatePanel panel1;
         
         /// <summary>
-        /// cmbUserGroup control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cmbUserGroup;
-        
-        /// <summary>
         /// cmbProgID control.
         /// </summary>
         /// <remarks>
@@ -67,6 +58,15 @@ namespace Dynamic {
         protected global::System.Web.UI.WebControls.DropDownList cmbProgID;
         
         /// <summary>
+        /// cmbEmployeeInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cmbEmployeeInfo;
+        
+        /// <summary>
         /// Label1 control.
         /// </summary>
         /// <remarks>
@@ -74,5 +74,32 @@ namespace Dynamic {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label Label1;
+        
+        /// <summary>
+        /// cmbProgID1 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cmbProgID1;
+        
+        /// <summary>
+        /// cmbUserGroup control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cmbUserGroup;
+        
+        /// <summary>
+        /// Label2 control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label Label2;
     }
 }

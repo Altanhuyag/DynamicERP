@@ -10,7 +10,7 @@
 namespace Dynamic {
     
     
-    public partial class user {
+    public partial class table {
         
         /// <summary>
         /// txtSearchText control.
@@ -49,22 +49,31 @@ namespace Dynamic {
         protected global::System.Web.UI.UpdatePanel panel1;
         
         /// <summary>
-        /// cmbUserGroup control.
+        /// cmbRestaurant control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cmbUserGroup;
+        protected global::System.Web.UI.WebControls.DropDownList cmbRestaurant;
         
         /// <summary>
-        /// cmbProgID control.
+        /// cmbCategory control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.DropDownList cmbProgID;
+        protected global::System.Web.UI.WebControls.DropDownList cmbCategory;
+        
+        /// <summary>
+        /// cmbItem control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cmbItem;
         
         /// <summary>
         /// Label1 control.

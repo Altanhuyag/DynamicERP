@@ -10,7 +10,7 @@
 namespace Dynamic {
     
     
-    public partial class user {
+    public partial class userHRM {
         
         /// <summary>
         /// txtSearchText control.
@@ -65,6 +65,15 @@ namespace Dynamic {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList cmbProgID;
+        
+        /// <summary>
+        /// cmbEmployeeInfo control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.DropDownList cmbEmployeeInfo;
         
         /// <summary>
         /// Label1 control.

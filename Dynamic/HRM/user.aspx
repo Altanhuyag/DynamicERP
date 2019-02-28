@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="user.aspx.cs" Inherits="Dynamic.user" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="user.aspx.cs" Inherits="Dynamic.userHRM" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">    
 
     <section class="main--content">    
@@ -139,6 +139,10 @@
                                                 <h5>Хэрэглэгчийн нэр</h5>
                                                 <input id="txtUserName" class="form-control txtUserName" type="text" />
                                             </div>
+                                            <div class="col-sm-6">
+                                                <h5>Хүний нөөцтэй холбох</h5>
+                                                <asp:DropDownList ID="cmbEmployeeInfo" CssClass="form-control cmbEmployeeInfo" runat="server"></asp:DropDownList>
+                                            </div>
                                             <div class="col-md-6">
                                                <label>  
                                                    <br>
@@ -181,7 +185,7 @@
         var ProgID = '<%=Session["ProgID"].ToString()%>'
         $("#UserPkID").val(txtID);
         $.ajax({
-            url: 'post.aspx/GetUserInfo',
+            url: '../post.aspx/GetUserInfo',
             type: 'POST',
             data: JSON.stringify({
                 UserPkID: txtID,
@@ -201,7 +205,9 @@
                 $("#txtUserID").val(response.d.UserID);
                 $("#txtPassword").val(response.d.Password);
                 $(".cmbProgID").val(response.d.CreatedProgID);
-                if (response.d.IsValid = "0")
+                $(".cmbEmployeeInfo").val(response.d.EmployeeInfoPkID);
+                
+                if (response.d.IsValid = "1")
                     $("#chkIsValid").removeAttr('checked');
                 else
                     $("#chkIsValid").prop('checked',true);
@@ -220,14 +226,14 @@
         var UserID = $("#txtUserID").val();
         var Password = $("#txtPassword").val();
         var UserGroupID = $(".cmbUserGroup").val();        
+        var EmployeeInfoPkID = $(".cmbEmployeeInfo").val();   
         var ProgID = $(".cmbProgID").val();
         var UserGroupName = $(".cmbUserGroup").children("option").filter(":selected").text();
         var UserPkID = $("#UserPkID").val();
-        var IsValid = "0";
-        var EmployeeInfoPkID = '';
+        var IsValid = "1";
 
         if ($('#chkIsValid').is(":checked") == true)
-            IsValid = "1";
+            IsValid = "0";
         if (UserPkID!="")
             Adding=1;
 
@@ -238,7 +244,7 @@
             $('.label1').text("");
 
             $.ajax({
-                url: 'post.aspx/PostUserInfo',
+                url: '../post.aspx/PostUserInfo',
                 type: 'POST',
                 data: JSON.stringify({
                     Adding:Adding,
@@ -250,6 +256,7 @@
                     IsValid: IsValid,
                     ProgID: ProgID,
                     EmployeeInfoPkID: EmployeeInfoPkID,
+
                 }),
                 dataType: 'json',
                 contentType: 'application/json',
@@ -290,7 +297,7 @@
         $('.label1').text("");
 
         $.ajax({
-            url: 'post.aspx/DeleteUserInfo',
+            url: '../post.aspx/DeleteUserInfo',
             type: 'POST',
             data: JSON.stringify({
                 UserPkID: txtID,

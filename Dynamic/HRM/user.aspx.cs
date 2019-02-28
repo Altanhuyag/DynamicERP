@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 namespace Dynamic
 {
-    public partial class user : System.Web.UI.Page
+    public partial class userHRM : System.Web.UI.Page
     {
         public DataTable dtSearch = null;
         protected void Page_Load(object sender, EventArgs e)
@@ -17,7 +17,7 @@ namespace Dynamic
             
             if (Session["UserPkID"] == null)
             {
-                Response.Redirect("login.aspx");
+                Response.Redirect("../login.aspx");
                 return;
             }
 
@@ -26,7 +26,13 @@ namespace Dynamic
             cmbUserGroup.DataTextField = "UserGroupName";
             cmbUserGroup.DataValueField = "UserGroupID";
             cmbUserGroup.DataBind();
-            
+
+            dt = SystemGlobals.DataBase.ExecuteSQL(@"select '' as EmployeeInfoPkID,N'--Ажилтанг сонго--' FullName union all select EmployeeInfoPkID,LastName + N' овогтой ' + FirstName as FullName from hrmEmployeeInfo where Status  not in (2,3,5) ").Tables[0];
+            cmbEmployeeInfo.DataSource = dt;
+            cmbEmployeeInfo.DataTextField = "FullName";
+            cmbEmployeeInfo.DataValueField = "EmployeeInfoPkID";
+            cmbEmployeeInfo.DataBind();
+
             if (Session["ProgID"]==null)
                 dt = SystemGlobals.DataBase.ExecuteSQL("select * from smmConstants where ConstType='smmProg'").Tables[0];
             else
