@@ -67,36 +67,6 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\css - Old\bootstrap.min.css" />
-    <Content Include="assets\css - Old\datatables.min.css" />
-    <Content Include="assets\css - Old\dropzone.min.css" />
-    <Content Include="assets\css - Old\fontawesome-all.min.css" />
-    <Content Include="assets\css - Old\fullcalendar.min.css" />
-    <Content Include="assets\css - Old\horizontal-timeline.min.css" />
-    <Content Include="assets\css - Old\images\sort_asc.png" />
-    <Content Include="assets\css - Old\images\sort_asc_disabled.png" />
-    <Content Include="assets\css - Old\images\sort_both.png" />
-    <Content Include="assets\css - Old\images\sort_desc.png" />
-    <Content Include="assets\css - Old\images\sort_desc_disabled.png" />
-    <Content Include="assets\css - Old\images\ui-icons_444444_256x240.png" />
-    <Content Include="assets\css - Old\images\ui-icons_555555_256x240.png" />
-    <Content Include="assets\css - Old\images\ui-icons_777620_256x240.png" />
-    <Content Include="assets\css - Old\images\ui-icons_777777_256x240.png" />
-    <Content Include="assets\css - Old\images\ui-icons_cc0000_256x240.png" />
-    <Content Include="assets\css - Old\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="assets\css - Old\ion.rangeSlider.min.css" />
-    <Content Include="assets\css - Old\ion.rangeSlider.skinFlat.min.css" />
-    <Content Include="assets\css - Old\jquery-jvectormap.min.css" />
-    <Content Include="assets\css - Old\jquery-ui.min.css" />
-    <Content Include="assets\css - Old\morris.min.css" />
-    <Content Include="assets\css - Old\perfect-scrollbar.min.css" />
-    <Content Include="assets\css - Old\select2.min.css" />
-    <Content Include="assets\css - Old\style.css" />
-    <Content Include="assets\css - Old\summernote-bs4-overrides.css" />
-    <Content Include="assets\css - Old\summernote-bs4.min.css" />
-    <Content Include="assets\css - Old\sweetalert-overrides.css" />
-    <Content Include="assets\css - Old\sweetalert.min.css" />
-    <Content Include="assets\css - Old\weather-icons.min.css" />
     <Content Include="assets\css\bootstrap-grid.css" />
     <Content Include="assets\css\bootstrap-grid.min.css" />
     <Content Include="assets\css\bootstrap-reboot.css" />
@@ -174,36 +144,6 @@
     <Content Include="assets\img\sweet-alert\example-09.jpg" />
     <Content Include="assets\img\sweet-alert\example-10.jpg" />
     <Content Include="assets\img\sweet-alert\example-11.jpg" />
-    <Content Include="assets\js - Old\bootstrap.bundle.min.js" />
-    <Content Include="assets\js - Old\datatables.min.js" />
-    <Content Include="assets\js - Old\dropzone.min.js" />
-    <Content Include="assets\js - Old\fullcalendar.min.js" />
-    <Content Include="assets\js - Old\horizontal-timeline.min.js" />
-    <Content Include="assets\js - Old\ion.rangeSlider.min.js" />
-    <Content Include="assets\js - Old\jquery-jvectormap-world-mill.min.js" />
-    <Content Include="assets\js - Old\jquery-jvectormap.min.js" />
-    <Content Include="assets\js - Old\jquery-ui.min.js" />
-    <Content Include="assets\js - Old\jquery.countdown-init.js" />
-    <Content Include="assets\js - Old\jquery.countdown.min.js" />
-    <Content Include="assets\js - Old\jquery.min.js" />
-    <Content Include="assets\js - Old\jquery.sparkline.min.js" />
-    <Content Include="assets\js - Old\jquery.steps.min.js" />
-    <Content Include="assets\js - Old\jquery.validate.min.js" />
-    <Content Include="assets\js - Old\main.js" />
-    <Content Include="assets\js - Old\moment.min.js" />
-    <Content Include="assets\js - Old\morris.min.js" />
-    <Content Include="assets\js - Old\page\calendar.js" />
-    <Content Include="assets\js - Old\page\chat.js" />
-    <Content Include="assets\js - Old\page\dropzone.js" />
-    <Content Include="assets\js - Old\page\notes.js" />
-    <Content Include="assets\js - Old\page\todo.js" />
-    <Content Include="assets\js - Old\perfect-scrollbar.min.js" />
-    <Content Include="assets\js - Old\raphael.min.js" />
-    <Content Include="assets\js - Old\select2.min.js" />
-    <Content Include="assets\js - Old\summernote-bs4-init.js" />
-    <Content Include="assets\js - Old\summernote-bs4.min.js" />
-    <Content Include="assets\js - Old\sweetalert-init.js" />
-    <Content Include="assets\js - Old\sweetalert.min.js" />
     <Content Include="assets\js\bootstrap.bundle.js" />
     <Content Include="assets\js\bootstrap.bundle.min.js" />
     <Content Include="assets\js\bootstrap.js" />
@@ -240,6 +180,57 @@
     <Content Include="assets\webfonts\fa-brands-400.svg" />
     <Content Include="assets\webfonts\fa-regular-400.svg" />
     <Content Include="assets\webfonts\fa-solid-900.svg" />
+    <Content Include="HTL\currencyinfo.aspx" />
+    <Content Include="HTL\faction.aspx" />
+    <Content Include="HTL\guesttypeinfo.aspx" />
+    <Content Include="HRM\advertenceinfo.aspx" />
+    <Content Include="HRM\advertencetypeinfo.aspx" />
+    <Content Include="HRM\awardtypeinfo.aspx" />
+    <Content Include="HRM\breachinfo.aspx" />
+    <Content Include="HRM\deduceinfo.aspx" />
+    <Content Include="HRM\degree.aspx" />
+    <Content Include="HRM\degreeinfo.aspx" />
+    <Content Include="HRM\documentinfo.aspx" />
+    <Content Include="HRM\educationinfo.aspx" />
+    <Content Include="HRM\eventInfo.aspx" />
+    <Content Include="HRM\experienceinfo.aspx" />
+    <Content Include="HRM\expertinfo.aspx" />
+    <Content Include="HRM\extrarequirement.aspx" />
+    <Content Include="HRM\familymemberinfo.aspx" />
+    <Content Include="HRM\jobfugureinfo.aspx" />
+    <Content Include="HRM\jobtimetableinfo.aspx" />
+    <Content Include="HRM\languageinfo.aspx" />
+    <Content Include="HRM\locationcodeinfo.aspx" />
+    <Content Include="HRM\officetoolsinfo.aspx" />
+    <Content Include="HRM\positiongroup.aspx" />
+    <Content Include="HRM\positioninfo.aspx" />
+    <Content Include="HRM\professioninfo.aspx" />
+    <Content Include="HRM\responseinfo.aspx" />
+    <Content Include="HRM\skilltypeinfo.aspx" />
+    <Content Include="HRM\user.aspx" />
+    <Content Include="HRM\yearinfo.aspx" />
+    <Content Include="INT\404.html" />
+    <Content Include="INT\index.aspx" />
+    <Content Include="HTL\lifetimeinfo.aspx" />
+    <Content Include="HTL\minibartype.aspx" />
+    <Content Include="pos.aspx" />
+    <Content Include="HTL\roomgroup.aspx" />
+    <Content Include="HTL\roominfo.aspx" />
+    <Content Include="HTL\roompriceinfo.aspx" />
+    <Content Include="HTL\roomtype.aspx" />
+    <Content Include="HTL\seasoninfo.aspx" />
+    <Content Include="HTL\servicedetailinfo.aspx" />
+    <Content Include="HTL\serviceinfo.aspx" />
+    <Content Include="SMM\index.aspx" />
+    <Content Include="SMM\user.aspx" />
+    <Content Include="SMM\usergroup.aspx" />
+    <Content Include="SMM\usergroup_new.aspx" />
+    <Content Include="RES\unit.aspx" />
+    <Content Include="RES\product.aspx" />
+    <Content Include="RES\menu.aspx" />
+    <Content Include="RES\restaurant.aspx" />
+    <Content Include="RES\table.aspx" />
+    <Content Include="RES\cat.aspx" />
     <Content Include="Global.asax" />
     <Content Include="login.aspx" />
     <Content Include="logout.aspx" />
@@ -249,10 +240,362 @@
     <Content Include="usergroup.aspx" />
     <Content Include="usergroup_new.aspx" />
     <Content Include="Web.config" />
-    <Content Include="WebForm1.aspx" />
     <Content Include="index.aspx" />
+    <Content Include="RES\buffet.aspx" />
+    <Content Include="RES\ordertype.aspx" />
+    <Content Include="RES\product-new.aspx" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="HTL\currencyinfo.aspx.cs">
+      <DependentUpon>currencyinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\currencyinfo.aspx.designer.cs">
+      <DependentUpon>currencyinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HTL\Faction.aspx.cs">
+      <DependentUpon>faction.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\faction.aspx.designer.cs">
+      <DependentUpon>faction.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HTL\guesttypeinfo.aspx.cs">
+      <DependentUpon>guesttypeinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\guesttypeinfo.aspx.designer.cs">
+      <DependentUpon>guesttypeinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\advertenceinfo.aspx.cs">
+      <DependentUpon>advertenceinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\advertenceinfo.aspx.designer.cs">
+      <DependentUpon>advertenceinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\advertencetypeinfo.aspx.cs">
+      <DependentUpon>advertencetypeinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\advertencetypeinfo.aspx.designer.cs">
+      <DependentUpon>advertencetypeinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\awardtypeinfo.aspx.cs">
+      <DependentUpon>awardtypeinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\awardtypeinfo.aspx.designer.cs">
+      <DependentUpon>awardtypeinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\breachinfo.aspx.cs">
+      <DependentUpon>breachinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\breachinfo.aspx.designer.cs">
+      <DependentUpon>breachinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\deduceinfo.aspx.cs">
+      <DependentUpon>deduceinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\deduceinfo.aspx.designer.cs">
+      <DependentUpon>deduceinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\degree.aspx.cs">
+      <DependentUpon>degree.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\degree.aspx.designer.cs">
+      <DependentUpon>degree.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\degreeinfo.aspx.cs">
+      <DependentUpon>degreeinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\degreeinfo.aspx.designer.cs">
+      <DependentUpon>degreeinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\documentinfo.aspx.cs">
+      <DependentUpon>documentinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\documentinfo.aspx.designer.cs">
+      <DependentUpon>documentinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\educationinfo.aspx.cs">
+      <DependentUpon>educationinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\educationinfo.aspx.designer.cs">
+      <DependentUpon>educationinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\eventInfo.aspx.cs">
+      <DependentUpon>eventInfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\eventinfo.aspx.designer.cs">
+      <DependentUpon>eventInfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\experienceinfo.aspx.cs">
+      <DependentUpon>experienceinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\experienceinfo.aspx.designer.cs">
+      <DependentUpon>experienceinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\expertinfo.aspx.cs">
+      <DependentUpon>expertinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\expertinfo.aspx.designer.cs">
+      <DependentUpon>expertinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\extrarequirement.aspx.cs">
+      <DependentUpon>extrarequirement.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\extrarequirement.aspx.designer.cs">
+      <DependentUpon>extrarequirement.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\familymemberinfo.aspx.cs">
+      <DependentUpon>familymemberinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\familymemberinfo.aspx.designer.cs">
+      <DependentUpon>familymemberinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\jobfugureinfo.aspx.cs">
+      <DependentUpon>jobfugureinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\jobfugureinfo.aspx.designer.cs">
+      <DependentUpon>jobfugureinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\jobtimetableinfo.aspx.cs">
+      <DependentUpon>jobtimetableinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\jobtimetableinfo.aspx.designer.cs">
+      <DependentUpon>jobtimetableinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\languageinfo.aspx.cs">
+      <DependentUpon>languageinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\languageinfo.aspx.designer.cs">
+      <DependentUpon>languageinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\locationcodeinfo.aspx.cs">
+      <DependentUpon>locationcodeinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\locationcodeinfo.aspx.designer.cs">
+      <DependentUpon>locationcodeinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\officetoolsinfo.aspx.cs">
+      <DependentUpon>officetoolsinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\officetoolsinfo.aspx.designer.cs">
+      <DependentUpon>officetoolsinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\positiongroup.aspx.cs">
+      <DependentUpon>positiongroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\positiongroup.aspx.designer.cs">
+      <DependentUpon>positiongroup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\positioninfo.aspx.cs">
+      <DependentUpon>positioninfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\positioninfo.aspx.designer.cs">
+      <DependentUpon>positioninfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\professioninfo.aspx.cs">
+      <DependentUpon>professioninfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\professioninfo.aspx.designer.cs">
+      <DependentUpon>professioninfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\responseinfo.aspx.cs">
+      <DependentUpon>responseinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\responseinfo.aspx.designer.cs">
+      <DependentUpon>responseinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\skilltypeinfo.aspx.cs">
+      <DependentUpon>skilltypeinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\skilltypeinfo.aspx.designer.cs">
+      <DependentUpon>skilltypeinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\user.aspx.cs">
+      <DependentUpon>user.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\user.aspx.designer.cs">
+      <DependentUpon>user.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HRM\yearinfo.aspx.cs">
+      <DependentUpon>yearinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HRM\yearinfo.aspx.designer.cs">
+      <DependentUpon>yearinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="INT\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="INT\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HTL\lifetimeinfo.aspx.cs">
+      <DependentUpon>lifetimeinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\lifetimeinfo.aspx.designer.cs">
+      <DependentUpon>lifetimeinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HTL\minibartype.aspx.cs">
+      <DependentUpon>minibartype.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\minibartype.aspx.designer.cs">
+      <DependentUpon>minibartype.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="pos.aspx.cs">
+      <DependentUpon>pos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="pos.aspx.designer.cs">
+      <DependentUpon>pos.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HTL\roomgroup.aspx.cs">
+      <DependentUpon>roomgroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\roomgroup.aspx.designer.cs">
+      <DependentUpon>roomgroup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HTL\roominfo.aspx.cs">
+      <DependentUpon>roominfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\roominfo.aspx.designer.cs">
+      <DependentUpon>roominfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HTL\roompriceinfo.aspx.cs">
+      <DependentUpon>roompriceinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\roompriceinfo.aspx.designer.cs">
+      <DependentUpon>roompriceinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HTL\roomtype.aspx.cs">
+      <DependentUpon>roomtype.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\roomtype.aspx.designer.cs">
+      <DependentUpon>roomtype.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HTL\seasoninfo.aspx.cs">
+      <DependentUpon>seasoninfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\seasoninfo.aspx.designer.cs">
+      <DependentUpon>seasoninfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HTL\servicedetailinfo.aspx.cs">
+      <DependentUpon>servicedetailinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\servicedetailinfo.aspx.designer.cs">
+      <DependentUpon>servicedetailinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="HTL\serviceinfo.aspx.cs">
+      <DependentUpon>serviceinfo.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="HTL\serviceinfo.aspx.designer.cs">
+      <DependentUpon>serviceinfo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SMM\index.aspx.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SMM\index.aspx.designer.cs">
+      <DependentUpon>index.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SMM\user.aspx.cs">
+      <DependentUpon>user.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SMM\user.aspx.designer.cs">
+      <DependentUpon>user.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SMM\usergroup.aspx.cs">
+      <DependentUpon>usergroup.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SMM\usergroup.aspx.designer.cs">
+      <DependentUpon>usergroup.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="SMM\usergroup_new.aspx.cs">
+      <DependentUpon>usergroup_new.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="SMM\usergroup_new.aspx.designer.cs">
+      <DependentUpon>usergroup_new.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RES\unit.aspx.cs">
+      <DependentUpon>unit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RES\unit.aspx.designer.cs">
+      <DependentUpon>unit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RES\product.aspx.cs">
+      <DependentUpon>product.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RES\product.aspx.designer.cs">
+      <DependentUpon>product.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RES\menu.aspx.cs">
+      <DependentUpon>menu.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RES\menu.aspx.designer.cs">
+      <DependentUpon>menu.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RES\restaurant.aspx.cs">
+      <DependentUpon>restaurant.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RES\restaurant.aspx.designer.cs">
+      <DependentUpon>restaurant.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RES\table.aspx.cs">
+      <DependentUpon>table.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RES\table.aspx.designer.cs">
+      <DependentUpon>table.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RES\cat.aspx.cs">
+      <DependentUpon>cat.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RES\cat.aspx.designer.cs">
+      <DependentUpon>cat.aspx</DependentUpon>
+    </Compile>
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -297,6 +640,9 @@
     <Compile Include="Site.Master.designer.cs">
       <DependentUpon>Site.Master</DependentUpon>
     </Compile>
+    <Compile Include="uploadfile.ashx.cs">
+      <DependentUpon>uploadfile.ashx</DependentUpon>
+    </Compile>
     <Compile Include="user.aspx.cs">
       <DependentUpon>user.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -318,13 +664,6 @@
     <Compile Include="usergroup_new.aspx.designer.cs">
       <DependentUpon>usergroup_new.aspx</DependentUpon>
     </Compile>
-    <Compile Include="WebForm1.aspx.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-      <SubType>ASPXCodeBehind</SubType>
-    </Compile>
-    <Compile Include="WebForm1.aspx.designer.cs">
-      <DependentUpon>WebForm1.aspx</DependentUpon>
-    </Compile>
     <Compile Include="index.aspx.cs">
       <DependentUpon>index.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -332,12 +671,29 @@
     <Compile Include="index.aspx.designer.cs">
       <DependentUpon>index.aspx</DependentUpon>
     </Compile>
+    <Compile Include="RES\buffet.aspx.cs">
+      <DependentUpon>buffet.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RES\buffet.aspx.designer.cs">
+      <DependentUpon>buffet.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RES\ordertype.aspx.cs">
+      <DependentUpon>ordertype.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RES\ordertype.aspx.designer.cs">
+      <DependentUpon>ordertype.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="RES\product-new.aspx.cs">
+      <DependentUpon>product-new.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="RES\product-new.aspx.designer.cs">
+      <DependentUpon>product-new.aspx</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="assets\css - Old\font\summernote-1.eot" />
-    <Content Include="assets\css - Old\font\summernote.eot" />
-    <Content Include="assets\css - Old\font\summernote.ttf" />
-    <Content Include="assets\css - Old\font\summernote.woff" />
     <Content Include="assets\css\bootstrap-grid.css.map" />
     <Content Include="assets\css\bootstrap-grid.min.css.map" />
     <Content Include="assets\css\bootstrap-reboot.css.map" />
@@ -374,6 +730,7 @@
     <Content Include="assets\webfonts\fa-solid-900.woff2" />
     <None Include="packages.config" />
     <Content Include="Site.Master" />
+    <Content Include="uploadfile.ashx" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -381,6 +738,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
+  <ItemGroup />
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
