@@ -1618,7 +1618,7 @@ tr:first-child > td > .fc-day-grid-event {
 }
 
 .dropdown-item {
-    color: #696969;
+    color: #fd7e14;
     font-size: 14px;
     line-height: 24px
 }
@@ -4140,7 +4140,7 @@ tr:first-child > td > .fc-day-grid-event {
     }
 
     .records--list .dataTable {
-        padding: 0 30px;
+        padding: 0 15px;
         overflow: auto
     }
 
@@ -5379,7 +5379,7 @@ li.list-group-item:first-child {
 
     .comments-panel > ul > li {
         position: relative;
-        padding: 12px 20px 20px 0;
+        padding: 8px 10px 11px 0;
         z-index: 0
     }
 

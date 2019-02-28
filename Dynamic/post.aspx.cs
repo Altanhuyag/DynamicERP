@@ -1714,7 +1714,7 @@ namespace Dynamic
                 return false;
             }
         }
-        }
+        
 
         [WebMethod]
         public static List<ListItem> GetProgUserGroup(string ProgID)

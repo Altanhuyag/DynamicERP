@@ -29,6 +29,9 @@
     <link rel="stylesheet" href="<%=ResolveUrl("assets\\css\\fullcalendar.min.css") %>">
     <link rel="stylesheet" href="<%=ResolveUrl("assets\\css\\style.css") %>">
 
+    <link rel="stylesheet" href="<%=ResolveUrl("assets\\css\\sweetalert.min.css") %>">
+    <link rel="stylesheet" href="<%=ResolveUrl("assets\\css\\sweetalert-overrides.css") %>">
+
     <script src="<%=ResolveUrl("assets\\js\\jquery.min.js") %>"></script>
    	<script src="<%=ResolveUrl("assets\\js\\jquery-ui.min.js") %>"></script>
     <script src="<%=ResolveUrl("assets\\js\\bootstrap.bundle.min.js") %>"></script>
@@ -46,6 +49,8 @@
 	<script src="<%=ResolveUrl("assets\\js\\ion.rangeSlider.min.js") %>"></script>
 	<script src="<%=ResolveUrl("assets\\js\\datatables.min.js") %>"></script>
     
+    <script src="<%=ResolveUrl("assets\\js\\sweetalert.min.js") %>"></script>
+    <script src="<%=ResolveUrl("assets\\js\\sweetalert-init.js") %>"></script>
 
 <body >
     <div class="wrapper">
