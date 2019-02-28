@@ -13,18 +13,18 @@ BEGIN
 	SET NOCOUNT ON
 	DECLARE @idoc				Int,
 			@Adding				TinyInt,
-			@YearPkID nvarchar(16),
-			@Year1 int,
-			@Year2 int
+			@YearPkID			nvarchar(16),
+			@Year1				nvarchar(16),
+			@Year2				int
 			
 	EXEC sp_xml_preparedocument @idoc OUTPUT, @XML
 
 	SELECT * INTO #tmp
 		FROM OPENXML (@idoc,'//BusinessObject',2)
 		WITH (  Adding				TinyInt,
-			YearPkID nvarchar(16),
-			Year1 int,
-			Year2 int
+				YearPkID			nvarchar(16),
+				Year1				nvarchar(16),
+				Year2				int
 			)
 	EXEC sp_xml_removedocument @idoc 	
 
@@ -35,9 +35,10 @@ BEGIN
 			@Year2 = Year2
 	FROM #tmp
 
-	IF @Adding=0 BEGIN
+	IF @Adding=0 
+	BEGIN
 
-		EXEC spsmm_LastSequence_SEL 'hrmYear', @YearPkID output
+		EXEC spsmm_LastSequence_SEL 'hrmYearInfo', @YearPkID output
 
 		INSERT INTO hrmYearInfo(
 				YearPkID ,
@@ -49,11 +50,12 @@ BEGIN
 				@Year2)	
 	END
 	ELSE
+	BEGIN
 		UPDATE hrmYearInfo
 		SET 
 			Year1=@Year1,
 			Year2=@Year2
-			
 		WHERE YearPkID=@YearPkID
+	END
 END
 GO
