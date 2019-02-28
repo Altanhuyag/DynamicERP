@@ -845,6 +845,878 @@ namespace Dynamic
         }
 
         [WebMethod]
+        public static bool SaveHRMYearInfo(int adding, string id, string Year1, int Year2)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><YearPkID>" + id + "</YearPkID><Year1>" + Year1 + "</Year1><Year2>" + Year2 + "</Year2></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_Year_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHRMYearInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><YearPkID>" + id + "</YearPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_Year_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveHRMeventinfo(int adding, string id, string eventinfo)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><EventInfoPkID>" + id + "</EventInfoPkID><EventInfoName>" + eventinfo + "</EventInfoName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_EventInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHRMeventinfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><EventInfoPkID>" + id + "</EventInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_EventInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMLocationCodeInfo(int adding, string id, string LocationCodeName, string IsEnabled)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><LocationCodePkID>" + id + "</LocationCodePkID><LocationCodeName>" + LocationCodeName + "</LocationCodeName><IsEnabled>" + IsEnabled + "</IsEnabled></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_LocationCodeInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHRMLocationCodeInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><LocationCodePkID>" + id + "</LocationCodePkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_LocationCodeInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMPositionGroup(int adding, string id, string PositionGroupName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><PositionGroupPkID>" + id + "</PositionGroupPkID><PositionGroupName>" + PositionGroupName + "</PositionGroupName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_PositionGroup_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMPositionGroup(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><PositionGroupPkID>" + id + "</PositionGroupPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_PositionGroup_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMPositionInfo(int adding, string id, string PositionName )
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><PositionPkID>" + id + "</PositionPkID><PositionName>" + PositionName + "</PositionName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_PositionInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMPositionInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><PositionPkID>" + id + "</PositionPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_PositionInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMProfessionInfo(int adding, string id, string ProfessionName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><ProfessionPkID>" + id + "</ProfessionPkID><ProfessionName>" + ProfessionName + "</ProfessionName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_ProfessionInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMProfessionInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><ProfessionPkID>" + id + "</ProfessionPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_ProgramInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMEducationInfo(int adding, string id, string EducationName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><EducationPkID>" + id + "</EducationPkID><EducationName>" + EducationName + "</EducationName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_EducationInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMEducationInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><EducationPkID>" + id + "</EducationPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_EducationInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMDegreeInfo(int adding, string id, string DegreeInfoName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><DegreeInfoPkID>" + id + "</DegreeInfoPkID><DegreeInfoName>" + DegreeInfoName + "</DegreeInfoName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_DegreeInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMDegreeInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><DegreeInfoPkID>" + id + "</DegreeInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_DegreeInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMAwardTypeInfo(int adding, string id, string AwardTypeInfoName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><AwardTypeInfoPkID>" + id + "</AwardTypeInfoPkID><AwardTypeInfoName>" + AwardTypeInfoName + "</AwardTypeInfoName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_AwardTypeInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMAwardTypeInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><AwardTypeInfoPkID>" + id + "</AwardTypeInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_AwardTypeInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMAdvertenceTypeInfo(int adding, string id, string AdvertenceTypeName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><AdvertenceTypeInfoPkID>" + id + "</AdvertenceTypeInfoPkID><AdvertenceTypeName>" + AdvertenceTypeName + "</AdvertenceTypeName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_AdvertenceTypeInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMAdvertenceTypeInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><AdvertenceTypeInfoPkID>" + id + "</AdvertenceTypeInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_AdvertenceTypeInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMAdvertenceInfo(int adding, string id, string AdvertenceName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><AdvertenceInfoPkID>" + id + "</AdvertenceInfoPkID><AdvertenceName>" + AdvertenceName + "</AdvertenceName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_AdvertenceInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMAdvertenceInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><AdvertenceInfoPkID>" + id + "</AdvertenceInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_AdvertenceInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMDegree(int adding, string id, string emppkid, string degpkid, string subject, string date)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><DegreePkID>" + id + "</DegreePkID><EmployeeInfoPkID>" + emppkid + "</EmployeeInfoPkID><DegreeInfoPkID>" + degpkid + "</DegreeInfoPkID><DegreeSubject>" + subject + "</DegreeSubject><DegreeDate>" + date + "</DegreeDate></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_Degree_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMDegree(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><DegreePkID>" + id + "</DegreePkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_Degree_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMBreachInfo(int adding, string id, string BreachName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><BreachPkID>" + id + "</BreachPkID><BreachName>" + BreachName + "</BreachName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_BreachInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMBreachInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><BreachPkID>" + id + "</BreachPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_BreachInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMLanguageInfo(int adding, string id, string LanguageName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><LanguagePkID>" + id + "</LanguagePkID><LanguageName>" + LanguageName + "</LanguageName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_LanguageInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMLanguageInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><LanguagePkID>" + id + "</LanguagePkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_LanguageInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMSkillTypeInfo(int adding, string id, string SkillTypeName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><SkillTypePkID>" + id + "</SkillTypePkID><SkillTypeName>" + SkillTypeName + "</SkillTypeName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_SkillTypeInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMSkillTypeInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><SkillTypePkID>" + id + "</SkillTypePkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_SkillTypeInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMDeduceInfo(int adding, string id, string DeduceInfoName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><DeduceInfoPkID>" + id + "</DeduceInfoPkID><DeduceInfoName>" + DeduceInfoName + "</DeduceInfoName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_DeduceInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMDeduceInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><DeduceInfoPkID>" + id + "</DeduceInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_DeduceInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMFamilyMemberInfo(int adding, string id, string FamilyMemberName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><FamilyMemberPkID>" + id + "</FamilyMemberPkID><FamilyMemberName>" + FamilyMemberName + "</FamilyMemberName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_FamilyMemberInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMFamilymemberInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><FamilyMemberPkID>" + id + "</FamilyMemberPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_FamilyMemberInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMExperienceInfo(int adding, string id, string ExperienceInfoName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><ExperienceInfoPkID>" + id + "</ExperienceInfoPkID><ExperienceInfoName>" + ExperienceInfoName + "</ExperienceInfoName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_ExperienceInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMExperienceInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><ExperienceInfoPkID>" + id + "</ExperienceInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_ExperienceInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMExtraRequirementInfo(int adding, string id, string ExtraRequirementName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><ExtraRequirementPkID>" + id + "</ExtraRequirementPkID><ExtraRequirementName>" + ExtraRequirementName + "</ExtraRequirementName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_ExtraRequirement_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMExtraRequirementInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><ExtraRequirementPkID>" + id + "</ExtraRequirementPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_ExtraRequirement_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMOfficeToolsInfo(int adding, string id, string OfficeToolsInfoName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><OfficeToolsInfoPkID>" + id + "</OfficeToolsInfoPkID><OfficeToolsInfoName>" + OfficeToolsInfoName + "</OfficeToolsInfoName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_OfficeToolsInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMOfficeToolsInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><OfficeToolsInfoPkID>" + id + "</OfficeToolsInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_OfficeToolsInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMExpertInfo(int adding, string id, string ExpertInfoName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><ExpertInfoPkID>" + id + "</ExpertInfoPkID><ExpertInfoName>" + ExpertInfoName + "</ExpertInfoName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_ExpertInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMExpertInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><ExpertInfoPkID>" + id + "</ExpertInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_ExpertInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMResponseInfo(int adding, string id, string ResponseInfoName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><ResponseInfoPkID>" + id + "</ResponseInfoPkID><ResponseInfoName>" + ResponseInfoName + "</ResponseInfoName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_ResponseInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMResponseInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><ResponseInfoPkID>" + id + "</ResponseInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_ResponseInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMDocumentInfo(int adding, string id, string DocumentInfoName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><DocumentInfoPkID>" + id + "</DocumentInfoPkID><DocumentInfoName>" + DocumentInfoName + "</DocumentInfoName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_DocumentInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMDocumentInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><DocumentInfoPkID>" + id + "</DocumentInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_DocumentInfo_DEL", XML);
+            }
+            catch (Exception )
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMJobFugureInfo(int adding, string id, string JobFugureInfoName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><JobFugureInfoPkID>" + id + "</JobFugureInfoPkID><JobFugureInfoName>" + JobFugureInfoName + "</JobFugureInfoName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_JobFugureInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMJobFugureInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><JobFugureInfoPkID>" + id + "</JobFugureInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_JobFugureInfo_DEL", XML);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool SaveHRMJobTimeTableInfo(int adding, string id, string JobTimeTableInfoName)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + adding + "</Adding><JobTimeTableInfoPkID>" + id + "</JobTimeTableInfoPkID><JobTimeTableInfoName>" + JobTimeTableInfoName + "</JobTimeTableInfoName></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_JobTimeTableInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        [WebMethod]
+        public static bool DeleteHRMJobTimeTableInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><JobTimeTableInfoPkID>" + id + "</JobTimeTableInfoPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphrm_JobTimeTableInfo_DEL", XML);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+     
+
+        [WebMethod]
+        public static bool SaveHTLServiceInfo(int type, string id, string name, string description, string ischange)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><type>" + type + "</type><id>" + id + "</id><name>" + name + "</name><description>" + description + "</description><ischange>" + ischange + "</ischange></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_ServiceInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHTLServiceInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_ServiceInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static string SaveACCCurrencyInfo(int type, string id, string name, string ismain)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><Adding>" + type + "</Adding><CurrencyID>" + id + "</CurrencyID><CurrencyName>" + name + "</CurrencyName><IsMainCurrency>" + ismain + "</IsMainCurrency><CreatedProgID>HTL</CreatedProgID><CreatedDate>"+DateTime.Now.ToString()+ "</CreatedDate><LastUpdate>" + DateTime.Now.ToString() + "</LastUpdate><IPAddress></IPAddress><LastUserName></LastUserName><MACAddress></MACAddress></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spacc_CurrencyInfo_UPD", XML);
+                return "Амжилттай";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string DeleteACCCurrencyInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><CurrencyID>" + id + "</CurrencyID><ProgID>HTL</ProgID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spacc_CurrencyInfo_DEL", XML);
+                return "Амжилттай";
+            }
+            catch (Exception ex)
+            {
+                return ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveHTLGuestInfo(int type, string id, string name, string currency)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><type>" + type + "</type><id>" + id + "</id><name>" + name + "</name><currencyid>" + currency + "</currencyid></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_GuestTypeInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHTLGuestInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_GuestTypeInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public class ServiceDetailInfo
+        {
+            public string ServiceInfoPkID { get; set; }
+            public string ServiceDetailInfoPkID { get; set; }
+            public string GuestTypeID { get; set; }
+            public string CurrencyID { get; set; }
+            public decimal ServicePrice { get; set; }
+        }
+
+        [WebMethod]
+        public static ServiceDetailInfo GetHTLServiceDetailInfo(string id)
+        {
+            try
+            {
+                ServiceDetailInfo srv = new ServiceDetailInfo();
+
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                DataTable dtRoomInfo = SystemGlobals.DataBase.ExecuteQuery("sphtl_ServiceDetailInfo_SEL", XML).Tables[0];
+
+                srv.ServiceInfoPkID = dtRoomInfo.Rows[0]["ServiceInfoPkID"].ToString();
+                srv.ServiceDetailInfoPkID = dtRoomInfo.Rows[0]["ServiceDetailInfoPkID"].ToString();
+                srv.GuestTypeID = dtRoomInfo.Rows[0]["GuestTypeID"].ToString();
+                srv.CurrencyID = dtRoomInfo.Rows[0]["CurrencyID"].ToString();
+                srv.ServicePrice = Convert.ToDecimal(dtRoomInfo.Rows[0]["ServicePrice"]);
+                return srv;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [WebMethod]
+        public static string GetHTLServiceDetailCustomer(string id)
+        {
+            try
+            {
+                return SystemGlobals.DataBase.ExecuteSQL("select CurrencyID from htlGuestTypeInfo where GuestTypeID = N'" + id + "'").Tables[0].Rows[0][0].ToString();
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveHTLServiceDetailInfo(int type, string id, string service, string guest, string currency, decimal price)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><type>" + type + "</type><id>" + id + "</id><service>" + service + "</service><guest>" + guest + "</guest><currency>" + currency + "</currency><price>" + price + "</price></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_ServiceDetailInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHTLServiceDetailInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_ServiceDetailInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveHTLLifeTimeInfo(int type, string id, string name, int dayst, int dayfn, int timest, int timefn)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><type>" + type + "</type><id>" + id + "</id><name>" + name + "</name><dayst>" + dayst + "</dayst><dayfn>" + dayfn + "</dayfn><timest>" + timest + "</timest><timefn>" + timefn + "</timefn></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_LifeTimeInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHTLLifeTimeInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_LifeTimeInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveHTLRoomPriceInfo(string passvalue)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><passvalue>" + passvalue + "</passvalue></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_RoomPriceInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteHTLRoomPriceInfo(string id)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "sphtl_RoomPriceInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        }
+
+        [WebMethod]
         public static List<ListItem> GetProgUserGroup(string ProgID)
         {
             List<ListItem> customers = new List<ListItem>();
