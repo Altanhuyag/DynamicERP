@@ -56,7 +56,7 @@
 
                                                         Image t = new Image();
                                                         //t.ID = "asdf"+i.ToString();
-                                                        t.ImageUrl = rw["LogoFile"].ToString();
+                                                        t.ImageUrl = ResolveUrl("../"+rw["LogoFile"].ToString());
                                                         t.Width = 60;
                                                         imgLink.Controls.Add(t);
                                                     }
@@ -72,6 +72,7 @@
                                                     <div class="todo--actions dropleft">
                                                         <a href="#" class="btn-link" data-toggle="dropdown"><i class="fa fa-tasks"></i></a>
                                                         <div class="dropdown-menu">
+                                                            <a href="#usrModal" class="dropdown-item usrRow" data-toggle="modal" data-id="<%=rw["RestaurantPkID"].ToString() %>">Хэрэглэгч сонгох</a>
                                                             <a href="#myModal" class="dropdown-item editRow" data-toggle="modal" data-id="<%=rw["RestaurantPkID"].ToString() %>">Засах</a>
                                                             <a href="#RemoveModal" class="dropdown-item deleteRow" data-toggle="modal" data-todoapp="del:item" data-id="<%=rw["RestaurantPkID"].ToString() %>">Устгах</a>
                                                         </div>
@@ -159,6 +160,45 @@
         </div>
     </div>
 
+    <div class="modal fade" id="usrModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                
+                <div class="modal-header">
+                    <h5 class="modal-title">Хэрэглэгч сонгох</h5>      
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+                </div>
+
+                <div class="modal-body">                                    
+                    <p>
+                        <div class="form-group">                                        
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <h5>Хэрэглэгчид</h5>
+                                    <select class="form-control js-example-basic-multiple" style="width:100%" id="cmbUserInfo" multiple="multiple">
+                                        <% foreach (System.Data.DataRow rw in dtResUsers.Rows)
+                                            {
+                                        %>
+                                            <option value="<%=rw["UserPkID"].ToString() %>"><%=rw["UserName"].ToString() %></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
+                                </div>          
+                            </div>
+                        </div>
+                    </p>                                    
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Хаах</button>
+                    <button id="btnSaveUser" type="button" class="btn btn-rounded btn-warning" onclick="SaveResUser()">Хадгалах</button>                                
+                </div>
+
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="RemoveModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
@@ -192,6 +232,37 @@
         var selid = 0;
         var rid = 0;
         
+        $(document).ready(function () {
+            $('#cmbUserInfo').select2();
+        });
+
+        function SaveResUser() {
+            var usrs = $("#cmbUserInfo").val();
+            //alert(selid + "  " + usrs);
+            $.ajax({
+                url: '../post.aspx/SaveRESresRestaurantUser',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    resid: selid,
+                    users: usrs
+                }),
+                contentType: 'application/json',
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    swal('Алдаа', "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown, 'warning');
+                },
+                success: function (msg) {
+                    if (msg.d == false) {
+                        swal('Анхааруулга', 'Амжилтгүй боллоо !', 'warning');
+                    }
+                    else {
+                        $('#usrModal').modal('hide');
+                        swal('Амжилттай', 'Амжилттай нэмлээ !', 'success');
+                    }
+                }
+            });
+        }
+
         function Clear() {
             $('#txtName').val("");
             $('#txtHeader').val("");
@@ -204,6 +275,29 @@
             act = 1;
             selid = 0;
         }
+
+        $('.usrRow').on('click', function () {
+            selid = $(this).attr('data-id');
+
+            $.ajax({
+                url: '../post.aspx/GetRESresRestaurantUser',
+                type: 'POST',
+                dataType: 'json',
+                data: JSON.stringify({
+                    id: selid
+                }),
+                contentType: 'application/json',
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    swal('Алдаа', "Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown, 'warning');
+                },
+                success: function (msg) {
+                    if (msg.d != null) {
+                        $("#cmbUserInfo").val(msg.d);
+                        $('#cmbUserInfo').trigger('change');
+                    }
+                }
+            });
+        });
 
         $('.editRow').on('click', function () {
             act = 0;

@@ -1799,5 +1799,48 @@ namespace Dynamic
             }
         }
 
+        [WebMethod]
+        public static string[] GetRESresRestaurantUser(string id)
+        {
+            try
+            {
+                string[] val;
+                DataTable dtTemp = new DataTable();
+                string XML = "<NewDataSet><BusinessObject><RestaurantPkID>" + id + "</RestaurantPkID></BusinessObject></NewDataSet>";
+                dtTemp = SystemGlobals.DataBase.ExecuteQuery("spres_resRestaurantUserGET_SEL", XML).Tables[0];
+                if (dtTemp != null && dtTemp.Rows.Count > 0)
+                {
+                    val = new string[dtTemp.Rows.Count];
+                    for (int i = 0; i < dtTemp.Rows.Count; i++)
+                    {
+                        val[i] = dtTemp.Rows[i]["UserPkID"].ToString();
+                    }
+                }
+                else {
+                    val = new string[0];
+                }
+                
+                return val;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveRESresRestaurantUser(string resid, string users)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><RestaurantPkID>" + resid + "</RestaurantPkID><UserPkID>" + users + "</UserPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "spres_resRestaurantUser_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
     }
 }
