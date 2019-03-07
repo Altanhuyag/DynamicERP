@@ -11,6 +11,7 @@ namespace Dynamic
         public static DataTable dtRestaurant;
         public static DataTable dtMenu;
         public static DataTable dtItem;
+        public static DataTable dtCustomerInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserPkID"]==null)
@@ -19,10 +20,12 @@ namespace Dynamic
             }
 
             Session["RestaurantPkID"] = "2019021800000002";
-            
+            Session["PosDate"] = "2019-03-06";
+
             dtResCategory = SystemGlobals.DataBase.ExecuteQuery("spres_resRestaurantCategoryGET_SEL", "<NewDataSet><BusinessObject><RestaurantPkID>" + Session["RestaurantPkID"] + "</RestaurantPkID></BusinessObject></NewDataSet>").Tables[0];
             dtRestaurant = SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantInfoGET_SEL", "<NewDataSet><BusinessObject><id>" + Session["RestaurantPkID"] + "</id></BusinessObject></NewDataSet>").Tables[0];
             dtMenu = SystemGlobals.DataBase.ExecuteQuery("spres_resRestaurantMenuGET_SEL", "<NewDataSet><BusinessObject><RestaurantPkID>" + Session["RestaurantPkID"] + "</RestaurantPkID></BusinessObject></NewDataSet>").Tables[0];
+            dtCustomerInfo = SystemGlobals.DataBase.ExecuteQuery("spacc_CustomerInfo_SEL", "").Tables[0];
         }
 
         public static void LoadTables(string catid)
@@ -38,5 +41,6 @@ namespace Dynamic
             string XML = "<NewDataSet><BusinessObject><RestaurantMenuPkID>" + menuid + "</RestaurantMenuPkID></BusinessObject></NewDataSet>";
             dtItem = SystemGlobals.DataBase.ExecuteQuery("spres_resItemInfoGET_SEL", XML).Tables[0];
         }
+        
     }
 }

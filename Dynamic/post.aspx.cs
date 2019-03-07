@@ -1842,5 +1842,291 @@ namespace Dynamic
             }
         }
 
+        public class ResOrderInfo
+        {
+            public string OrderPkID { get; set; }
+            public int AdultNum { get; set; }
+            public int ChildrenNum { get; set; }
+            public string ReceiptNo { get; set; }
+            public string OrderDate { get; set; }
+            public string CustomerPkID { get; set; }
+            public string RoyaltyNo { get; set; }
+        }
+
+        [WebMethod]
+        public static ResOrderInfo GetRESTableOrders(string tbid)
+        {
+            try
+            {
+                ResOrderInfo ord = new ResOrderInfo();
+                tbid = tbid.Substring(5, tbid.Length-5);
+                string XML = "<NewDataSet><BusinessObject><TablePkID>" + tbid + "</TablePkID></BusinessObject></NewDataSet>";
+                DataTable dtOrders = SystemGlobals.DataBase.ExecuteQuery("spres_resTableOrderGET_SEL", XML).Tables[0];
+                if (dtOrders != null && dtOrders.Rows.Count > 0)
+                {
+                    ord.OrderPkID = dtOrders.Rows[0]["OrderPkID"].ToString();
+                    ord.AdultNum = Convert.ToInt32(dtOrders.Rows[0]["AdultNum"]);
+                    ord.ChildrenNum = Convert.ToInt32(dtOrders.Rows[0]["ChildrenNum"]);
+                    ord.ReceiptNo = dtOrders.Rows[0]["ReceiptNo"].ToString();
+                    ord.OrderDate = dtOrders.Rows[0]["OrderDate"].ToString();
+                    ord.CustomerPkID = dtOrders.Rows[0]["CustomerPkID"].ToString();
+                    ord.RoyaltyNo = dtOrders.Rows[0]["RoyaltyNo"].ToString();
+
+                    return ord;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public class ResOrderItem
+        {
+            public string OrderPkID { get; set; }
+            public string ItemPkID { get; set; }
+            public string ItemName { get; set; }
+            public decimal Price { get; set; }
+            public int Qty { get; set; }
+            public string BufetInfoName { get; set; }
+        }
+
+        [WebMethod]
+        public static List<ResOrderItem> GetRESOrderItems(string ordid)
+        {
+            try
+            {
+                List<ResOrderItem> items = new List<ResOrderItem>();
+
+                string XML = "<NewDataSet><BusinessObject><OrderPkID>" + ordid + "</OrderPkID></BusinessObject></NewDataSet>";
+                DataTable dtItems = SystemGlobals.DataBase.ExecuteQuery("spres_resOrderItemsGET_SEL", XML).Tables[0];
+                
+                if (dtItems != null && dtItems.Rows.Count > 0)
+                {
+                    foreach (DataRow rw in dtItems.Rows)
+                    {
+                        items.Add(new ResOrderItem
+                        {
+                            OrderPkID = rw["OrderPkID"].ToString(),
+                            ItemPkID = rw["ItemPkID"].ToString(),
+                            ItemName = rw["ItemName"].ToString(),
+                            Price = Convert.ToDecimal(rw["Price"]),
+                            Qty = Convert.ToInt32(rw["Qty"]),
+                            BufetInfoName = rw["BufetInfoName"].ToString()
+                        });
+                    }
+                    
+                    return items;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [WebMethod]
+        public static bool DelRESOrderInfo(string ordid)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + ordid + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "spres_resOrderInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public class GroupByItem
+        {
+            public string KeyValue { get; set; }
+            public decimal SumValue { get; set; }
+            public int CountValue { get; set; }
+        }
+        [WebMethod]
+        public static List<GroupByItem> GroupItems(string val)
+        {
+            try
+            {
+                List<GroupByItem> res = new List<GroupByItem>();
+                DataTable tmp = new DataTable();
+                tmp.Columns.Add("KeyVal", typeof(string));
+                tmp.Columns.Add("SumVal", typeof(decimal));
+
+                if (val != "")
+                {
+                    val = val.Substring(0, (val.Length - 1));
+                    string[] rows = val.Split(';');
+                    foreach (string row in rows)
+                    {
+                        string[] cols = row.Split(',');
+
+                        tmp.Rows.Add(cols[0], Convert.ToDecimal(cols[1]));
+                    }
+
+                    var result = from b in tmp.AsEnumerable()
+                                 group b by b.Field<string>("KeyVal") into g
+                                 select new
+                                 {
+                                     KeyVal = g.Key,
+                                     SumVal = g.Sum(b => b.Field<decimal>("SumVal")),
+                                     CntVal = g.Count()
+                                 };
+
+                    foreach (var r in result)
+                    {
+                        res.Add(new GroupByItem
+                        {
+                            KeyValue = r.KeyVal,
+                            SumValue = r.SumVal,
+                            CountValue = r.CntVal
+                        });
+                    }
+
+                    return res;
+                }
+
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+                throw;
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveRESOrderInfo(string orderid, string tableid, int adultnum, int childnum, string recpt, string date, string custid, string royltid, int stats, string items)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><OrderPkID>" + orderid + "</OrderPkID><TablePkID>" + tableid + "</TablePkID><AdultNum>" + adultnum + "</AdultNum><ChildrenNum>" + childnum + "</ChildrenNum><ReceiptNo>" + recpt + "</ReceiptNo><OrderDate>" + date + "</OrderDate><CustomerPkID>" + custid + "</CustomerPkID><RoyaltyNo>" + royltid + "</RoyaltyNo><Status>" + stats + "</Status><passvalue>" + items + "</passvalue></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "spres_resOrderInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+        public class ActiveTables
+        {
+            public string TablePkID { get; set; }
+        }
+        [WebMethod]
+        public static List<ActiveTables> GetRESActiveTables()
+        {
+            try
+            {
+                List<ActiveTables> act = new List<ActiveTables>();
+                DataTable tmp = new DataTable();
+                tmp = SystemGlobals.DataBase.ExecuteQuery("spres_resActiveTables_SEL", "").Tables[0];
+                if (tmp != null && tmp.Rows.Count > 0) {
+                    foreach (DataRow rw in tmp.Rows) {
+                        act.Add(new ActiveTables
+                        {
+                            TablePkID = rw[0].ToString()
+                        });
+                    }
+                    return act;
+                }
+                else {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public class PaymentItem
+        {
+            public string PaymentPkID { get; set; }
+            public string PaymentName { get; set; }
+        }
+        [WebMethod]
+        public static List<PaymentItem> GetPaymentInfo()
+        {
+            try
+            {
+                List<PaymentItem> pay = new List<PaymentItem>();
+                DataTable tmp = new DataTable();
+                tmp = SystemGlobals.DataBase.ExecuteQuery("spres_resPaymentInfo_SEL", "").Tables[0];
+                if (tmp != null && tmp.Rows.Count > 0)
+                {
+                    foreach (DataRow rw in tmp.Rows)
+                    {
+                        pay.Add(new PaymentItem
+                        {
+                            PaymentPkID = rw[0].ToString(),
+                            PaymentName = rw[1].ToString()
+                        });
+                    }
+                    return pay;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+                throw;
+            }
+        }
+
+        public class CardItem
+        {
+            public string CardID { get; set; }
+            public string FirstName { get; set; }
+            public int CardValue { get; set; }
+        }
+        [WebMethod]
+        public static List<CardItem> GetCardInfo(string card)
+        {
+            try
+            {
+                List<CardItem> ret = new List<CardItem>();
+                DataTable tmp = new DataTable();
+                string XML = "<NewDataSet><BusinessObject><CardID>" + card + "</CardID></BusinessObject></NewDataSet>";
+                tmp = SystemGlobals.DataBase.ExecuteQuery("spres_resCardInfoGET_SEL", XML).Tables[0];
+                if (tmp != null && tmp.Rows.Count > 0)
+                {
+                    foreach (DataRow rw in tmp.Rows)
+                    {
+                        ret.Add(new CardItem
+                        {
+                            CardID = rw[0].ToString(),
+                            FirstName = rw[1].ToString(),
+                            CardValue = Convert.ToInt32(rw[2])
+                        });
+                    }
+                    return ret;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+                throw;
+            }
+        }
     }
 }

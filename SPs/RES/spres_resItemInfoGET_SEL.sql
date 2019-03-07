@@ -26,7 +26,9 @@ BEGIN
 	SELECT	@RestaurantMenuPkID = RestaurantMenuPkID
 	FROM #tmp
 		
-	SELECT ItemPkID, ItemName, OutPrice FROM resItemInfo WHERE RestaurantMenuPkID = @RestaurantMenuPkID
+	SELECT a.ItemPkID, a.ItemName, a.OutPrice, b.BufetInfoName FROM resItemInfo a
+	INNER JOIN resItemBuffetInfo b on b.BufetInfoPkID = a.BufetInfoPkID
+	WHERE RestaurantMenuPkID = @RestaurantMenuPkID
 
 END
 GO
