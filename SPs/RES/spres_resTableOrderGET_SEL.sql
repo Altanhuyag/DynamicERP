@@ -26,7 +26,7 @@ BEGIN
 	SELECT	@TablePkID = TablePkID
 	FROM #tmp
 		
-	SELECT OrderPkID, AdultNum, ChildrenNum, ReceiptNo, OrderDate, CustomerPkID, RoyaltyNo FROM resOrderInfo WHERE TablePkID = @TablePkID AND Status = 0
-
+	SELECT OrderPkID, OrderDate, Status, PosDate FROM resOrderInfo WHERE TablePkID = @TablePkID AND Status = 0
+	
 END
 GO

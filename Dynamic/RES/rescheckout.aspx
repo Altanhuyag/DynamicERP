@@ -49,16 +49,27 @@
                                     for (int k = 0; k < dtTables.Rows.Count; k++)
                                     {
                                         %>
-                                            <div class="btn btn-rounded btn-outline-warning tablelist" id="table<%= dtTables.Rows[k]["TablePkID"].ToString() %>" onclick="tableclick('table<%= dtTables.Rows[k]["TablePkID"].ToString() %>', '<%= dtTables.Rows[k]["TableID"].ToString() %>', '<%= dtTables.Rows[k]["TableCapacity"].ToString() %>')" style="width: 140px; height: 140px; margin-top:10px; margin-right:5px">
-                                                <div class="d-flex justify-content-center" style="margin-top:10px">
-                                                    <img src="../upload/table.png" width="50px" height="50px" />
-                                                </div>
-                                                <div class="d-flex justify-content-center">
-                                                    <h6>Дугаар - <%= dtTables.Rows[k]["TableID"].ToString() %></h6>
-                                                </div>
-                                                <div class="d-flex justify-content-center">
-                                                    <h6>Суудал - <%= dtTables.Rows[k]["TableCapacity"].ToString() %></h6>
-                                                </div>
+                                            <div class="btn btn-rounded btn-outline-warning tablelist" id="table<%= dtTables.Rows[k]["TablePkID"].ToString() %>" onclick="tableclick('table<%= dtTables.Rows[k]["TablePkID"].ToString() %>', '<%= dtTables.Rows[k]["TableID"].ToString() %>', '<%= dtTables.Rows[k]["TableCapacity"].ToString() %>')" style="width: 120px; height: 120px; margin-top:10px; margin-right:5px">
+                                                <%
+                                                    if (dtTables.Rows[k]["OrderSum"] != DBNull.Value)
+                                                    {%>
+                                                        <div class="d-flex justify-content-center">
+                                                            <h1><%= dtTables.Rows[k]["TableID"].ToString() %></h1>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center">
+                                                            <p><%= Convert.ToInt32(dtTables.Rows[k]["OrderSum"]).ToString() %>₮ (<%= dtTables.Rows[k]["OrderCnt"].ToString() %>)</p>
+                                                        </div>
+                                                        <div class="d-flex justify-content-center">
+                                                            <p class="table-date-label" id="tblbl<%= dtTables.Rows[k]["TablePkID"].ToString() %>" data-id="tblbl<%= dtTables.Rows[k]["TablePkID"].ToString() %>"><%= dtTables.Rows[k]["OrderDate"].ToString() %></p>
+                                                        </div>
+                                                    <%}
+                                                    else
+                                                    {%>
+                                                        <div class="d-flex justify-content-center">
+                                                            <h1><%= dtTables.Rows[k]["TableID"].ToString() %></h1>
+                                                        </div>
+                                                    <%}
+                                                %>
                                             </div>
                                         <%
                                     }
@@ -831,13 +842,28 @@
                     }
                 }
             }).done(function () {
-                $("#" + tableid).attr('class', 'btn btn-rounded btn-outline-primary tablelist');
+                $("#" + tableid).attr('class', 'btn btn-rounded btn-success tablelist');
             });
         }
 
         function startTime() {
             $('#lblTime').text(moment().format('YYYY-MM-DD HH:mm:ss'));
             var t = setTimeout(startTime, 500);
+        }
+
+        function tabletimer() {
+            //$(res).text(moment().format('YYYY-MM-DD HH:mm:ss'));
+            //var t = setTimeout(tabletimer(res), 500);
+            $(".table-date-label").each(function (index) {
+                //alert($(this).attr('data-id'));
+                document.getElementById($(this).attr('data-id')).onload = ticktime($(this).attr('data-id'), $(this).attr('data-id'))
+            });
+        }
+
+        function ticktime(did, txt) {
+            //alert(did + ' ' + txt);
+            $(res).text(moment().format('YYYY-MM-DD HH:mm:ss'));
+            var t = setTimeout(tabletimer(res), 500);
         }
 
         function loadpayment() {
@@ -974,6 +1000,7 @@
         });
 
         $(document).ready(function () {
+            tabletimer();
             CalcSummary();
             $('#cmbCustomerInfo').select2({
                 dropdownParent: $('#CheckoutModal')
