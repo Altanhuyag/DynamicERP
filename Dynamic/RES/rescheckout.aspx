@@ -1,5 +1,8 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="rescheckout.aspx.cs" Inherits="Dynamic.rescheckout" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
+    
+    <link href="../assets/css/jquery.scrolling-tabs.min.css" rel="stylesheet" />
+    <script src="../assets/js/jquery.scrolling-tabs.min.js"></script>
 
     <section class="main--content">
         
@@ -12,7 +15,7 @@
                     </div>
                     <div class="panel-content">
                         
-                        <ul class="nav nav-tabs">
+                        <ul class="nav nav-tabs tabhdritems">
                             <% for (int i = 0; i < dtResCategory.Rows.Count; i++)
                                 {
                                     if (i == 0)
@@ -49,24 +52,18 @@
                                     for (int k = 0; k < dtTables.Rows.Count; k++)
                                     {
                                         %>
-                                            <div class="btn btn-rounded btn-outline-warning tablelist" id="table<%= dtTables.Rows[k]["TablePkID"].ToString() %>" onclick="tableclick('table<%= dtTables.Rows[k]["TablePkID"].ToString() %>', '<%= dtTables.Rows[k]["TableID"].ToString() %>', '<%= dtTables.Rows[k]["TableCapacity"].ToString() %>')" style="width: 120px; height: 120px; margin-top:10px; margin-right:5px">
+                                            <div class="btn btn-rounded btn-outline-warning tablelist" id="table<%= dtTables.Rows[k]["TablePkID"].ToString() %>" onclick="tableclick('table<%= dtTables.Rows[k]["TablePkID"].ToString() %>', '<%= dtTables.Rows[k]["TableID"].ToString() %>', '<%= dtTables.Rows[k]["TableCapacity"].ToString() %>')" style="width: 120px; height: 110px; margin-top:10px; margin-right:5px">
+                                                    <div class="d-flex justify-content-center">
+                                                        <h2><%= dtTables.Rows[k]["TableID"].ToString() %></h2>
+                                                    </div>
                                                 <%
                                                     if (dtTables.Rows[k]["OrderSum"] != DBNull.Value)
                                                     {%>
                                                         <div class="d-flex justify-content-center">
-                                                            <h1><%= dtTables.Rows[k]["TableID"].ToString() %></h1>
+                                                            <p><%= Convert.ToInt32(dtTables.Rows[k]["OrderSum"]).ToString("n0") %>₮ (<%= dtTables.Rows[k]["OrderCnt"].ToString() %>)</p>
                                                         </div>
                                                         <div class="d-flex justify-content-center">
-                                                            <p><%= Convert.ToInt32(dtTables.Rows[k]["OrderSum"]).ToString() %>₮ (<%= dtTables.Rows[k]["OrderCnt"].ToString() %>)</p>
-                                                        </div>
-                                                        <div class="d-flex justify-content-center">
-                                                            <p class="table-date-label" id="tblbl<%= dtTables.Rows[k]["TablePkID"].ToString() %>" data-id="tblbl<%= dtTables.Rows[k]["TablePkID"].ToString() %>"><%= dtTables.Rows[k]["OrderDate"].ToString() %></p>
-                                                        </div>
-                                                    <%}
-                                                    else
-                                                    {%>
-                                                        <div class="d-flex justify-content-center">
-                                                            <h1><%= dtTables.Rows[k]["TableID"].ToString() %></h1>
+                                                            <p class="table-date-label" id="tblbl<%= dtTables.Rows[k]["TablePkID"].ToString() %>" onload="ticktime('tblbl<%= dtTables.Rows[k]["TablePkID"].ToString() %>', '<%= dtTables.Rows[k]["OrderDate"].ToString() %>')"></p>
                                                         </div>
                                                     <%}
                                                 %>
@@ -188,8 +185,8 @@
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
 
-                <div class="modal-body" id="tabitems" style="height:500px; overflow-y:auto">
-                        <ul class="nav nav-tabs">
+                <div class="modal-body" id="tabitems" style="height:750px; overflow-y:auto">
+                        <ul class="nav nav-tabs tabhdritems">
                             <% for (int i = 0; i < dtMenu.Rows.Count; i++)
                                 {
                                     if (i == 0)
@@ -229,14 +226,14 @@
                                 for (int k = 0; k < dtItem.Rows.Count; k++)
                                 {
                             %>
-                                <div class="btn btn-rounded btn-outline-warning itemlist" id="<%= dtItem.Rows[k]["ItemPkID"].ToString() %>" onclick="itemclick('<%= dtItem.Rows[k]["ItemPkID"].ToString() %>','<%= dtItem.Rows[k]["ItemName"].ToString() %>', <%= dtItem.Rows[k]["OutPrice"].ToString() %>, '<%= dtItem.Rows[k]["BufetInfoName"].ToString() %>')" style="width: 220px; height: 140px; margin-top: 10px; margin-right: 5px">
-                                    <div class="d-flex justify-content-center" style="margin-top: 0px">
+                                <div class="btn btn-rounded btn-outline-warning itemlist" id="<%= dtItem.Rows[k]["ItemPkID"].ToString() %>" onclick="itemclick('<%= dtItem.Rows[k]["ItemPkID"].ToString() %>','<%= dtItem.Rows[k]["ItemName"].ToString() %>', <%= dtItem.Rows[k]["OutPrice"].ToString() %>, '<%= dtItem.Rows[k]["BufetInfoName"].ToString() %>')" style="width: 160px; height: 140px; margin-top: 10px; margin-right: 5px">
+                                    <%--<div class="d-flex justify-content-center" style="margin-top: 0px">
                                         <img src="../upload/table.png" width="50px" height="50px" />
-                                    </div>
+                                    </div>--%>
                                     <div class="d-flex justify-content-center">
-                                        <p>Үнэ - <%= Convert.ToInt64(dtItem.Rows[k]["OutPrice"]) %>₮</p>
+                                        <p style="color:black"><%= Convert.ToInt64(dtItem.Rows[k]["OutPrice"]).ToString("n0") %>₮</p>
                                     </div>
-                                    <div class="d-flex justify-content-center" style="height: 50px">
+                                    <div class="d-flex justify-content-center" style="height: 90px">
                                         <p style="white-space: pre-line; overflow-y: hidden"><%= dtItem.Rows[k]["ItemName"].ToString() %></p>
                                     </div>
                                 </div>
@@ -851,19 +848,23 @@
             var t = setTimeout(startTime, 500);
         }
 
-        function tabletimer() {
-            //$(res).text(moment().format('YYYY-MM-DD HH:mm:ss'));
-            //var t = setTimeout(tabletimer(res), 500);
+        function triggeronload() {
             $(".table-date-label").each(function (index) {
-                //alert($(this).attr('data-id'));
-                document.getElementById($(this).attr('data-id')).onload = ticktime($(this).attr('data-id'), $(this).attr('data-id'))
+                $(this).trigger("onload");
             });
         }
 
-        function ticktime(did, txt) {
-            //alert(did + ' ' + txt);
-            $(res).text(moment().format('YYYY-MM-DD HH:mm:ss'));
-            var t = setTimeout(tabletimer(res), 500);
+        function ticktime(did, dat) {
+            var then = moment(dat);
+
+            var ms = moment().diff(then);
+            var s = moment.utc(ms).format("HH:mm");
+
+            document.getElementById(did).innerText = s;
+
+            setTimeout(function () {
+                ticktime(did, dat);
+            }, 60000);
         }
 
         function loadpayment() {
@@ -999,8 +1000,30 @@
             }
         });
 
+        $('#myModal').on('shown.bs.modal', function () {
+            fixtabsliderwidth();
+        })
+        
+        function fixtabsliderwidth() {
+            $('.nav-tabs').scrollingTabs('refresh');
+            $(".tabhdritems").each(function (index) {
+                var curwidth = 0;
+                $(this).children().each(function (indx) {
+                    curwidth += parseFloat($(this).css("width"));
+                });
+                curwidth += 50;
+                $(this).css("width", curwidth);
+            });
+        }
+        
         $(document).ready(function () {
-            tabletimer();
+            $('.nav-tabs').scrollingTabs({
+                bootstrapVersion: 4
+            });
+            
+            startTime();
+            triggeronload();
+
             CalcSummary();
             $('#cmbCustomerInfo').select2({
                 dropdownParent: $('#CheckoutModal')
@@ -1012,8 +1035,6 @@
             odate = '<%= Session["PosDate"] %>';
 
             activetables();
-
-            startTime();
 
             loadpayment();
         });

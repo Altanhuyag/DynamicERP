@@ -27,12 +27,13 @@ BEGIN
 	FROM #tmp
 		
 	SELECT a.TablePkID, a.TableID, a.TableCapacity, a.IsTime,
-	(SELECT TOP 1 (SELECT CONVERT(VARCHAR(5),OrderDate,108)) FROM resOrderInfo WHERE TablePkID = a.TablePkID AND Status = 0 ORDER BY OrderDate ASC) AS OrderDate,
+	(SELECT TOP 1 OrderDate FROM resOrderInfo WHERE TablePkID = a.TablePkID AND Status = 0 ORDER BY OrderDate ASC) AS OrderDate,
 	(SELECT SUM(Price) FROM resOrderItems 
 	WHERE OrderPkID IN (SELECT OrderPkID FROM resOrderInfo WHERE TablePkID = a.TablePkID AND Status = 0)) AS OrderSum,
 	(SELECT COUNT(*) FROM resOrderInfo WHERE TablePkID = a.TablePkID AND Status = 0) AS OrderCnt
 	FROM resRestaurantTable a
 	WHERE CategoryPkID = @CategoryPkID
+	ORDER BY CAST(TableID AS INT) ASC
 	
 END
 GO

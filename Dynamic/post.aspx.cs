@@ -1845,12 +1845,9 @@ namespace Dynamic
         public class ResOrderInfo
         {
             public string OrderPkID { get; set; }
-            public int AdultNum { get; set; }
-            public int ChildrenNum { get; set; }
-            public string ReceiptNo { get; set; }
-            public string OrderDate { get; set; }
-            public string CustomerPkID { get; set; }
-            public string RoyaltyNo { get; set; }
+            public string TablePkID { get; set; }
+            public DateTime OrderDate { get; set; }
+            public int Status { get; set; }
         }
 
         [WebMethod]
@@ -1865,12 +1862,9 @@ namespace Dynamic
                 if (dtOrders != null && dtOrders.Rows.Count > 0)
                 {
                     ord.OrderPkID = dtOrders.Rows[0]["OrderPkID"].ToString();
-                    ord.AdultNum = Convert.ToInt32(dtOrders.Rows[0]["AdultNum"]);
-                    ord.ChildrenNum = Convert.ToInt32(dtOrders.Rows[0]["ChildrenNum"]);
-                    ord.ReceiptNo = dtOrders.Rows[0]["ReceiptNo"].ToString();
-                    ord.OrderDate = dtOrders.Rows[0]["OrderDate"].ToString();
-                    ord.CustomerPkID = dtOrders.Rows[0]["CustomerPkID"].ToString();
-                    ord.RoyaltyNo = dtOrders.Rows[0]["RoyaltyNo"].ToString();
+                    ord.TablePkID = dtOrders.Rows[0]["AdultNum"].ToString();
+                    ord.OrderDate = Convert.ToDateTime(dtOrders.Rows[0]["OrderDate"]);
+                    ord.Status = Convert.ToInt32(dtOrders.Rows[0]["CustomerPkID"]);
 
                     return ord;
                 }
