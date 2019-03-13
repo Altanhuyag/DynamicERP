@@ -112,9 +112,7 @@
         </div>
     </div>
 
-
     <script type = "text/javascript">
-
         var act = 0;
         var selid = 0;
         var rid = 0;

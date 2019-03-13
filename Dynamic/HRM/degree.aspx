@@ -1,6 +1,10 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="degree.aspx.cs" Inherits="Dynamic.degree" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+    <link href="../assets/css/tempusdominus-bootstrap-4.min.css" rel="stylesheet" />
+    <script src="../assets/js/moment.js"></script>
+    <script src="../assets/js/tempusdominus-bootstrap-4.min.js"></script>
+    
     <section class="main--content">
 
         <div class="panel">
@@ -74,7 +78,7 @@
             <div class="modal-content">
                 
                 <div class="modal-header">
-                    <h5 class="modal-title">Эрдминй цол зэрэгийн бүртгэл</h5>      
+                    <h5 class="modal-title">Эрдмийн цол зэрэгийн бүртгэл</h5>      
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
                 
@@ -162,20 +166,18 @@
             </div>
         </div>
     </div>
-      
+
     <script type = "text/javascript">
 
         var act = 0;
         var selid = 0;
         var rid = 0;
         
-        $(function () {
-            $('#datetimepicker1').datetimepicker({
-                format: 'YYYY-MM-DD',
-                date: moment()
-            });
+        $('#datetimepicker1').datetimepicker({
+            format: 'YYYY-MM-DD',
+            date: moment()
         });
-
+                
         function Clear() {
             $('#cmbEmployeeInfo').val("");
             $('#cmbDegreeInfo').val("");

@@ -14,11 +14,6 @@ namespace Dynamic
         public static DataTable dtExpertInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserPkID"] == null)
-            {
-                Response.Redirect("../login.aspx");
-                return;
-            }
             dtExpertInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_ExpertInfo_SEL").Tables[0];
         }
     }

@@ -14,11 +14,6 @@ namespace Dynamic
         public static DataTable dtBreachInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserPkID"] == null)
-            {
-                Response.Redirect("../login.aspx");
-                return;
-            }
             dtBreachInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_BreachInfo_SEL").Tables[0];
         }
     }

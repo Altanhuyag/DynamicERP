@@ -1,7 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="advertenceinfo.aspx.cs" Inherits="Dynamic.advertenceinfo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
         
-
     <section class="main--content">
 
         <div class="panel">
@@ -127,9 +126,7 @@
             </div>
         </div>
     </div>
-
     
-
     <script type = "text/javascript">
 
         var act = 0;
@@ -186,8 +183,8 @@
                 data: JSON.stringify({
                     adding: act,
                     id: selid,
-                    cmbAdvertenceTypeInfo: typeinfo,
-                    txtAdvertenceName: name
+                    AdvertenceTypeName: typeinfo,
+                    AdvertenceName: name
                 }),
                 contentType: 'application/json',
                 error: function (XMLHttpRequest, textStatus, errorThrown) {

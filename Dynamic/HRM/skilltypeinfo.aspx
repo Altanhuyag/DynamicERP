@@ -1,6 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="skilltypeinfo.aspx.cs" Inherits="Dynamic.skilltypeinfo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
     <section class="main--content">
 
         <div class="panel">
@@ -110,7 +109,7 @@
             </div>
         </div>
     </div>
-    
+
     <script type = "text/javascript">
 
         var act = 0;
@@ -187,7 +186,7 @@
 
         function Delete() {
             $.ajax({
-                url: '../post.aspx/DeleteHRMSkillTypeInfo',
+                url:'../post.aspx/DeleteHRMSkillTypeInfo',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify({

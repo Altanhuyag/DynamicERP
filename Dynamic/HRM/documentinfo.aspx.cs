@@ -14,11 +14,6 @@ namespace Dynamic
         public static DataTable dtDocumentInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserPkID"] == null)
-            {
-                Response.Redirect("../login.aspx");
-                return;
-            }
             dtDocumentInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_DocumentInfo_SEL").Tables[0];
         }
     }

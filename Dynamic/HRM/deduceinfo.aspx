@@ -15,7 +15,7 @@
         </div>
 
         <div class="panel">
-            <div class="records--list" data-title="Нийгмийн гарал угсаал бүртгэлийн жагсаалт">
+            <div class="records--list" data-title="Нийгмийн гарал угсаа бүртгэлийн жагсаалт">
 
                 <div id="recordsListView_wrapper" class="dataTables_wrapper no-footer">
                     <div class="table-responsive">
@@ -110,7 +110,7 @@
             </div>
         </div>
     </div>
-    
+
     <script type = "text/javascript">
 
         var act = 0;
@@ -143,18 +143,19 @@
             document.getElementById("btnSave").innerHTML = "Бүртгэх";
             act = 0;
             selid = 0;
+            selid = 0;
         }
 
         function Save() {
             var Deduce = $('#txtDeduceInfoName').val().trim();
 
             if (Deduce == '') {
-                swal('Анхааруулга', 'Нийгмийн гарал угсааны бүртгэлээ оруулна уу !', 'warning');
+                swal('Анхааруулга', 'Нийгмийн гаралын бүртгэлээ оруулна уу !', 'warning');
                 return;
             }
             
             $.ajax({
-                url: '../post.aspx/SaveHRMDeduceInfo',
+                url: '..//post.aspx/SaveHRMDeduceInfo',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify({

@@ -20,6 +20,7 @@ namespace Dynamic
                 return;
             }
             dtPositionInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_PositionInfo_SEL").Tables[0];
+            dtPositionGroup = SystemGlobals.DataBase.ExecuteQuery("sphrm_PositionGroup_SEL").Tables[0];
         }
     }
 }

@@ -1,46 +1,43 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="eventinfo.aspx.cs" Inherits="Dynamic.eventinfo" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="healthpatienttypeinfo.aspx.cs" Inherits="Dynamic.healthpatienttypeinfo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-
-    <section class="main--content">
+     <section class="main--content">
 
         <div class="panel">
             <div class="records--header">
                 <div class="title fa-object-group">
-                    <h3 class="h3">Үйл ажиллагааны чиглэл</h3>
+                    <h3 class="h3">Өвчний бүртгэл</h3>
                 </div>
                 <div class="actions" style="width: 100%;">
-                    <a href="#myModal" class="btn btn-rounded btn-warning" data-toggle="modal" onclick="addRow()" style="margin-left: 10px;">Үйл ажиллагааны чиглэл үүсгэх</a>
+                    <a href="#myModal" class="btn btn-rounded btn-warning" data-toggle="modal" onclick="addRow()" style="margin-left: 10px;">Шинэ өвчний бүртгэлийн хүснэгт үүсгэх</a>
                 </div>
             </div>
         </div>
 
         <div class="panel">
-            <div class="records--list" data-title="Үйл ажиллагааны чиглэл жагсаалт">
+            <div class="records--list" data-title="Өвчний  бүртгэлийн жагсаалт">
 
                 <div id="recordsListView_wrapper" class="dataTables_wrapper no-footer">
                     <div class="table-responsive">
                         <table id="recordsListView" class="dataTable no-footer" aria-describedby="recordsListView_info" style="font-size: 11px; width: 100%;" role="grid">
                             <thead>
                                 <tr role="row">
-                                    <th class="sorting" tabindex="0" aria-controls="recordsListView" rowspan="1" colspan="1" aria-label="Үйл ажиллагааны чиглэл">Үйл ажиллагааны чиглэл</th>
-                                 
+                                    <th class="sorting" tabindex="0" aria-controls="recordsListView" rowspan="1" colspan="1" aria-label="Өвчний нэр">Өвчний нэр</th>
                                     <th class="not-sortable sorting_disabled" rowspan="1" colspan="1" aria-label="Actions">Үйлдэл</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                <% foreach (System.Data.DataRow rw in dteventinfo.Rows)
+                                <% foreach (System.Data.DataRow rw in dtHealtPatientTypeInfo.Rows)
                                     {
                                 %>
-                                <tr data-value="<%=rw["EventInfoPkID"].ToString() %>" role="row" onclick="OnRowClick(this)" class="odd">
-                                    <td><%=rw["EventInfoName"].ToString() %></td>
-                                 
+                                <tr data-value="<%=rw["PatientTypePkID"].ToString() %>" role="row" onclick="OnRowClick(this)" class="odd">
+                                    <td><%=rw["PatientTypeName"].ToString() %></td>
                                     <td>
                                         <div data-todoapp="item">
                                             <div class="todo--actions dropleft">
                                                 <a href="#" class="btn-link" data-toggle="dropdown"><i class="fa fa-tasks"></i></a>
                                                 <div class="dropdown-menu">
-                                                    <a href="#myModal" class="dropdown-item editRow" data-toggle="modal" data-id="<%=rw["EventInfoPkID"].ToString() %>">Засах</a>
-                                                    <a href="#RemoveModal" class="dropdown-item deleteRow" data-toggle="modal" data-todoapp="del:item" data-id="<%=rw["EventInfoPkID"].ToString() %>">Устгах</a>
+                                                    <a href="#myModal" class="dropdown-item editRow" data-toggle="modal" data-id="<%=rw["PatientTypePkID"].ToString() %>">Засах</a>
+                                                    <a href="#RemoveModal" class="dropdown-item deleteRow" data-toggle="modal" data-todoapp="del:item" data-id="<%=rw["PatientTypePkID"].ToString() %>">Устгах</a>
                                                 </div>
                                             </div>
                                         </div>
@@ -64,7 +61,7 @@
             <div class="modal-content">
                 
                 <div class="modal-header">
-                    <h5 class="modal-title">Үйл ажиллагааны чиглэл</h5>      
+                    <h5 class="modal-title">Өвчний бүртгэл</h5>      
                     <button type="button" class="close" data-dismiss="modal">×</button>
                 </div>
 
@@ -73,12 +70,10 @@
                         <div class="form-group">                                        
                             <div class="row">
                                 <div class="col-md-12">
-                                    <h5>Үйл ажиллагааны чиглэл</h5>
-                                    <input class="form-control" type="text" id="txtevent" />
+                                    <h5>Өвчний нэр</h5>
+                                    <input class="form-control" type="text" id="txtPatientTypeName" />
                                 </div>          
                             </div>
-                        
-                        </div>
                     </p>                                    
                 </div>
 
@@ -103,7 +98,7 @@
                 </div>
                 
                 <div class="modal-body">
-                    <h5>Энэ үйл ажиллагааны чиглэл устгах уу ?</h5>
+                    <h5>Энэ өвчний бүртгэлийг устгах уу ?</h5>
                 </div>
                 
                 <div class="modal-footer">
@@ -113,7 +108,7 @@
             </div>
         </div>
     </div>
-
+    
     <script type = "text/javascript">
 
         var act = 0;
@@ -121,7 +116,7 @@
         var rid = 0;
         
         function Clear() {
-            $('#txtevent').val("");
+            $('#txtPatientTypeName').val("");
             act = 0;
             selid = 0;
         }
@@ -129,8 +124,7 @@
         $('.editRow').on('click', function () {
             act = 1;
             selid = $(this).attr('data-id');
-            $('#txtevent').val(document.getElementById("recordsListView").rows[rid].cells[0].innerHTML);
-           
+            $('#txtPatientTypeName').val(document.getElementById("recordsListView").rows[rid].cells[0].innerHTML);
             document.getElementById("btnSave").innerHTML = "Засах";
         });
 
@@ -150,24 +144,20 @@
         }
 
         function Save() {
-            var event = $('#txtevent').val().trim();
-          
+            var patient = $('#txtPatientTypeName').val().trim();
 
-            if (event == '') {
-                swal('Анхааруулга', 'Үйл ажиллагааны чиглэлээ оруулна уу !', 'warning');
+            if (patient == '') {
+                swal('Анхааруулга', 'Өвчний бүртгэлээ оруулна уу !', 'warning');
                 return;
             }
-            
-            
             $.ajax({
-                url: '../post.aspx/SaveHRMeventinfo',
+                url: '../post.aspx/SaveHRMHealthPatientTypeInfo',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify({
                     adding: act,
                     id: selid,
-                    eventinfo: event,
-                 
+                    PatientTypeName: patient,
                 }),
                 contentType: 'application/json',
                 error: function (XMLHttpRequest, textStatus, errorThrown) {
@@ -194,7 +184,7 @@
 
         function Delete() {
             $.ajax({
-                url: '../post.aspx/DeleteHRMeventinfo',
+                url: '../post.aspx/DeleteHRMHealthPatientTypeInfo',
                 type: 'POST',
                 dataType: 'json',
                 data: JSON.stringify({

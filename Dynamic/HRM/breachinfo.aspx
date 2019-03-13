@@ -1,6 +1,6 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="breachinfo.aspx.cs" Inherits="Dynamic.breachinfo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
-    
+
     <section class="main--content">
 
         <div class="panel">
@@ -110,7 +110,7 @@
             </div>
         </div>
     </div>
-    
+
     <script type = "text/javascript">
 
         var act = 0;
@@ -149,7 +149,7 @@
             var Breach = $('#txtBreachName').val().trim();
 
             if (Breach == '') {
-                swal('Анхааруулга', 'Жил 1-ээ оруулна уу !', 'warning');
+                swal('Анхааруулга', 'Арга хэмжээгээ оруулна уу !', 'warning');
                 return;
             }
             

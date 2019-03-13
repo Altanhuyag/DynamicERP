@@ -1,6 +1,9 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="positioninfo.aspx.cs" Inherits="Dynamic.positioninfo" %>
 <asp:Content ID="Content1" ContentPlaceHolderID="ContentPlaceHolder1" runat="server">
 
+   <link rel="stylesheet" href="assets\css\sweetalert.min.css">
+    <link rel="stylesheet" href="assets\css\sweetalert-overrides.css">
+
     <section class="main--content">
 
         <div class="panel">
@@ -22,7 +25,9 @@
                         <table id="recordsListView" class="dataTable no-footer" aria-describedby="recordsListView_info" style="font-size: 11px; width: 100%;" role="grid">
                             <thead>
                                 <tr role="row">
+                                    <th class="sorting" tabindex="0" aria-controls="recordsListView" rowspan="1" colspan="1" aria-label="Бүлгийн дугаар">Бүлгийн дугаар</th>
                                     <th class="sorting" tabindex="0" aria-controls="recordsListView" rowspan="1" colspan="1" aria-label="Албан тушаалын нэр">Албан тушаалын нэр</th>
+                                    <th class="sorting" tabindex="0" aria-controls="recordsListView" rowspan="1" colspan="1" aria-label="Эрэмбэлэгдсэн дараалал">Эрэмбэлэгдсэн дараалал</th>
                                     <th class="not-sortable sorting_disabled" rowspan="1" colspan="1" aria-label="Actions">Үйлдэл</th>
                                 </tr>
                             </thead>
@@ -31,8 +36,9 @@
                                     {
                                 %>
                                 <tr data-value="<%=rw["PositionPkID"].ToString() %>" role="row" onclick="OnRowClick(this)" class="odd">
-                                <tr data-value="<%=rw["PositionGroupPkID"].ToString() %>" role="row" onclick="OnRowClick(this)" class="odd">
+                                <tr data-value="<%=rw["PositionGroupName"].ToString() %>" role="row" onclick="OnRowClick(this)" class="odd">
                                     <td><%=rw["PositionName"].ToString() %></td>
+                                      <td><%=rw["SortedOrder"].ToString() %></td>
                                     <td>
                                         <div data-todoapp="item">
                                             <div class="todo--actions dropleft">
@@ -72,8 +78,24 @@
                         <div class="form-group">                                        
                             <div class="row">
                                 <div class="col-md-12">
+                                     <h5>Албан тушаалын бүлгийн дугаар</h5>
+                                    <select class="form-control" id="cmbPositionGroupname">
+                                        <% foreach (System.Data.DataRow rw in dtPositionGroup.Rows)
+                                            {
+                                        %>
+                                            <option value="<%=rw["PositionGroupPkID"].ToString() %>"><%=rw["PositionGroupName"].ToString() %></option>
+                                        <%
+                                            }
+                                        %>
+                                    </select>
                                     <h5>Албан тушаалын нэр</h5>
                                     <input class="form-control" type="text" id="txtPositionName" />
+                                </div>          
+                            </div>
+                             <div class="row">
+                                <div class="col-md-12">
+                                    <h5>Эрэмбэлэгдсэн дараалал</h5>
+                                    <input class="form-control" type="text" id="txtSortedOrder" />
                                 </div>          
                             </div>
                         </div>
@@ -119,7 +141,9 @@
         var rid = 0;
         
         function Clear() {
+            $('#cmbPositionGroupname').val("");
             $('#txtPositionName').val("");
+            $('#txtSortedOrder').val("");
             act = 0;
             selid = 0;
         }
@@ -127,7 +151,9 @@
         $('.editRow').on('click', function () {
             act = 1;
             selid = $(this).attr('data-id');
-            $('#txtPositionName').val(document.getElementById("recordsListView").rows[rid].cells[0].innerHTML);
+            $('#cmbPositionGroupname').val(document.getElementById("recordsListView").rows[rid].cells[0].innerHTML);
+            $('#txtPositionName').val(document.getElementById("recordsListView").rows[rid].cells[1].innerHTML);
+            $('#txtSortedOrder').val(document.getElementById("recordsListView").rows[rid].cells[2].innerHTML);
             document.getElementById("btnSave").innerHTML = "Засах";
         });
 
@@ -147,10 +173,20 @@
         }
 
         function Save() {
-            var PositionName1 = $('#txtPositionName').val().trim();
+            var PositionGroup = $('#cmbPositionGroupname').val().trim();
+            var PositionName = $('#txtPositionName').val().trim();
+            var Sorted = $('#txtSortedOrder').val().trim();
 
-            if (PositionName1 == '') {
-                swal('Анхааруулга', 'Албан тушаалын мэдээллээ оруулна уу !', 'warning');
+            if (PositionGroup == '') {
+                swal('Анхааруулга', 'Албан тушаалын бүлгийн дугаараа сонгоно уу !', 'warning');
+                return;
+            }
+            if (PositionName == '') {
+                swal('Анхааруулга', 'Албан тушаалын нэрээ оруулна уу !', 'warning');
+                return;
+            }
+            if (Sorted == '') {
+                swal('Анхааруулга', 'Албан дараалалаа оруулна уу !', 'warning');
                 return;
             }
         
@@ -162,8 +198,9 @@
                 data: JSON.stringify({
                     adding: act,
                     id: selid,
-                    Year1: yr1,
-                    Year2: yr2
+                    PositionGroupName: PositionGroup,
+                    PositionName: PositionName,
+                    SortedOrder: Sorted
                 }),
                 contentType: 'application/json',
                 error: function (XMLHttpRequest, textStatus, errorThrown) {

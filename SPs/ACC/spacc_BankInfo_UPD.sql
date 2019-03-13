@@ -43,11 +43,11 @@ BEGIN
 	@BankID=BankID,
 	@BankName=BankName,
 	@CreatedDate=GETDATE(),
-	@CreatedProgID=CreatedProgID,
+	@CreatedProgID=isnull(CreatedProgID,'ACC'),
 	@LastUpdate=GETDATE(),
-	@IPAddress=IPAddress,
+	@IPAddress=isnull(IPAddress,''),
 	@LastUserName='',
-	@MACAddress=MACAddress
+	@MACAddress=isnull(MACAddress,'')
 
 	 FROM #tmp  
 	IF @Adding=0 

@@ -16,13 +16,6 @@ namespace Dynamic
         public static DataTable dtdegreeInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
-
-            if (Session["UserPkID"] == null)
-            {
-                Response.Redirect("../login.aspx");
-                return;
-            }
-
             dtdegree = SystemGlobals.DataBase.ExecuteQuery("sphrm_Degree_SEL").Tables[0];
             dtemployees = SystemGlobals.DataBase.ExecuteQuery("sphrm_EmployeeInfo_SEL").Tables[0];
             dtdegreeInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_DegreeInfo_SEL").Tables[0];

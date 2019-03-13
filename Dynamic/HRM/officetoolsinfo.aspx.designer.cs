@@ -10,6 +10,6 @@
 namespace Dynamic {
     
     
-    public partial class Officetoolsinfo {
+    public partial class officetoolsinfo {
     }
 }

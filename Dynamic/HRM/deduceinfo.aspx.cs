@@ -14,11 +14,6 @@ namespace Dynamic
         public static DataTable dtDeduceInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserPkID"] == null)
-            {
-                Response.Redirect("../login.aspx");
-                return;
-            }
             dtDeduceInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_DeduceInfo_SEL").Tables[0];
         }
     }

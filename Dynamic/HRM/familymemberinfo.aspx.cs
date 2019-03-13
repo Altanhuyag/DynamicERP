@@ -14,11 +14,6 @@ namespace Dynamic
         public static DataTable dtFamilyMemberInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserPkID"] == null)
-            {
-                Response.Redirect("../login.aspx");
-                return;
-            }
             dtFamilyMemberInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_FamilyMemberInfo_SEL").Tables[0];
         }
     }

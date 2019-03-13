@@ -14,11 +14,6 @@ namespace Dynamic
         public static DataTable dtExtrarequirementInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserPkID"] == null)
-            {
-                Response.Redirect("../login.aspx");
-                return;
-            }
             dtExtrarequirementInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_ExtraRequirement_SEL").Tables[0];
         }
     }

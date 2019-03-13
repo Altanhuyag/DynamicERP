@@ -14,11 +14,6 @@ namespace Dynamic
         public static DataTable dtExperienceInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserPkID"] == null)
-            {
-                Response.Redirect("../login.aspx");
-                return;
-            }
             dtExperienceInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_ExperienceInfo_SEL").Tables[0];
         }
     }

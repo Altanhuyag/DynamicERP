@@ -14,11 +14,6 @@ namespace Dynamic
         public static DataTable dtAwardTypeInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserPkID"] == null)
-            {
-                Response.Redirect("../login.aspx");
-                return;
-            }
             dtAwardTypeInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_AwardTypeInfo_SEL").Tables[0];
         }
     }

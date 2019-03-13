@@ -14,11 +14,6 @@ namespace Dynamic
         public static DataTable dteventinfo;
         protected void Page_Load(object sender, EventArgs e)
         {
-            if (Session["UserPkID"] == null)
-            {
-                Response.Redirect("../login.aspx");
-                return;
-            }
             dteventinfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_EventInfo_SEL").Tables[0];
         }
     }
