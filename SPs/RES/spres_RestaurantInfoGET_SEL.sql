@@ -26,7 +26,7 @@ BEGIN
 	SELECT	@id=id
 	FROM #tmp
 
-	select RestaurantPkID, RestaurantName, LogoFile, HeaderText, FooterText, Tax, CityTax, ServiceChargeTax from resRestaurantInfo where RestaurantPkID = @id
+	select RestaurantPkID, RestaurantName, LogoFile, HeaderText, FooterText, Tax, CityTax, ServiceChargeTax, IsTaxIncluded from resRestaurantInfo where RestaurantPkID = @id
 
 END
 GO

@@ -11,11 +11,25 @@ namespace Dynamic
 {
     public partial class Site : System.Web.UI.MasterPage
     {
+        public string MenuSubject = "ДАШБОАРД";
+        public string MenuSubjectDescr = "Байгууллагын удирдах эрхтэй бол нийтээр энгийн эрхтэй бол зөвхөн өөрийн мэдээллийг харах боломжтой";
+
         protected void Page_Load(object sender, EventArgs e)
         {
             if (Session["UserPkID"] == null)
             {
                 Response.Redirect("login.aspx");
+            }
+
+            if (Request.QueryString["m"] != null)
+            {
+                DataTable dtMenu = SystemGlobals.DataBase.ExecuteSQL("select * from smmWebMenuInfo where MenuInfoCode='"+Request.QueryString["m"].ToString()+"' and CreatedModuleID='"+Session["ProgID"].ToString()+"'").Tables[0];
+                if (dtMenu!=null && dtMenu.Rows.Count>0)
+                {
+                    MenuSubject = dtMenu.Rows[0]["MenuInfoName"].ToString();
+                    MenuSubjectDescr = dtMenu.Rows[0]["MenuInfoName"].ToString();
+                }
+                
             }
         }
 

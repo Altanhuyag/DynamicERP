@@ -62,11 +62,7 @@
                                     <div class="m-account--actions"> <a href="#" class="btn-link">Нууц үгээ мартсан бол?</a>                                        
                                         <asp:Button ID="btnLogin" class="btn btn-rounded btn-warning" runat="server" Text="Нэвтрэх" OnClick="btnLogin_Click" />
                                         
-                                    </div>                                        
-                                    <div class="m-account--alt">
-                                        <p><span>ЭСВЭЛ ДАРААХИ ЭРХЭЭР НЭВТЭР</span></p>
-                                        <div class="btn-list"> <a href="#" class="btn btn-rounded btn-warning">ЗАХИАЛГА</a> <a href="#" class="btn btn-rounded btn-warning">ЗӨӨГЧ</a> </div>
-                                    </div>
+                                    </div>                                                                            
                                     <div class="m-account--footer">
                                         <p>&copy; 2018 GegaNET</p>
                                     </div>

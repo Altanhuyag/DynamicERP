@@ -9,11 +9,16 @@ using System.Web.UI.WebControls;
 
 namespace Dynamic
 {
-    public partial class officetoolsinfo : System.Web.UI.Page
+    public partial class Officetoolsinfo : System.Web.UI.Page
     {
         public static DataTable dtOfficeToolsInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserPkID"] == null)
+            {
+                Response.Redirect("../login.aspx");
+                return;
+            }
             dtOfficeToolsInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_OfficeToolsInfo_SEL").Tables[0];
         }
     }

@@ -19,7 +19,27 @@ namespace Dynamic
             if (Request.QueryString["pId"] != null)
             {
                 Session["ProgID"] = Request.QueryString["pId"].ToString();
-                Response.Redirect("index.aspx");
+
+                switch (Session["ProgID"].ToString())
+                {
+                    case "INT":
+                        if (Session["FirstName"] == null)
+                        {
+                            Response.Redirect(ResolveUrl("INT/404.html"));
+                        }
+                        else
+                        {
+                            Response.Redirect(ResolveUrl("INT/index.aspx"));
+                        }
+                        break;
+                    case "SMM":
+                        Response.Redirect(ResolveUrl("SMM/index.aspx"));
+                        break;
+                    default:
+                        Response.Redirect(ResolveUrl("index.aspx"));
+                        break;
+                }
+
             }
             else
                 Session["ProgID"] = "";

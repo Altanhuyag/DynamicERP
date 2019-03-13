@@ -5,20 +5,22 @@
         <div class="panel">
     <div class="records--header">
         <div class="title fa-shopping-bag">
-            <h3 class="h3">Хэрэглэгчийн жагсаалт <a href="#" class="btn btn-sm btn-outline-info">Хэрэглэгч эрх удирдах</a></h3>
+            <h3 class="h3">Хэрэглэгчийн жагсаалт <a href="usergroup.aspx" class="btn btn-sm btn-outline-info">Хэрэглэгч эрх удирдах</a></h3>
             <p>Нийт 1,330 хэрэглэгч олдлоо</p>
         </div>
-        <div class="actions" style="width:100%;">            
-                <input type="text" class="form-control" placeholder="Хэрэглэгчийн нэр..." required="">
+        <div class="actions" style="width:100%;">                            
+                <asp:TextBox ID="txtSearchText" runat="server" class="form-control" placeholder="Хайх талбар" required=""></asp:TextBox>
                 <select name="select" class="form-control">
                     <option value="" selected="">Хэрэглэгчийн бүлэг </option>
                 </select>
-                <button type="submit" class="btn btn-rounded btn-dark"><i class="fa fa-search"></i></button>
-                <a href="#myModal" class="btn btn-rounded btn-warning" data-toggle="modal" style="margin-left:10px;">Шинэ хэрэглэгч үүсгэх</a> 
+                <button type="submit" id="btnSearch" runat="server" class="btn btn-rounded btn-dark" onserverclick="btnSearch_ServerClick"><i class="fa fa-search"></i></button>                       
+                <a href="#myModal" class="btn btn-rounded btn-warning newButton" data-toggle="modal" style="margin-left:10px;">Шинэ хэрэглэгч үүсгэх</a> 
         </div>
     </div>
 </div>
-    <div class="panel">
+        <asp:ScriptManager ID="script1" runat="server"></asp:ScriptManager>
+        <asp:UpdatePanel ID="panel1" runat="server"><ContentTemplate>
+            <div class="panel">
         
         <div class="records--list" data-title="Хэрэглэгчийн жагсаалт">
             
@@ -38,7 +40,7 @@
                             </tr>
                         </thead>
                         <tbody>
-                            <% foreach (System.Data.DataRow rw in List().Rows)
+                            <% foreach (System.Data.DataRow rw in dtSearch.Rows)
                                 {
                                     %>
                                 <tr role="row" class="odd">
@@ -54,10 +56,10 @@
                                 <td>
                                     <div data-todoapp="item">
                                     <div class="todo--actions dropleft"> 
-                                        <a href="#" class="btn-link" data-toggle="dropdown"><i class="fa fa-ellipsis-v"></i></a>
+                                        <a href="#" class="btn-link" data-toggle="dropdown"><i class="fa fa-tasks"></i></a>
                                         <div class="dropdown-menu"> 
                                             <a href="#" class="dropdown-item editRow" data-id="<%=rw["UserPkID"].ToString() %>">Засах</a> 
-                                            <a href="#" class="dropdown-item deleteRow" data-todoapp="del:item" data-id="<%=rw["UserPkID"].ToString() %>">Устгах</a> 
+                                            <a href="#confirmDelete" class="dropdown-item deleteRow" data-message="Та уг <<%=rw["UserName"].ToString() %>> бичлэгийг устгахыг хүсэж байна уу" data-title="Анхааруулга" data-toggle="modal" data-id="<%=rw["UserPkID"].ToString() %>">Устгах</a> 
 
                                         </div>
                                     </div>
@@ -75,14 +77,16 @@
             </div>
         </div>
     </div>
+                                                    </ContentTemplate></asp:UpdatePanel>
+    
 </section>
 
   <div class="modal fade" id="confirmDelete" role="dialog" aria-labelledby="confirmDeleteLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-        <h4 class="modal-title">Delete Parmanently</h4>
+          <h4 class="modal-title">Delete Parmanently</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>        
       </div>
       <div class="modal-body">
         <p>Are you sure about this ?</p>
@@ -148,8 +152,8 @@
                                     </p>                                    
                                 </div>
                                 <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Хаах</button>
-                                    <button type="button" class="btn btn-primary" onclick="SaveForm()">Хадгалах</button>                                    
+                                    <button type="button" class="btn btn-rounded btn-default" data-dismiss="modal">Хаах</button>
+                                    <button type="button" class="btn btn-rounded btn-warning" onclick="SaveForm()">Хадгалах</button>                                    
                                     <div class="row"> 
                                         <asp:Label ID="Label1" CssClass="label1" runat="server" Text=""></asp:Label>
                                         </div>
@@ -157,32 +161,7 @@
                             </div>
                         </div>
                     </div>
-        <div class="modal fade" id="myAimagModal" tabindex="-1" role="dialog" aria-hidden="true" style="display: none;">
-                        <div class="modal-dialog">
-                            <div class="modal-content">
-                                <div class="color-line"></div>
-                                <div class="modal-header text-center">
-                                    <h4 class="modal-title">Хэрэглэгчийн бүртгэл</h4>
-                                    <small class="font-bold">Хэрэглэгчдэд аймаг бүрийг оноон тохируулахад ашиглана.</small>
-                                </div>
-                                <div class="modal-body">
-                                    
-                                    <p>
-                                        <div class="form-group" id="aimagList" style="padding-bottom:25px;">
-                                                                                                                           
-                                        </div>
-                                    </p>                                    
-                                </div>
-                                <div class="modal-footer">
-                                    <button type="button" class="btn btn-default" data-dismiss="modal">Хаах</button>
-                                    <button type="button" class="btn btn-primary" onclick="SaveFormAimag()">Хадгалах</button>                                    
-                                    <div class="row"> 
-                                        <asp:Label ID="Label2" CssClass="label2" runat="server" Text=""></asp:Label>
-                                        </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        
 <script type = "text/javascript">
 
     $('.newButton').on('click', function() {
@@ -194,44 +173,19 @@
         $(".label1").val("");
     })
 
-    $('.aimagButton').on('click', function () {
-        // Get the record's ID via attribute            
-        var txtID = $(this).attr('data-id');
-        var UserPkID = $("#UserPkID").val();
-        $("#UserPkID").val(txtID);
-        $("#aimagList").empty();
-        $.ajax({
-            type: "POST",
-            dataType: "json",
-            url: "post.aspx/AimagListGet",
-            data: JSON.stringify({
-                UserPkID: UserPkID,
-            }),
-            contentType: "application/json;",
-            error: function (XMLHttpRequest, textStatus, errorThrown) {
-                alert("Request: " + XMLHttpRequest.toString() + "\n\nStatus: " + textStatus + "\n\nError: " + errorThrown);
-            },
-            success: function (msg) {
-                $.each(msg.d, function () {
-                    if (this["IsCheck"] == "Y")
-                        $("#aimagList").append('<div class="col-lg-4"><input type="checkbox" id="' + this["AimagID"] + '_VisibleCheckbox" name="VisibleCheckbox" value="' + this["AimagID"] + '" checked > ' + this["AimagName"] + '</div>');
-                    else
-                        $("#aimagList").append('<div class="col-lg-4"><input type="checkbox" id="' + this["AimagID"] + '_VisibleCheckbox" name="VisibleCheckbox" value="' + this["AimagID"] + '" > ' + this["AimagName"] + '</div>');
-                });
-            }
-
-        });
-    });
-
+    
+    
     $('.editRow').on('click', function () {
         // Get the record's ID via attribute    
         var txtID = $(this).attr('data-id');
+        var ProgID = '<%=Session["ProgID"].ToString()%>'
         $("#UserPkID").val(txtID);
         $.ajax({
             url: 'post.aspx/GetUserInfo',
             type: 'POST',
             data: JSON.stringify({
-                UserPkID: txtID
+                UserPkID: txtID,
+                ProgId:ProgID,
             }),
             dataType: 'json',
             contentType: 'application/json',
@@ -257,15 +211,7 @@
         })
     });
 
-    $('.deleteRow').on('click', function () {
-        // Get the record's ID via attribute            
-        var txtID = $(this).attr('data-id');
-        alert(txtID); 
-
-        $('[data-id=' + txtID + ']').parents("tr").remove();
-
-    });
-    
+      
     
 
     function SaveForm() {
@@ -278,6 +224,7 @@
         var UserGroupName = $(".cmbUserGroup").children("option").filter(":selected").text();
         var UserPkID = $("#UserPkID").val();
         var IsValid = "0";
+        var EmployeeInfoPkID = '';
 
         if ($('#chkIsValid').is(":checked") == true)
             IsValid = "1";
@@ -301,7 +248,8 @@
                     UserID: UserID,
                     Password: Password,
                     IsValid: IsValid,
-                    ProgID:ProgID,
+                    ProgID: ProgID,
+                    EmployeeInfoPkID: EmployeeInfoPkID,
                 }),
                 dataType: 'json',
                 contentType: 'application/json',
@@ -314,10 +262,6 @@
                         alert("Амжилттай хадгаллаа");
                         $('#myModal').modal('hide');
                         
-                        if (Adding == 1)
-                            $('[data-id=' + UserPkID + ']').parents("tr").remove();
-                        $("#myTable").find('tbody').append("<tr><td>"+UserGroupName+"</td><td>" + $("#txtUserName").val() + "</td><td>" + $("#txtSortedOrder").val() + "</td><td><button type='button' data-toggle='modal' data-target='#myModal' data-id='" + msg.d + "' class='btn btn-xs btn-info editButton'>Засах</button></td></tr>");
-
                         $("#txtUserName").val('');
                         $("#txtUserPkID").val('');
                         $("#txtSortedOrder").val('1');
@@ -365,6 +309,6 @@
         
     });
 </script>
-    <script src="assets\js\datatables.min.js"></script>
+    
 
 </asp:Content>

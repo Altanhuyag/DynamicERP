@@ -15,6 +15,11 @@ namespace Dynamic
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserPkID"] == null)
+            {
+                Response.Redirect("../login.aspx");
+                return;
+            }
             dtSkillTypeInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_SkillTypeInfo_SEL").Tables[0];
         }
     }

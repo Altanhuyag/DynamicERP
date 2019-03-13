@@ -14,6 +14,11 @@ namespace Dynamic
         public static DataTable dtJobTimeTableInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserPkID"] == null)
+            {
+                Response.Redirect("../login.aspx");
+                return;
+            }
             dtJobTimeTableInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_JobTimeTableInfo_SEL").Tables[0];
         }
     }

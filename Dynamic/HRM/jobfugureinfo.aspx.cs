@@ -14,6 +14,11 @@ namespace Dynamic
         public static DataTable dtJobfugureInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserPkID"] == null)
+            {
+                Response.Redirect("../login.aspx");
+                return;
+            }
             dtJobfugureInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_JobFugureInfo_SEL").Tables[0];
         }
     }

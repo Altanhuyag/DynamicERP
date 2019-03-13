@@ -13,11 +13,13 @@ namespace Dynamic
     {
         public static DataTable dtAdvertenceTypeInfo;
         protected void Page_Load(object sender, EventArgs e)
-        
-            
+        {
+            if (Session["UserPkID"] == null)
             {
-                dtAdvertenceTypeInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_AdvertenceTypeInfo_SEL").Tables[0];
+                Response.Redirect("../login.aspx");
+                return;
             }
-       
+            dtAdvertenceTypeInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_AdvertenceTypeInfo_SEL").Tables[0];
+        }
     }
 }

@@ -14,6 +14,12 @@ namespace Dynamic
         public static DataTable dtProfessionInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
+
+            if (Session["UserPkID"] == null)
+            {
+                Response.Redirect("../login.aspx");
+                return;
+            }
             dtProfessionInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_ProfessionInfo_SEL").Tables[0];
         }
     }

@@ -14,6 +14,11 @@ namespace Dynamic
         public static DataTable dtPositionGroup;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserPkID"] == null)
+            {
+                Response.Redirect("../login.aspx");
+                return;
+            }
             dtPositionGroup = SystemGlobals.DataBase.ExecuteQuery("sphrm_PositionGroup_SEL").Tables[0];
         }
     }

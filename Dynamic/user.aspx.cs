@@ -11,8 +11,10 @@ namespace Dynamic
 {
     public partial class user : System.Web.UI.Page
     {
+        public DataTable dtSearch = null;
         protected void Page_Load(object sender, EventArgs e)
         {
+            
             if (Session["UserPkID"] == null)
             {
                 Response.Redirect("login.aspx");
@@ -34,12 +36,26 @@ namespace Dynamic
             cmbProgID.DataValueField = "ConstKey";
             cmbProgID.DataBind();
 
+            dtSearch = List("");
+
         }
-        public DataTable List()
+        public DataTable List(string SearchString)
         {
-            string XML = "<NewDataSet><BusinessObject><ProgID>"+Session["ProgID"].ToString()+"</ProgID></BusinessObject></NewDataSet>";
-            DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserInfo_SEL",XML).Tables[0];
+            string XML = "";
+            if (SearchString == "")
+            {
+                XML = "<NewDataSet><BusinessObject><ProgID>" + Session["ProgID"].ToString() + "</ProgID></BusinessObject></NewDataSet>";                
+            }
+            else
+                XML = "<NewDataSet><BusinessObject><ProgID>" + Session["ProgID"].ToString() + "</ProgID><SearchText>"+SearchString+"</SearchText></BusinessObject></NewDataSet>";
+            DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserInfo_SEL", XML).Tables[0];
             return dt;
+        }
+      
+
+        protected void btnSearch_ServerClick(object sender, EventArgs e)
+        {
+            dtSearch = List(txtSearchText.Text);
         }
     }
 }

@@ -39,7 +39,7 @@ namespace Dynamic
             string Password = SystemGlobals.encrypt(password.Text);
             errorMsg = "";
             string XML = "<NewDataSet><BusinessObject><UserID>" + username.Text + "</UserID><Password>" + Password + "</Password></BusinessObject></NewDataSet>";
-            DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserInfo_CHECK", XML).Tables[0];
+            DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserInfo_CHECK_WEB", XML).Tables[0];
             if (dt != null && dt.Rows.Count > 0)
             {
                 DataRow rw = dt.Rows[0];
@@ -88,7 +88,27 @@ namespace Dynamic
                 else
                 {
                     Session["ProgID"] = dtUser.Rows[0]["ModuleID"].ToString();
-                    Response.Redirect("index.aspx");
+
+                    switch (Session["ProgID"].ToString())
+                    {
+                        case "INT":
+                            if (Session["FirstName"] == null)
+                            {
+                                Response.Redirect(ResolveUrl("INT/404.html"));
+                            }
+                            else
+                            {
+                                Response.Redirect(ResolveUrl("INT/index.aspx"));
+                            }
+                            break;
+                        case "SMM":
+                            Response.Redirect(ResolveUrl("SMM/index.aspx"));
+                            break;
+                        default:
+                            Response.Redirect(ResolveUrl("index.aspx"));
+                            break;
+                    }
+                    
                 }
             }
             else

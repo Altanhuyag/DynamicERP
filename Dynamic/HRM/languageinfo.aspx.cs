@@ -14,6 +14,11 @@ namespace Dynamic
         public static DataTable dtLanguageInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserPkID"] == null)
+            {
+                Response.Redirect("../login.aspx");
+                return;
+            }
             dtLanguageInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_LanguageInfo_SEL").Tables[0];
         }
     }

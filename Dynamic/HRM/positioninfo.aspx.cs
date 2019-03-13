@@ -12,9 +12,13 @@ namespace Dynamic
     public partial class positioninfo : System.Web.UI.Page
     {
         public static DataTable dtPositionInfo;
-        public static DataTable dtPositionGroup;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserPkID"] == null)
+            {
+                Response.Redirect("../login.aspx");
+                return;
+            }
             dtPositionInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_PositionInfo_SEL").Tables[0];
             dtPositionGroup = SystemGlobals.DataBase.ExecuteQuery("sphrm_PositionGroup_SEL").Tables[0];
         }

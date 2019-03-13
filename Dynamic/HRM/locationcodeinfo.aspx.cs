@@ -14,6 +14,11 @@ namespace Dynamic
         public static DataTable dtLocationCodeInfo;
         protected void Page_Load(object sender, EventArgs e)
         {
+            if (Session["UserPkID"] == null)
+            {
+                Response.Redirect("../login.aspx");
+                return;
+            }
             dtLocationCodeInfo = SystemGlobals.DataBase.ExecuteQuery("sphrm_LocationCodeInfo_SEL").Tables[0];
         }
     }

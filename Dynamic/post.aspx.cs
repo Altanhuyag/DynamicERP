@@ -27,6 +27,7 @@ namespace Dynamic
             public string IsValid { get; set; }
             public string Password { get; set; }
             public string CreatedProgID { get; set; }
+            public string EmployeeInfoPkID { get; set; }
 
         }
 
@@ -42,6 +43,26 @@ namespace Dynamic
             Roles.UserName = dt.Rows[0]["UserName"].ToString();
             Roles.IsValid = dt.Rows[0]["IsValid"].ToString();
             Roles.CreatedProgID = dt.Rows[0]["CreatedProgID"].ToString();
+            Roles.EmployeeInfoPkID = dt.Rows[0]["EmployeeInfoPkID"].ToString();
+            Roles.Password = SystemGlobals.decrypt(dt.Rows[0]["Password"].ToString());
+
+            return Roles;
+        }
+
+
+        [WebMethod]
+        public static UserInfo GetUserInfoSMM(string UserPkID)
+        {
+            UserInfo Roles = new UserInfo();
+            DataTable dt = SystemGlobals.DataBase.ExecuteSQL("select * from smmUserInfo  where UserPkID='" + UserPkID + "'").Tables[0];
+
+            Roles.UserGroupID = "";
+            Roles.UserPkID = dt.Rows[0]["UserPkID"].ToString();
+            Roles.UserID = dt.Rows[0]["UserID"].ToString();
+            Roles.UserName = dt.Rows[0]["UserName"].ToString();
+            Roles.IsValid = dt.Rows[0]["IsValid"].ToString();
+            Roles.CreatedProgID = dt.Rows[0]["CreatedProgID"].ToString();
+            Roles.EmployeeInfoPkID = dt.Rows[0]["EmployeeInfoPkID"].ToString();
             Roles.Password = SystemGlobals.decrypt(dt.Rows[0]["Password"].ToString());
 
             return Roles;
@@ -116,6 +137,21 @@ namespace Dynamic
             }
         }
 
+        [WebMethod]
+        public static string DeleteUserInfoSMM(string UserPkID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><UserPkID>" + UserPkID + "</UserPkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteQuery("spsmm_UserInfo_WEB_DEL", XML);
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
         //Start UserGroup
         [WebMethod]
         public static string PostUserGroupInfo(string Adding, string UserGroupID, string UserGroupName,
@@ -136,7 +172,7 @@ namespace Dynamic
                     "<CheckListDelete>" + CheckListDelete + "</CheckListDelete>" +
 
                     "</BusinessObject></NewDataSet>";
-                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserGroup_UPD", XML).Tables[0];
+                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserGroup_WEB_UPD", XML).Tables[0];
                 return dt.Rows[0]["UserGroupID"].ToString();
             }
             catch (Exception ex)
@@ -146,13 +182,29 @@ namespace Dynamic
         }
 
         [WebMethod]
-        public static string PostUserInfo(string Adding, string UserPkID, string UserGroupID, string UserName, string UserID, string Password, string IsValid, string ProgID)
+        public static string PostUserInfo(string Adding, string UserPkID, string UserGroupID, string UserName, string UserID, string Password, string IsValid, string ProgID,string EmployeeInfoPkID)
         {
             try
             {
                 Password = SystemGlobals.encrypt(Password);
-                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><UserPkID>" + UserPkID + "</UserPkID><UserID>" + UserID + "</UserID><UserGroupID>" + UserGroupID + "</UserGroupID><Password>" + Password + "</Password><UserName>" + UserName + "</UserName><IsValid>" + IsValid + "</IsValid><CreatedProgID>" + ProgID + "</CreatedProgID></BusinessObject></NewDataSet>";
+                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><UserPkID>" + UserPkID + "</UserPkID><UserID>" + UserID + "</UserID><UserGroupID>" + UserGroupID + "</UserGroupID><Password>" + Password + "</Password><UserName>" + UserName + "</UserName><IsValid>" + IsValid + "</IsValid><EmployeeInfoPkID>"+ EmployeeInfoPkID + "</EmployeeInfoPkID><CreatedProgID>" + ProgID + "</CreatedProgID></BusinessObject></NewDataSet>";
                 DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserInfo_UPD", XML).Tables[0];
+                return dt.Rows[0]["UserPkID"].ToString();
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string PostUserInfo(string Adding, string UserPkID, string UserName, string UserID, string Password, string IsValid, string ProgID, string EmployeeInfoPkID)
+        {
+            try
+            {
+                Password = SystemGlobals.encrypt(Password);
+                string XML = "<NewDataSet><BusinessObject><Adding>" + Adding + "</Adding><UserPkID>" + UserPkID + "</UserPkID><UserID>" + UserID + "</UserID><Password>" + Password + "</Password><UserName>" + UserName + "</UserName><IsValid>" + IsValid + "</IsValid><EmployeeInfoPkID>" + EmployeeInfoPkID + "</EmployeeInfoPkID><CreatedProgID>" + ProgID + "</CreatedProgID></BusinessObject></NewDataSet>";
+                DataTable dt = SystemGlobals.DataBase.ExecuteQuery("spsmm_UserInfo_WEB_UPD", XML).Tables[0];
                 return dt.Rows[0]["UserPkID"].ToString();
             }
             catch (Exception ex)
@@ -1662,6 +1714,313 @@ namespace Dynamic
                 return false;
             }
         }
+        
+
+        [WebMethod]
+        public static List<ListItem> GetProgUserGroup(string ProgID)
+        {
+            List<ListItem> customers = new List<ListItem>();
+            DataTable dt = SystemGlobals.DataBase.ExecuteSQL(@"select * from smmUserGroup where ProgID='" + ProgID + "' ").Tables[0];
+            foreach (DataRow rw in dt.Rows)
+            {
+                customers.Add(new ListItem
+                {
+                    Value = rw["UserGroupID"].ToString(),
+                    Text = rw["UserGroupName"].ToString()
+                });
+            }
+            //var jsonSerialiser = new JavaScriptSerializer();
+            //var json = jsonSerialiser.Serialize(customers);
+            return customers;
+        }
+
+        [WebMethod]
+        public static string GetProgramDetailList(string UserPkID)
+        {
+            try
+            {
+                string innerHTML = "";              
+                DataTable dtRoomInfo = SystemGlobals.DataBase.ExecuteSQL(@"select A.*,B.ValueStr1 ProgName,UG.UserGroupName from smmUserProgInfo A
+                                                                            inner join (select * from smmConstants where ConstType='smmProg') B on A.ModuleID=B.ConstKey
+                                                                            inner join smmUserGroup UG on A.UserGroupID = UG.UserGroupID and A.ModuleID = UG.ProgID where A.UserPkID='" + UserPkID+"'").Tables[0];
+                foreach (DataRow rw in dtRoomInfo.Rows)
+                {
+                    innerHTML = innerHTML + "<tr class='odd'><td>"+rw["ProgName"].ToString()+"</td><td>"+rw["UserGroupName"].ToString()+ "</td><td><button type='button' id='deleteRowProgram' data-id='" + rw["UserPkID"].ToString()+","+rw["ModuleID"].ToString()+ "' class='btn btn-rounded btn-danger deleteRowProgram' onclick='deleteProgram(this);'>Устгах</button></td></td></tr>";
+                }
+                return innerHTML;
+            }
+            catch (Exception ex)
+            {
+                return "Дараахи алдаа гарсан байна:"+ex.Message.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string DeleteProgramDetail(string UserPkID,string ProgID)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><UserPkID>" + UserPkID + "</UserPkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteSQL("delete from smmUserProgInfo where UserPkID='"+UserPkID+"' and ModuleID='"+ProgID+"'");
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string PostProgramDetail(string Adding, string UserPkID, string UserGroupID, string ProgID)
+        {
+            try
+            {               
+                SystemGlobals.DataBase.ExecuteSQL("insert into smmUserProgInfo(UserPkID,ModuleID,UserGroupID) values(N'"+UserPkID+"',N'"+ProgID+"',N'"+UserGroupID+"')");
+                return "Амжилттай хадгаллаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string DeleteUserGroupInfo(string UserGroupID)
+        {
+            try
+            {
+               // string XML = "<NewDataSet><BusinessObject><UserPkID>" + UserPkID + "</UserPkID></BusinessObject></NewDataSet>";
+                SystemGlobals.DataBase.ExecuteSQL("delete from smmUserGroup where UserGroupID='" + UserGroupID + "'");
+                return "Амжилттай устгалаа";
+            }
+            catch (Exception ex)
+            {
+                return "Алдаа гарлаа:" + ex.ToString();
+            }
+        }
+
+        [WebMethod]
+        public static string[] GetRESresRestaurantUser(string id)
+        {
+            try
+            {
+                string[] val;
+                DataTable dtTemp = new DataTable();
+                string XML = "<NewDataSet><BusinessObject><RestaurantPkID>" + id + "</RestaurantPkID></BusinessObject></NewDataSet>";
+                dtTemp = SystemGlobals.DataBase.ExecuteQuery("spres_resRestaurantUserGET_SEL", XML).Tables[0];
+                if (dtTemp != null && dtTemp.Rows.Count > 0)
+                {
+                    val = new string[dtTemp.Rows.Count];
+                    for (int i = 0; i < dtTemp.Rows.Count; i++)
+                    {
+                        val[i] = dtTemp.Rows[i]["UserPkID"].ToString();
+                    }
+                }
+                else {
+                    val = new string[0];
+                }
+                
+                return val;
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveRESresRestaurantUser(string resid, string users)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><RestaurantPkID>" + resid + "</RestaurantPkID><UserPkID>" + users + "</UserPkID></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "spres_resRestaurantUser_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public class ResOrderInfo
+        {
+            public string OrderPkID { get; set; }
+            public int AdultNum { get; set; }
+            public int ChildrenNum { get; set; }
+            public string ReceiptNo { get; set; }
+            public string OrderDate { get; set; }
+            public string CustomerPkID { get; set; }
+            public string RoyaltyNo { get; set; }
+        }
+
+        [WebMethod]
+        public static ResOrderInfo GetRESTableOrders(string tbid)
+        {
+            try
+            {
+                ResOrderInfo ord = new ResOrderInfo();
+                tbid = tbid.Substring(5, tbid.Length-5);
+                string XML = "<NewDataSet><BusinessObject><TablePkID>" + tbid + "</TablePkID></BusinessObject></NewDataSet>";
+                DataTable dtOrders = SystemGlobals.DataBase.ExecuteQuery("spres_resTableOrderGET_SEL", XML).Tables[0];
+                if (dtOrders != null && dtOrders.Rows.Count > 0)
+                {
+                    ord.OrderPkID = dtOrders.Rows[0]["OrderPkID"].ToString();
+                    ord.AdultNum = Convert.ToInt32(dtOrders.Rows[0]["AdultNum"]);
+                    ord.ChildrenNum = Convert.ToInt32(dtOrders.Rows[0]["ChildrenNum"]);
+                    ord.ReceiptNo = dtOrders.Rows[0]["ReceiptNo"].ToString();
+                    ord.OrderDate = dtOrders.Rows[0]["OrderDate"].ToString();
+                    ord.CustomerPkID = dtOrders.Rows[0]["CustomerPkID"].ToString();
+                    ord.RoyaltyNo = dtOrders.Rows[0]["RoyaltyNo"].ToString();
+
+                    return ord;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public class ResOrderItem
+        {
+            public string OrderPkID { get; set; }
+            public string ItemPkID { get; set; }
+            public string ItemName { get; set; }
+            public decimal Price { get; set; }
+            public int Qty { get; set; }
+            public string BufetInfoName { get; set; }
+        }
+
+        [WebMethod]
+        public static List<ResOrderItem> GetRESOrderItems(string ordid)
+        {
+            try
+            {
+                List<ResOrderItem> items = new List<ResOrderItem>();
+
+                string XML = "<NewDataSet><BusinessObject><OrderPkID>" + ordid + "</OrderPkID></BusinessObject></NewDataSet>";
+                DataTable dtItems = SystemGlobals.DataBase.ExecuteQuery("spres_resOrderItemsGET_SEL", XML).Tables[0];
+                
+                if (dtItems != null && dtItems.Rows.Count > 0)
+                {
+                    foreach (DataRow rw in dtItems.Rows)
+                    {
+                        items.Add(new ResOrderItem
+                        {
+                            OrderPkID = rw["OrderPkID"].ToString(),
+                            ItemPkID = rw["ItemPkID"].ToString(),
+                            ItemName = rw["ItemName"].ToString(),
+                            Price = Convert.ToDecimal(rw["Price"]),
+                            Qty = Convert.ToInt32(rw["Qty"]),
+                            BufetInfoName = rw["BufetInfoName"].ToString()
+                        });
+                    }
+                    
+                    return items;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        [WebMethod]
+        public static bool DelRESOrderInfo(string ordid)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + ordid + "</id></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "spres_resOrderInfo_DEL", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
+
+        public class GroupByItem
+        {
+            public string KeyValue { get; set; }
+            public decimal SumValue { get; set; }
+            public int CountValue { get; set; }
+        }
+        [WebMethod]
+        public static List<GroupByItem> GroupItems(string val)
+        {
+            try
+            {
+                List<GroupByItem> res = new List<GroupByItem>();
+                DataTable tmp = new DataTable();
+                tmp.Columns.Add("KeyVal", typeof(string));
+                tmp.Columns.Add("SumVal", typeof(decimal));
+
+                if (val != "")
+                {
+                    val = val.Substring(0, (val.Length - 1));
+                    string[] rows = val.Split(';');
+                    foreach (string row in rows)
+                    {
+                        string[] cols = row.Split(',');
+
+                        tmp.Rows.Add(cols[0], Convert.ToDecimal(cols[1]));
+                    }
+
+                    var result = from b in tmp.AsEnumerable()
+                                 group b by b.Field<string>("KeyVal") into g
+                                 select new
+                                 {
+                                     KeyVal = g.Key,
+                                     SumVal = g.Sum(b => b.Field<decimal>("SumVal")),
+                                     CntVal = g.Count()
+                                 };
+
+                    foreach (var r in result)
+                    {
+                        res.Add(new GroupByItem
+                        {
+                            KeyValue = r.KeyVal,
+                            SumValue = r.SumVal,
+                            CountValue = r.CntVal
+                        });
+                    }
+
+                    return res;
+                }
+
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+                throw;
+            }
+        }
+
+        [WebMethod]
+        public static bool SaveRESOrderInfo(string orderid, string tableid, int adultnum, int childnum, string recpt, string date, string custid, string royltid, int stats, string items)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><OrderPkID>" + orderid + "</OrderPkID><TablePkID>" + tableid + "</TablePkID><AdultNum>" + adultnum + "</AdultNum><ChildrenNum>" + childnum + "</ChildrenNum><ReceiptNo>" + recpt + "</ReceiptNo><OrderDate>" + date + "</OrderDate><CustomerPkID>" + custid + "</CustomerPkID><RoyaltyNo>" + royltid + "</RoyaltyNo><Status>" + stats + "</Status><passvalue>" + items + "</passvalue></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "spres_resOrderInfo_UPD", XML);
+            }
+            catch (Exception ex)
+            {
+                return false;
+            }
+        }
         [WebMethod]
         public static bool SaveHRMUniversityInfo(int adding, string id, string UniversityName, string CountryID)
         {
@@ -2024,6 +2383,113 @@ namespace Dynamic
             catch (Exception)
             {
                 return false;
+            }
+        }
+        public class ActiveTables
+        {
+            public string TablePkID { get; set; }
+        }
+        [WebMethod]
+        public static List<ActiveTables> GetRESActiveTables()
+        {
+            try
+            {
+                List<ActiveTables> act = new List<ActiveTables>();
+                DataTable tmp = new DataTable();
+                tmp = SystemGlobals.DataBase.ExecuteQuery("spres_resActiveTables_SEL", "").Tables[0];
+                if (tmp != null && tmp.Rows.Count > 0) {
+                    foreach (DataRow rw in tmp.Rows) {
+                        act.Add(new ActiveTables
+                        {
+                            TablePkID = rw[0].ToString()
+                        });
+                    }
+                    return act;
+                }
+                else {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+            }
+        }
+
+        public class PaymentItem
+        {
+            public string PaymentPkID { get; set; }
+            public string PaymentName { get; set; }
+        }
+        [WebMethod]
+        public static List<PaymentItem> GetPaymentInfo()
+        {
+            try
+            {
+                List<PaymentItem> pay = new List<PaymentItem>();
+                DataTable tmp = new DataTable();
+                tmp = SystemGlobals.DataBase.ExecuteQuery("spres_resPaymentInfo_SEL", "").Tables[0];
+                if (tmp != null && tmp.Rows.Count > 0)
+                {
+                    foreach (DataRow rw in tmp.Rows)
+                    {
+                        pay.Add(new PaymentItem
+                        {
+                            PaymentPkID = rw[0].ToString(),
+                            PaymentName = rw[1].ToString()
+                        });
+                    }
+                    return pay;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+                throw;
+            }
+        }
+
+        public class CardItem
+        {
+            public string CardID { get; set; }
+            public string FirstName { get; set; }
+            public int CardValue { get; set; }
+        }
+        [WebMethod]
+        public static List<CardItem> GetCardInfo(string card)
+        {
+            try
+            {
+                List<CardItem> ret = new List<CardItem>();
+                DataTable tmp = new DataTable();
+                string XML = "<NewDataSet><BusinessObject><CardID>" + card + "</CardID></BusinessObject></NewDataSet>";
+                tmp = SystemGlobals.DataBase.ExecuteQuery("spres_resCardInfoGET_SEL", XML).Tables[0];
+                if (tmp != null && tmp.Rows.Count > 0)
+                {
+                    foreach (DataRow rw in tmp.Rows)
+                    {
+                        ret.Add(new CardItem
+                        {
+                            CardID = rw[0].ToString(),
+                            FirstName = rw[1].ToString(),
+                            CardValue = Convert.ToInt32(rw[2])
+                        });
+                    }
+                    return ret;
+                }
+                else
+                {
+                    return null;
+                }
+            }
+            catch (Exception ex)
+            {
+                return null;
+                throw;
             }
         }
     }
