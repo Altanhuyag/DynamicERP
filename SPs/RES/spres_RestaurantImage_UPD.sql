@@ -29,7 +29,7 @@ BEGIN
 	FROM #tmp
    	
 	UPDATE resRestaurantInfo
-	SET LogoFile = 'upload/restaurant/'+@RestaurantPkID + @ImageFileExt
+	SET LogoFile = N'upload/restaurant/'+@RestaurantPkID + @ImageFileExt
 	WHERE RestaurantPkID = @RestaurantPkID
 	
 		

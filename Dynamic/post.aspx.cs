@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Services;
@@ -565,11 +566,11 @@ namespace Dynamic
         }
 
         [WebMethod]
-        public static string SaveRestaurant(int type, string id, string name, string header, string footer, decimal tax, decimal citytax, decimal servicecharge)
+        public static string SaveRestaurant(int type, string id, string name, string header, string footer, decimal tax, decimal citytax, decimal servicecharge, string ist)
         {
             try
             {
-                string XML = "<NewDataSet><BusinessObject><type>" + type + "</type><id>" + id + "</id><name>" + name + "</name><header>" + header + "</header><footer>" + footer + "</footer><tax>" + tax + "</tax><citytax>" + citytax + "</citytax><servicecharge>" + servicecharge + "</servicecharge></BusinessObject></NewDataSet>";
+                string XML = "<NewDataSet><BusinessObject><type>" + type + "</type><id>" + id + "</id><name>" + name + "</name><header>" + header + "</header><footer>" + footer + "</footer><tax>" + tax + "</tax><citytax>" + citytax + "</citytax><servicecharge>" + servicecharge + "</servicecharge><istaxincluded>" + ist + "</istaxincluded></BusinessObject></NewDataSet>";
                 string retid = "0";
                 retid = SystemGlobals.DataBase.ExecuteQuery("spres_RestaurantInfo_UPD", XML).Tables[0].Rows[0][0].ToString();
                 return retid;
@@ -817,6 +818,7 @@ namespace Dynamic
             public int Tax { get; set; }
             public int CityTax { get; set; }
             public int ServiceChargeTax { get; set; }
+            public string IsTaxIncluded { get; set; }
         }
 
         [WebMethod]
@@ -836,6 +838,7 @@ namespace Dynamic
                 rest.Tax = Convert.ToInt32(dtRoomInfo.Rows[0]["Tax"]);
                 rest.CityTax = Convert.ToInt32(dtRoomInfo.Rows[0]["CityTax"]);
                 rest.ServiceChargeTax = Convert.ToInt32(dtRoomInfo.Rows[0]["ServiceChargeTax"]);
+                rest.IsTaxIncluded = dtRoomInfo.Rows[0]["IsTaxIncluded"].ToString();
                 return rest;
             }
             catch (Exception ex)
@@ -2484,6 +2487,91 @@ namespace Dynamic
             {
                 return null;
                 throw;
+            }
+        }
+
+        [WebMethod]
+        public static string SaveINTDocument(int type, string id, string datedocmnt, string docmntno, string compname, string sub, int pgno, string usr, string sttus, string dateret, string dprt, string empl, string desc, string isr, string tp, string isa, string ise)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><type>" + type + "</type><id>" + id + "</id><DocumentDate>" + datedocmnt + "</DocumentDate><DocumentNo>" + docmntno + "</DocumentNo><CompanyName>" + compname + "</CompanyName><Subject>" + sub + "</Subject><PageCnt>" + pgno + "</PageCnt><UserPkID>" + usr + "</UserPkID><StatusID>" + sttus + "</StatusID><IsReturn>" + isr + "</IsReturn><ReturnDate>" + Convert.ToDateTime(dateret) + "</ReturnDate><ReturnDepartments>" + dprt + "</ReturnDepartments><ReturnEmployees>" + empl + "</ReturnEmployees><ReturnDescr>" + desc + "</ReturnDescr><DocumentTypeID>" + tp + "</DocumentTypeID><IsAll>" + isa + "</IsAll><IsEmp>" + ise + "</IsEmp></BusinessObject></NewDataSet>";
+                string retid = "0";
+                retid = SystemGlobals.DataBase.ExecuteQuery("spint_docDocument_UPD", XML).Tables[0].Rows[0][0].ToString();
+                return retid;
+            }
+            catch (Exception ex)
+            {
+                return "0";
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteINTDocument(string id, string delf)
+        {
+            try
+            {
+                bool val = false;
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id></BusinessObject></NewDataSet>";
+                val = SystemGlobals.DataBase.ExecuteNonQuery("", "spint_docDocument_DEL", XML);
+                if (val)
+                {
+                    return DeleteINTDocumentFile(delf);
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static bool DeleteINTDocumentFile(string delf)
+        {
+            try
+            {
+                if (delf != "")
+                    File.Delete(HttpContext.Current.Server.MapPath(delf));
+
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+        
+        [WebMethod]
+        public static bool SaveINTDocumentEmployee(string id, string dep, string emp, string dte, string des)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><id>" + id + "</id><Departments>" + dep + "</Departments><Employees>" + emp + "</Employees><ReturnDate>" + dte + "</ReturnDate><ReturnDesc>" + des + "</ReturnDesc></BusinessObject></NewDataSet>";
+                return SystemGlobals.DataBase.ExecuteNonQuery("", "spint_docDepartmentEmployee_UPD", XML);
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        [WebMethod]
+        public static string SaveINTDocumentComment(string did, string eid, string des)
+        {
+            try
+            {
+                string XML = "<NewDataSet><BusinessObject><DocumentPkID>" + did + "</DocumentPkID><EmployeeInfoPkID>" + eid + "</EmployeeInfoPkID><Description>" + des + "</Description></BusinessObject></NewDataSet>";
+                string retid = "0";
+                retid = SystemGlobals.DataBase.ExecuteQuery("spint_docDocumentComment_UPD", XML).Tables[0].Rows[0]["CommentPkID"].ToString();
+                return retid;
+            }
+            catch (Exception ex)
+            {
+                return "0";
             }
         }
     }

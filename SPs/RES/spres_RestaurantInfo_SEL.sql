@@ -1,4 +1,4 @@
-
+﻿
 IF EXISTS (SELECT * FROM sys.objects WHERE type = 'P' AND name = 'spres_RestaurantInfo_SEL')
 DROP PROC spres_RestaurantInfo_SEL
 GO
@@ -26,7 +26,8 @@ BEGIN
 	SELECT	@name=name
 	FROM #tmp
 
-	select RestaurantPkID, RestaurantName, LogoFile, HeaderText, FooterText, Tax, CityTax, ServiceChargeTax from resRestaurantInfo where RestaurantName like N'%' + @name + '%'
+	select RestaurantPkID, RestaurantName, LogoFile, HeaderText, FooterText, Tax, CityTax, ServiceChargeTax, 
+	(case when IsTaxIncluded = 'Y' then N'Тийм' else N'Үгүй' end) as IsTaxIncluded from resRestaurantInfo where RestaurantName like N'%' + @name + '%'
 
 END
 GO

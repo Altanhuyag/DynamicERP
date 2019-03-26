@@ -14,14 +14,14 @@ BEGIN
 	SET NOCOUNT ON
 	DECLARE @idoc						int,			
 			@RestaurantPkID				nvarchar(16),
-			@UserPkID					nvarchar(16)
+			@UserPkID					nvarchar(max)
 	EXEC sp_xml_preparedocument @idoc OUTPUT, @XML
 
 	SELECT * INTO #tmp
 		FROM OPENXML (@idoc,'//BusinessObject',2)
 		WITH (  
 				RestaurantPkID			nvarchar(16),
-				UserPkID				nvarchar(16)
+				UserPkID				nvarchar(max)
 			 )
 	EXEC sp_xml_removedocument @idoc 	
 	

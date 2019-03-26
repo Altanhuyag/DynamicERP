@@ -30,11 +30,19 @@ BEGIN
 	SELECT DocumentPkID, DocumentDate, DocumentNo, a.CompanyName, Subject, 
 	PageCnt, DocumentFilePath, a.CreatedDate, a.StatusID, c.ValueStr1 AS StatusName, 
 	IsReturn, (CASE WHEN IsReturn = N'Y' THEN N'Тийм' ELSE N'Үгүй' END) AS IsReturnName, ReturnDate, 
-	a.ReturnDepartmentPkID, d.DepartmentName, ReturnDescr
+	a.ReturnDepartmentPkID, d.DepartmentName, ReturnDescr,
+	(	SELECT CASE WHEN EmployeeInfoPkID <> '' THEN EmployeeInfoPkID + ',' END
+        FROM docDocumentEmployee
+        WHERE DocumentPkID = a.DocumentPkID
+        FOR XML PATH('')) as Emps,
+	(	SELECT CASE WHEN DepartmentPkID <> '' THEN DepartmentPkID + ',' END
+        FROM docDocumentEmployee
+        WHERE DocumentPkID = a.DocumentPkID
+        FOR XML PATH('')) as Deps, a.UserPkID
 	FROM docDocument a
-	INNER JOIN smmUserInfo b on b.UserPkID = a.UserPkID
-	INNER JOIN (SELECT ConstKey, ValueStr1 FROM smmConstants WHERE ConstType = N'docDocumentStatus') c on c.ConstKey = a.StatusID
-	INNER JOIN hrmDepartmentInfo d on d.DepartmentPkID = a.ReturnDepartmentPkID
+	LEFT JOIN smmUserInfo b on b.UserPkID = a.UserPkID
+	LEFT JOIN (SELECT ConstKey, ValueStr1 FROM smmConstants WHERE ConstType = N'docDocumentStatus') c on c.ConstKey = a.StatusID
+	LEFT JOIN hrmDepartmentInfo d on d.DepartmentPkID = a.ReturnDepartmentPkID
 	WHERE a.DocumentTypeID = @DocumentTypeID
 
 END

@@ -62,6 +62,43 @@ namespace Dynamic
 
                 }
 
+                if (context.Request.QueryString["DocumentPkID"] != null)
+                {
+                    string DocumentPkID = context.Request.QueryString["DocumentPkID"].ToString();
+                    HttpFileCollection UploadedFilesCollection = context.Request.Files;
+                    for (int i = 0; i < UploadedFilesCollection.Count; i++)
+                    {
+                        string ext = Path.GetExtension(UploadedFilesCollection[i].FileName);
+
+                        HttpPostedFile PostedFiles = UploadedFilesCollection[i];
+
+                        string XML = "<NewDataSet><BusinessObject><DocumentPkID>" + DocumentPkID + "</DocumentPkID><ImageFileExt>" + ext + "</ImageFileExt></BusinessObject></NewDataSet>";
+                        SystemGlobals.DataBase.ExecuteQuery("spint_docDocumentImage_UPD", XML);
+
+                        string FilePath = context.Server.MapPath("/upload/document/" + DocumentPkID + ext);
+
+                        PostedFiles.SaveAs(FilePath);
+                    }
+                }
+
+                if (context.Request.QueryString["CommentPkID"] != null)
+                {
+                    string CommentPkID = context.Request.QueryString["CommentPkID"].ToString();
+                    HttpFileCollection UploadedFilesCollection = context.Request.Files;
+                    for (int i = 0; i < UploadedFilesCollection.Count; i++)
+                    {
+                        string ext = Path.GetExtension(UploadedFilesCollection[i].FileName);
+
+                        HttpPostedFile PostedFiles = UploadedFilesCollection[i];
+
+                        string XML = "<NewDataSet><BusinessObject><CommentPkID>" + CommentPkID + "</CommentPkID><ImageFileExt>" + ext + "</ImageFileExt></BusinessObject></NewDataSet>";
+                        SystemGlobals.DataBase.ExecuteQuery("spint_docDocumentCommentImage_UPD", XML);
+
+                        string FilePath = context.Server.MapPath("/upload/document/comment/" + CommentPkID + ext);
+
+                        PostedFiles.SaveAs(FilePath);
+                    }
+                }
             }
         }
 

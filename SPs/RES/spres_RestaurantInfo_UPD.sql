@@ -19,7 +19,8 @@ BEGIN
 	@footer nvarchar(255),
 	@tax decimal(18,0),
 	@citytax decimal(18,0),
-	@servicecharge decimal(18,0)
+	@servicecharge decimal(18,0),
+	@istaxincluded nvarchar(1)
 							
 	EXEC sp_xml_preparedocument @idoc OUTPUT, @XML
 	SELECT * INTO #tmp
@@ -31,7 +32,8 @@ BEGIN
 				footer nvarchar(255),
 				tax decimal(18,0),
 				citytax decimal(18,0),
-				servicecharge decimal(18,0) )
+				servicecharge decimal(18,0),
+				istaxincluded nvarchar(1) )
 	EXEC sp_xml_removedocument @idoc
 
 	SELECT 
@@ -42,17 +44,18 @@ BEGIN
 	@footer = footer,
 	@tax = tax,
 	@citytax = citytax,
-	@servicecharge = servicecharge
+	@servicecharge = servicecharge,
+	@istaxincluded = istaxincluded
 	FROM #tmp
 
 	BEGIN TRANSACTION
 
 	IF @type = 1			-- new record
 	BEGIN
-		
+		select * from resRestaurantInfo
 
 			EXEC dbo.spsmm_LastSequence_SEL 'resRestaurantInfo', @id OUTPUT
-			INSERT INTO resRestaurantInfo VALUES (@id, @name, N'', @header, @footer, @tax, @citytax, @servicecharge)
+			INSERT INTO resRestaurantInfo VALUES (@id, @name, N'', @header, @footer, @tax, @citytax, @servicecharge, @istaxincluded)
 
 		
 	END
@@ -66,7 +69,8 @@ BEGIN
 			FooterText = @footer,
 			Tax = @tax,
 			CityTax = @citytax,
-			ServiceChargeTax = @servicecharge
+			ServiceChargeTax = @servicecharge,
+			IsTaxIncluded = @istaxincluded
 			WHERE RestaurantPkID = @id
 
 		
