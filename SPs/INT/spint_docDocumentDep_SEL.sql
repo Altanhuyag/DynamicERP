@@ -57,6 +57,10 @@ BEGIN
 			WHERE 
 			a.DocumentPkID IN (SELECT DocumentPkID FROM docDocumentEmployee WHERE DepartmentPkID = @depid)
 			OR
+			a.DocumentPkID IN (SELECT a.DocumentPkID FROM docDocumentEmployee a 
+			INNER JOIN hrmEmployeeInfo b ON b.EmployeeInfoPkID = a.EmployeeInfoPkID
+			WHERE b.DepartmentPkID = @depid)
+			OR
 			a.ReturnDepartmentPkID = @depid
 		END
 		ELSE
